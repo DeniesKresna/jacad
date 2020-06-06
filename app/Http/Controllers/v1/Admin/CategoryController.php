@@ -32,18 +32,22 @@ class CategoryController extends ApiController
         return response()->json($datas);
     }
 
+    public function list(Request $request){
+        return response()->json(Category::orderBy('name')->get());
+    }
+
     public function store(Request $request){
         $req = $request->all();
         //$session_id = $request->get('auth')->user->id;
         $session_id = 1;
         $datas["updater_id"] = $session_id;
         $validator = Validator::make($req, rules_lists(__CLASS__, __FUNCTION__));
-        if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],400);
-        $res = Category::create($req);
-        if($res)
-            return response()->json(['data'=>$res,'message'=>'category created']);
+        if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
+        $category = Category::create($req);
+        if($category)
+            return response()->json(['data'=>$category,'message'=>'category created']);
         else
-            return response()->json(['message'=>'cant create category', 'fail'=>true]);
+            return response()->json(["message"=>"cant create category"],400);
     }
 }
 

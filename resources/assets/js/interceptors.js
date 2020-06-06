@@ -50,6 +50,18 @@ export default function setup() {
                 case 404:
                   Vue.$swal("No Data", "Use another data", "error");
                   break;
+                case 422:
+                  //var span = document.createElement("span");
+                  let msg = '';
+                  for(let i=0; i<error.response.data.message.length; i++){
+                    msg = msg + error.response.data.message[i];
+                    if(i != error.response.data.message.length - 1){
+                      msg = msg + '<br>';
+                    }
+                  }
+                  //span.innerHTML=msg;
+                  Vue.$swal("Error Validation", msg, "error");
+                  break;
                 case 500:
                   console.log(error.response.data);
                   Vue.$swal("Server Error", "You can try again later or Call Customer Service", "error");

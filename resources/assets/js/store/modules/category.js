@@ -24,6 +24,14 @@ const category = {
             });
         },
 
+        LIST({commit},payload){
+            return new Promise((resolve,reject)=>{
+                axios.get('/admin/categories/list').then(response=>{
+                    resolve(response.data);
+                });
+            });
+        },
+
         STORE({commit},payload){
             return new Promise((resolve, reject)=>{
                 axios.post('admin/categories', qs.stringify(payload)).then(response=>{

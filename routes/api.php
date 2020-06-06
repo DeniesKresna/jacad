@@ -208,6 +208,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],func
 
 Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
     Route::resource('/posts','v1\Admin\PostController');
+    Route::get('/categories/list','v1\Admin\CategoryController@list');
     Route::resource('/categories','v1\Admin\CategoryController');
     Route::post('/medias','v1\Admin\MediaController@store');
 });

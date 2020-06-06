@@ -39,6 +39,10 @@ class Post extends Eloquent
 	];
 
 	public function author(){
-		return $this->belongsTo('App\Model\User','author_id');
+		return $this->belongsTo('App\Models\User','author_id');
+	}
+
+	public function categories(){
+		return $this->belongsToMany('App\Models\Category');
 	}
 }

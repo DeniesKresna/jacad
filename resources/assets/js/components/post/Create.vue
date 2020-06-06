@@ -2,7 +2,7 @@
   <div class="content-row">
     <h2 class="content-row-title">Create</h2>
     <div class="row">
-      <form novalidate="" role="form" class="form-horizontal" @submit.prevent>
+      <form novalidate="" role="form" class="form-horizontal" @submit.prevent="storeData">
         <div class="form-group">
           <label class="col-md-2 control-label">Title</label>
           <div class="col-md-10">
@@ -12,7 +12,15 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="description">Content</label>
           <div class="col-md-10">
-            <vue-editor useCustomImageHandler :editorOptions="editorSettings" @image-added="handleImageAdded" v-model="htmlForEditor"></vue-editor>
+            <vue-editor useCustomImageHandler :editorOptions="editorSettings" @image-added="handleImageAdded" v-model="data.content"></vue-editor>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="description">Categories</label>
+          <div class="col-md-10">
+            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+              <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
+            </multiselect>
           </div>
         </div>
         <div class="form-group">
@@ -27,16 +35,17 @@
 <script>
   import { VueEditor, Quill } from 'vue2-editor'
   import ImageResize from '../../plugins/quill-fix-error/image-resize.min.js'
+  import Multiselect from 'vue-multiselect'
 
   Quill.register('modules/imageResize', ImageResize)
   export default{
     components: {
-      VueEditor
+      VueEditor, Multiselect
     },
     data(){
       return{
-        data: {title: ''},
-        htmlForEditor: "",
+        data: {title: '', content: "", categories_objects: [], categories: []},
+        options: [],
         editorSettings: {
           modules: {
             imageResize: {}
@@ -45,6 +54,9 @@
       }
     },
     mounted(){
+      this.$store.dispatch('category/LIST').then(response=>{
+        this.options = response;
+      });
     },
     methods: {
         handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
@@ -67,8 +79,9 @@
           });
       },
       storeData(){
+        this.data.categories = this.data.categories_objects.map(a => a.id);
         this.$store.dispatch('post/STORE', this.data).then(response=>{
-          this.data = {title: '', content: ''};
+          this.data = {title: '', content: "", categories_objects: [], categories: []};
         });
       }
     }

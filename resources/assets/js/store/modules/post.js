@@ -26,7 +26,7 @@ const post = {
 
         STORE({commit},payload){
             return new Promise((resolve, reject)=>{
-                axios.post('admin/posts', qs.stringify(payload.data)).then(response=>{
+                axios.post('admin/posts', qs.stringify(payload)).then(response=>{
                     resolve(response.data.data);
                 });
             });

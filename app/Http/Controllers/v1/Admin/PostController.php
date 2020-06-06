@@ -35,30 +35,21 @@ class PostController extends ApiController
 
     public function store(Request $request){
         $datas = $request->all();
-        $session_id = $request->get('auth')->user->id;
-        $datas["customer_id"] = $session_id;
+        //$session_id = $request->get('auth')->user->id;
+        //$datas["customer_id"] = $session_id;
+        $datas["author_id"] = 1;
+        $datas['url'] = str_replace(" ", "-", strtolower($request->title));
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
-        if($validator->fails()) return self::error_responses($validator->messages());
+        if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
 
-        $playlist = Playlist::create($datas);
-        if($playlist){
-            if($request->file_ids){
-                $sync_data = [];
-                $order_no = 1;
-                foreach($request->file_ids as $file_id){
-                    $sync_data[$file_id] = array('order_no'=>$order_no);
-                    $order_no++;
-                }
-                $playlist->contents()->sync($sync_data);
-            }
+        $post = Post::create($datas);
+        if($post){
+            $post->categories()->attach($request->categories);
+            return response()->json(['data'=>$post,'message'=>'post created']);
         }
         else
-            return self::error_responses("Unknown error");
-
-        return self::success_responses($playlist->load(['contents' => function($q){
-            $q->orderBy('order_no');
-        }]));
+            return response()->json(["message"=>"cant create post"],400);
     }
 
     public function show($id)
