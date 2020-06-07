@@ -22,7 +22,7 @@ class CategoryController extends ApiController
         $search = $request->search;
         $datas = Category::where('id','>',0);
         if($request->has('search')){
-            $datas = $datas->orWhere('name','like',"%".$search."%");
+            $datas = $datas->where('name','like',"%".$search."%");
         }
         $datas = $datas->with(['updater'=>function($query) use ($search){
             $query->orWhere('name','like',"%".$search."%");

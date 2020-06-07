@@ -18,7 +18,7 @@ const category = {
     actions: {
         INDEX({commit},payload){
             return new Promise((resolve,reject)=>{
-                axios.get('/admin/categories?' + payload).then(response=>{
+                axios.get('/admin/categories?page_size=10&' + payload).then(response=>{
                     resolve(response.data);
                 });
             });
@@ -40,10 +40,17 @@ const category = {
             });
         },
 
-        PUT({commit},payload){
-            return new Promis((resolve, reject)=>{
-                let data = payload.item;
-                axios.put('admin/layouts/' + payload.item.id, qs.stringify(payload.item)).then(response=>{
+        UPDATE({commit},payload){
+            return new Promise((resolve, reject)=>{
+                axios.put('admin/categories/' + payload.id, qs.stringify(payload)).then(response=>{
+                    resolve(response.data)
+                });
+            })
+        },
+
+        DESTROY({commit}, payload){
+            return new Promise((resolve, reject)=>{
+                axios.delete('admin/categories/' + payload).then(response=>{
                     resolve(response.data)
                 });
             })

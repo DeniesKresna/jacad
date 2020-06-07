@@ -22,15 +22,19 @@ class PostController extends ApiController
         $search = $request->search;
         $datas = Post::where('id','>',0);
         if($request->has('search')){
-            $datas = $datas->orWhere('title','like',"%".$search."%")
+            $datas = $datas->where('title','like',"%".$search."%")
                             ->orWhere('url','like',"%".$search."%");
         }
         $datas = $datas->with(['author'=>function($query) use ($search){
             $query->orWhere('name','like',"%".$search."%");
         }]);
 
-        $datas = $datas->orderBy("id","desc")->paginate($page_size,["*"],"page",$page);
+        $datas = $datas->orderBy("id","desc")->paginate($page_size);
         return response()->json($datas);
+    }
+
+    public function show($id){
+        return response()->json(Post::findOrFail($id)->load(['categories']));
     }
 
     public function store(Request $request){
@@ -38,10 +42,11 @@ class PostController extends ApiController
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
         $datas["author_id"] = 1;
-        $datas['url'] = str_replace(" ", "-", strtolower($request->title));
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
+
+        $datas['url'] = url("/")."/".str_replace(" ", "-", strtolower($request->title));
 
         $post = Post::create($datas);
         if($post){
@@ -52,19 +57,38 @@ class PostController extends ApiController
             return response()->json(["message"=>"cant create post"],400);
     }
 
-    public function show($id)
-    {
-        $data = Playlist::with(['contents' => function($q){
-            $q->orderBy('order_no');
-        },'customer'])->findOrFail($id);
-        return self::success_responses($data);
+    public function update(Request $request, $id){
+        $datas = $request->all();
+        //$session_id = $request->get('auth')->user->id;
+        //$datas["customer_id"] = $session_id;
+        $datas["author_id"] = 1;
+
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
+
+        $datas['url'] = url("/")."/".str_replace(" ", "-", strtolower($request->title));
+
+        $post = Post::findOrFail($id);
+        if($post){
+            $post->update($datas);
+            $post->categories()->sync($request->categories);
+            return response()->json(['data'=>$post,'message'=>'post updated']);
+        }
+        else
+            return response()->json(["message"=>"cant update post"],400);
     }
 
     public function destroy(Request $request, $id){
-        $res = Playlist::findOrFail($id);
-        $res->contents()->detach();
-        $res->delete();
-        return self::success_responses();
+        $post = Post::findOrFail($id);
+        if ($request->has('hard')) {
+            if (filter_var(request()->hard, FILTER_VALIDATE_BOOLEAN)) {
+                $post->categories()->detach();
+                $post->forceDelete();
+                return response()->json(['data'=>$post,'message'=>'post deleted']);
+            }
+        }
+        $post->delete();
+        return response()->json(['data'=>$post,'message'=>'post deleted']);
     }
 }
 

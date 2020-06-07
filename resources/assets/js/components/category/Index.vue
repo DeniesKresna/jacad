@@ -3,7 +3,7 @@
     <h2 class="content-row-title">Index</h2>
     <div class="row">
       <div class="col-md-5">
-        <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResults">
+        <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResults(1)">
       </div>
       <div class="col-md-5"></div>
       <div class="col-md-2">

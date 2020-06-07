@@ -1,83 +1,67 @@
 import axios from 'axios';
 import Vue from 'vue';
 import VueSwal from 'vue-swal'
+import store from './store'
  
-Vue.use(VueSwal)
+Vue.use(VueSwal);
 //import store from 'your/store/path/store'
 
 export default function setup() {
     axios.interceptors.request.use(function(config) {
+        store.commit('LOADING_START');
         const token = localStorage.token;
         if(token) {
             config.headers.Token = token;
         }
-        //config.url = "http://localhost:280/jacad/public/api/v1/";
         return config;
     }, function(err) {
+        store.commit('LOADING_FINISH');
         return Promise.reject(err);
     });
 
-    axios.interceptors.response.use(
-          response => {
-            if (response.status === 200 || response.status === 201) {
-                if(response.data.message){
-                    let msg = response.data.message;
-                    Vue.$swal("Success", msg, "success");
-                }
-              return Promise.resolve(response);
-            } else {
-              return Promise.reject(response);
+    axios.interceptors.response.use(function(response){
+        store.commit('LOADING_FINISH');
+        if(response.data.message){
+            let msg = response.data.message;
+            Vue.$swal("Success", msg, "success");
+        }
+        //return Promise.resolve(response);
+        return response;
+    }, function(error){
+      store.commit('LOADING_FINISH');
+      if (error.response.status) {
+        console.log(error.response.data);
+        switch (error.response.status) {
+          case 400:
+            Vue.$swal("Failed", "Some trouble in your request", "error");
+            break;
+          case 401:
+            Vue.$swal("Session Expired", "You must relogin", "error");
+            break;
+          case 403:
+            Vue.$swal("No Access", "You dont have access", "error");
+            break;
+          case 404:
+            Vue.$swal("No Data", "Use another data", "error");
+            break;
+          case 422:
+            var span = document.createElement("span");
+            let msg = '<ul>';
+            let ersm = error.response.data.message;
+            for(let prop in ersm){
+              msg = msg + "<li>" + ersm[prop] + "</li>";
             }
-          },
-        error => {
-            if (error.response.status) {
-              console.log(error.response.data);
-              switch (error.response.status) {
-                case 400:
-                  Vue.$swal("Failed", "Some trouble in your request", "error");
-                  break;
-                case 401:
-                  Vue.$swal("Session Expired", "You must relogin", "error");
-                  break;
-                case 403:
-                  Vue.$swal("No Access", "You dont have access", "error");
-                  break;/*
-                  router.replace({
-                    path: "/login",
-                    query: { redirect: router.currentRoute.fullPath }
-                  });*/
-                   break;
-                case 404:
-                  Vue.$swal("No Data", "Use another data", "error");
-                  break;
-                case 422:
-                  //var span = document.createElement("span");
-                  let msg = '';
-                  for(let i=0; i<error.response.data.message.length; i++){
-                    msg = msg + error.response.data.message[i];
-                    if(i != error.response.data.message.length - 1){
-                      msg = msg + '<br>';
-                    }
-                  }
-                  //span.innerHTML=msg;
-                  Vue.$swal("Error Validation", msg, "error");
-                  break;
-                case 500:
-                  console.log(error.response.data);
-                  Vue.$swal("Server Error", "You can try again later or Call Customer Service", "error");
-                  break;
-                case 502:/*
-                 setTimeout(() => {
-                    router.replace({
-                      path: "/login",
-                      query: {
-                        redirect: router.currentRoute.fullPath
-                      }
-                    });
-                  }, 1000);*/
-              }
-              return Promise.reject(error.response);
-            }
-          }
-        );
+            span.innerHTML=msg+"</ul>";
+            Vue.$swal({title:"Error Validation", content: span, icon:"error"});
+            break;
+          case 500:
+            console.log(error.response.data);
+            Vue.$swal("Server Error", "You can try again later or Call Customer Service", "error");
+            break;
+          default:
+            Vue.$swal("Unknown Error", "You can try again later or Call Customer Service", "error");
+        }
+        return Promise.reject(error.response);
+      }
+    });
 }

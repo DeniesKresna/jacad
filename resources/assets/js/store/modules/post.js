@@ -18,7 +18,15 @@ const post = {
     actions: {
         INDEX({commit},payload){
             return new Promise((resolve,reject)=>{
-                axios.get('/admin/posts?' + payload).then(response=>{
+                axios.get('/admin/posts?page_size=10&' + payload).then(response=>{
+                    resolve(response.data);
+                });
+            });
+        },
+
+        SHOW({commit},payload){
+            return new Promise((resolve,reject)=>{
+                axios.get('/admin/posts/' + payload).then(response=>{
                     resolve(response.data);
                 });
             });
@@ -32,10 +40,17 @@ const post = {
             });
         },
 
-        PUT({commit},payload){
-            return new Promis((resolve, reject)=>{
-                let data = payload.item;
-                axios.put('admin/layouts/' + payload.item.id, qs.stringify(payload.item)).then(response=>{
+        UPDATE({commit},payload){
+            return new Promise((resolve, reject)=>{
+                axios.put('admin/posts/' + payload.id, qs.stringify(payload)).then(response=>{
+                    resolve(response.data)
+                });
+            })
+        },
+
+        DESTROY({commit}, payload){
+            return new Promise((resolve, reject)=>{
+                axios.delete('admin/posts/' + payload).then(response=>{
                     resolve(response.data)
                 });
             })
