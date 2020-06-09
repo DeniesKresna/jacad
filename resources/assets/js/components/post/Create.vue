@@ -10,6 +10,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-md-2 control-label" for="description">Featured Image</label>
+          <div class="col-md-10">
+            <input type="file" id="file" ref="file" @change="handleFileUpload()">
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-md-2 control-label" for="description">Content</label>
           <div class="col-md-10">
             <vue-editor useCustomImageHandler :editorOptions="editorSettings" @image-added="handleImageAdded" v-model="data.content"></vue-editor>
@@ -18,9 +24,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="description">Categories</label>
           <div class="col-md-10">
-            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
-              <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
-            </multiselect>
+            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true" />
           </div>
         </div>
         <div class="form-group">
@@ -44,7 +48,7 @@
     },
     data(){
       return{
-        data: {title: '', content: "", categories_objects: [], categories: []},
+        data: {title: '', content: "", categories_objects: [], categories: [], file: null},
         options: [],
         editorSettings: {
           modules: {
@@ -78,10 +82,14 @@
             resetUploader();
           });
       },
+      handleFileUpload(){
+        this.data.file = this.$refs.file.files[0];
+      },
       storeData(){
         this.data.categories = this.data.categories_objects.map(a => a.id);
         this.$store.dispatch('post/STORE', this.data).then(response=>{
-          this.data = {title: '', content: "", categories_objects: [], categories: []};
+          this.data = {title: '', content: "", categories_objects: [], categories: [], file: null};
+          this.$refs.file.value = "";
         });
       }
     }

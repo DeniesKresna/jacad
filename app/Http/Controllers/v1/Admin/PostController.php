@@ -46,11 +46,14 @@ class PostController extends ApiController
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
 
-        $datas['url'] = url("/")."/".str_replace(" ", "-", strtolower($request->title));
-
+        $datas['url_title'] = str_replace(" ", "-", strtolower($request->title));
+        $datas['url'] = url("/")."/blog/".$datas['url_title'];
+        $upload = upload("/screen/medias/",$request->file('file'),'1');
+        $datas['image_path'] = $upload;
+        $datas['image_url'] = upload_dir().$upload;
         $post = Post::create($datas);
         if($post){
-            $post->categories()->attach($request->categories);
+            $post->categories()->attach($datas['categories']);
             return response()->json(['data'=>$post,'message'=>'post created']);
         }
         else
@@ -82,6 +85,7 @@ class PostController extends ApiController
         $post = Post::findOrFail($id);
         if ($request->has('hard')) {
             if (filter_var(request()->hard, FILTER_VALIDATE_BOOLEAN)) {
+                @unlink(base_upload_dir().$post->image_path);
                 $post->categories()->detach();
                 $post->forceDelete();
                 return response()->json(['data'=>$post,'message'=>'post deleted']);

@@ -48,7 +48,8 @@ if (! function_exists('rules_lists')) {
             if($method=="store"){
                 return [
                     'title' => 'required|max:199',
-                    'content' => 'required'
+                    'content' => 'required',
+                    'file' => 'required'
                 ];
             }else{
                 return [

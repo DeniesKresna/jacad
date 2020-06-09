@@ -16,6 +16,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $type
  * @property string $url
+ * @property string $path
  * @property int $updater_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -34,6 +35,7 @@ class Media extends Eloquent
 		'name',
 		'type',
 		'url',
+		'path',
 		'updater_id'
 	];
 }

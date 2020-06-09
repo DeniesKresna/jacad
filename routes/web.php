@@ -13,3 +13,6 @@
 Route::get('admin', function(){
     return view('admin');
 });
+
+Route::get('blog', "web\PostController@index");
+Route::get('blog/{url_title}', "web\PostController@getFromTitle");

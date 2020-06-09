@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 03 Jun 2020 15:34:56 +0700.
+ * Date: Tue, 09 Jun 2020 10:02:58 +0700.
  */
 
 namespace App\Models;
@@ -14,6 +14,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $title
+ * @property string $image_url
+ * @property string $image_path
+ * @property string $url_title
  * @property string $url
  * @property string $content
  * @property int $author_id
@@ -33,16 +36,19 @@ class Post extends Eloquent
 
 	protected $fillable = [
 		'title',
+		'image_url',
+		'image_path',
+		'url_title',
 		'url',
 		'content',
 		'author_id'
 	];
 
-	public function author(){
-		return $this->belongsTo('App\Models\User','author_id');
+	public function categories(){
+		return $this->belongsToMany("App\Models\Category");
 	}
 
-	public function categories(){
-		return $this->belongsToMany('App\Models\Category');
+	public function author(){
+		return $this->belongsTo("App\Models\User","author_id");
 	}
 }

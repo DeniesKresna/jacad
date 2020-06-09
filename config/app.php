@@ -230,6 +230,7 @@ return [
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
+        'Str' => Illuminate\Support\Str::class,
     ],
 
 ];

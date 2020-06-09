@@ -34,7 +34,16 @@ const post = {
 
         STORE({commit},payload){
             return new Promise((resolve, reject)=>{
-                axios.post('admin/posts', qs.stringify(payload)).then(response=>{
+                let formData = new FormData();
+                formData.append('title', payload.title);
+                formData.append('content', payload.content);
+                formData.append('categories', payload.categories);
+                formData.append('file', payload.file);
+                axios.post('admin/posts', formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+              }).then(response=>{
                     resolve(response.data.data);
                 });
             });
@@ -42,7 +51,7 @@ const post = {
 
         UPDATE({commit},payload){
             return new Promise((resolve, reject)=>{
-                axios.put('admin/posts/' + payload.id, qs.stringify(payload)).then(response=>{
+                axios.put('admin/posts' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
                 });
             })

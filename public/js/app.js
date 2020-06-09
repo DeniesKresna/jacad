@@ -2453,6 +2453,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2468,7 +2472,8 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
         title: '',
         content: "",
         categories_objects: [],
-        categories: []
+        categories: [],
+        file: null
       },
       options: [],
       editorSettings: {
@@ -2503,6 +2508,9 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
         resetUploader();
       });
     },
+    handleFileUpload: function handleFileUpload() {
+      this.data.file = this.$refs.file.files[0];
+    },
     storeData: function storeData() {
       var _this2 = this;
 
@@ -2514,8 +2522,10 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
           title: '',
           content: "",
           categories_objects: [],
-          categories: []
+          categories: [],
+          file: null
         };
+        _this2.$refs.file.value = "";
       });
     }
   }
@@ -2537,6 +2547,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50129,6 +50147,29 @@ var render = function() {
                 staticClass: "col-md-2 control-label",
                 attrs: { for: "description" }
               },
+              [_vm._v("Featured Image")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-10" }, [
+              _c("input", {
+                ref: "file",
+                attrs: { type: "file", id: "file" },
+                on: {
+                  change: function($event) {
+                    return _vm.handleFileUpload()
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-md-2 control-label",
+                attrs: { for: "description" }
+              },
               [_vm._v("Content")]
             ),
             _vm._v(" "),
@@ -50181,29 +50222,6 @@ var render = function() {
                     "track-by": "name",
                     "preselect-first": true
                   },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var search = ref.search
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    _vm._s(values.length) + " options selected"
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      }
-                    }
-                  ]),
                   model: {
                     value: _vm.data.categories_objects,
                     callback: function($$v) {
@@ -50314,6 +50332,41 @@ var render = function() {
                 staticClass: "col-md-2 control-label",
                 attrs: { for: "description" }
               },
+              [_vm._v("Featured Image")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-10" }, [
+              _vm.data.image_url
+                ? _c("span", [
+                    _c("img", {
+                      attrs: {
+                        src: _vm.data.image_url,
+                        height: "280",
+                        width: "322"
+                      }
+                    })
+                  ])
+                : _c("span", [
+                    _c("input", {
+                      ref: "file",
+                      attrs: { type: "file", id: "file" },
+                      on: {
+                        change: function($event) {
+                          return _vm.handleFileUpload()
+                        }
+                      }
+                    })
+                  ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-md-2 control-label",
+                attrs: { for: "description" }
+              },
               [_vm._v("Content")]
             ),
             _vm._v(" "),
@@ -50366,29 +50419,6 @@ var render = function() {
                     "track-by": "name",
                     "preselect-first": true
                   },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var search = ref.search
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    _vm._s(values.length) + " options selected"
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      }
-                    }
-                  ]),
                   model: {
                     value: _vm.data.categories_objects,
                     callback: function($$v) {
@@ -80578,7 +80608,16 @@ var post = {
     STORE: function STORE(_ref3, payload) {
       var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('admin/posts', qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
+        var formData = new FormData();
+        formData.append('title', payload.title);
+        formData.append('content', payload.content);
+        formData.append('categories', payload.categories);
+        formData.append('file', payload.file);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('admin/posts', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(function (response) {
           resolve(response.data.data);
         });
       });
@@ -80586,7 +80625,7 @@ var post = {
     UPDATE: function UPDATE(_ref4, payload) {
       var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('admin/posts/' + payload.id, qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('admin/posts' + payload.id, qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
           resolve(response.data);
         });
       });

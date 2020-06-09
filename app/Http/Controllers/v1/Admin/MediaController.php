@@ -21,6 +21,7 @@ class MediaController extends ApiController
         if (!empty($media)){
             $upload = upload("/screen/medias/posts/",$media,'1');
             $type = file_extension($upload);
+            $datas['path'] = $upload;
             $datas['url'] = upload_dir().$upload;
             $tmp = explode("/", $upload);
             $datas['name'] = end($tmp);
