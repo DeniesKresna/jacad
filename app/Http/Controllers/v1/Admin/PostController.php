@@ -69,7 +69,8 @@ class PostController extends ApiController
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
 
-        $datas['url'] = url("/")."/".str_replace(" ", "-", strtolower($request->title));
+        $datas['url_title'] = str_replace(" ", "-", strtolower($request->title));
+        $datas['url'] = url("/")."/blog/".$datas['url_title'];
 
         $post = Post::findOrFail($id);
         if($post){

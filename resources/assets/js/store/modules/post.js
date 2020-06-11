@@ -51,7 +51,7 @@ const post = {
 
         UPDATE({commit},payload){
             return new Promise((resolve, reject)=>{
-                axios.put('admin/posts' + payload.id, qs.stringify(payload)).then(response=>{
+                axios.put('admin/posts/' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
                 });
             })

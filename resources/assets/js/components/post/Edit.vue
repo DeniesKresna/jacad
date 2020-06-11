@@ -12,7 +12,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="description">Featured Image</label>
           <div class="col-md-10">
-            <span v-if="data.image_url"><img :src="data.image_url" height="280" width="322"></span>
+            <span v-if="data.image_url"><img :src="data.image_url" width="322"></span>
             <span v-else>
               <input type="file" id="file" ref="file" @change="handleFileUpload()">
             </span>
@@ -27,8 +27,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="description">Categories</label>
           <div class="col-md-10">
-            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true" />
-            </multiselect>
+            <multiselect v-model="picked" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="id" :preselect-first="true" />
           </div>
         </div>
         <div class="form-group">
@@ -58,12 +57,14 @@
           modules: {
             imageResize: {}
           }
-        }
+        },
+        picked: []
       }
     },
     mounted(){
       this.$store.dispatch('category/LIST').then(response=>{
         this.options = response;
+        console.log(this.options);
         this.getData();
       });
     },
@@ -71,8 +72,8 @@
         getData(){
           this.$store.dispatch('post/SHOW', this.$route.params.id).then(response=>{
             this.data = response;
-            this.data.categories_objects = response.categories;
-            this.data.categories = this.data.categories_objects.map(a => a.id);
+            this.picked = response.categories;
+            //this.data.categories = this.data.categories_objects.map(a => a.id);
           });
         },
         handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
@@ -95,7 +96,7 @@
           });
       },
       updateData(){
-        this.data.categories = this.data.categories_objects.map(a => a.id);
+        this.data.categories = this.picked.map(a => a.id);
         this.data.id = this.$route.params.id;
         this.$store.dispatch('post/UPDATE', this.data).then(response=>{
           this.getData();

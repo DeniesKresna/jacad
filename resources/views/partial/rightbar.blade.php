@@ -10,39 +10,26 @@
 				 		<div class="widget">
 				 			<h3>Categories</h3>
 				 			<div class="sidebar-links">
-				 				<a href="#" title=""><i class="la la-angle-right"></i>Education</a>
-				 				<a href="#" title=""><i class="la la-angle-right"></i>Information</a>
-				 				<a href="#" title=""><i class="la la-angle-right"></i>Jobs</a>
-				 				<a href="#" title=""><i class="la la-angle-right"></i>Learn</a>
-				 				<a href="#" title=""><i class="la la-angle-right"></i>Skill</a>
+				 				@foreach($categories as $category)
+				 					<a href="{{url('blog/category/').'/'.$category->name.'?page=1'}}" title=""><i class="la la-angle-right"></i>{{$category->name}}</a>
+				 				@endforeach
 				 			</div>
 				 		</div>
 				 		<div class="widget">
 				 			<h3>Recent Posts</h3>
 				 			<div class="post_widget">
+				 				@foreach($recent_posts as $recent_post)
 				 				<div class="mini-blog">
-				 					<span><a href="#" title=""><img src="http://placehold.it/74x64" alt="" /></a></span>
+				 					<span><a href="#" title=""><img src="{{$recent_post->image_url}}" alt="" /></a></span>
 				 					<div class="mb-info">
-				 						<h3><a href="#" title="">Canada adds 12,500 jobs in modest July rebound</a></h3>
-				 						<span>October 25, 2017</span>
+				 						<h3><a href="{{$recent_post->url}}" title="">{{$recent_post->title}}</a></h3>
+				 						<span>{{$recent_post->created_at}}</span>
 				 					</div>
 				 				</div>
-				 				<div class="mini-blog">
-				 					<span><a href="#" title=""><img src="http://placehold.it/74x64" alt="" /></a></span>
-				 					<div class="mb-info">
-				 						<h3><a href="#" title="">How to “Woo” a Recruiter and Land Your Dream Job</a></h3>
-				 						<span>October 25, 2017</span>
-				 					</div>
-				 				</div>
-				 				<div class="mini-blog">
-				 					<span><a href="#" title=""><img src="http://placehold.it/74x64" alt="" /></a></span>
-				 					<div class="mb-info">
-				 						<h3><a href="#" title="">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h3>
-				 						<span>October 25, 2017</span>
-				 					</div>
-				 				</div>
+				 				@endforeach
 				 			</div>
 				 		</div>
+				 		<!--
 				 		<div class="widget">
 				 			<h3>Archives</h3>
 				 			<div class="sidebar-links">
@@ -61,6 +48,7 @@
 				 				<a href="#" title=""><i class="la la-angle-right"></i>WordPress.org</a>
 				 			</div>
 				 		</div>
+				 		-->
 				 		<div class="widget">
 				 			<h3>Our Photo</h3>
 				 			<div class="photo-widget">
@@ -74,6 +62,7 @@
 				 				</div>
 				 			</div>
 				 		</div>
+				 		<!--
 				 		<div class="widget">
 				 			<h3>Tags</h3>
 				 			<div class="tags_widget">
@@ -85,4 +74,5 @@
 				 				<a href="#" title="">Traffic</a>
 				 			</div>
 				 		</div>
+				 		-->
 					</aside>

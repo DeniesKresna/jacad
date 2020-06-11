@@ -10,6 +10,8 @@ import VueRouter from 'vue-router';
 import {routes} from './routes';
 import store from './store';
 import Paginate from 'vuejs-paginate';
+import 'vue-select/dist/vue-select.css';
+import vSelect from 'vue-select'
 
 window.Vue = require('vue');
 
@@ -28,6 +30,7 @@ interceptorsSetup();
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component('paginate', Paginate);
+Vue.component('v-select', vSelect);
 Vue.component('app-component', require('./components/App.vue').default);
 
 const app = new Vue({

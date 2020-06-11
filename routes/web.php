@@ -14,5 +14,13 @@ Route::get('admin', function(){
     return view('admin');
 });
 
-Route::get('blog', "web\PostController@index");
+Route::get('/', function(){
+    return view('home');
+});
+
+Route::get('blog/category/{category}','web\PostController@indexCategory');
 Route::get('blog/{url_title}', "web\PostController@getFromTitle");
+Route::get('blog', "web\PostController@index");
+Route::get('test', function(){
+    return view('test');
+});

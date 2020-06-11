@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label" for="description">Categories</label>
           <div class="col-md-10">
-            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true" />
+            <multiselect v-model="data.categories_objects" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="name" track-by="id" :preselect-first="true" />
           </div>
         </div>
         <div class="form-group">
