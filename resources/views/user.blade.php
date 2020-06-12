@@ -19,6 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/colors/colors.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/bootstrap.css')}}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	@yield('extracss')
 	
 </head>
 <body>
@@ -32,7 +33,7 @@
 	
 	@include('partial.menu')
 
-	@include('partial.header.blog')
+	@yield('banner')
 
 	@yield('content')
 
@@ -128,6 +129,7 @@
 <script src="{{asset('theme/jobhun/js/parallax.js')}}" type="text/javascript"></script>
 <script src="{{asset('theme/jobhun/js/select-chosen.js')}}" type="text/javascript"></script>
 <script src="{{asset('theme/jobhun/js/jquery.scrollbar.min.js')}}" type="text/javascript"></script>
+@yield('extrajs')
 
 </body>
 </html>

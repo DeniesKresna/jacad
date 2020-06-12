@@ -24,3 +24,8 @@ Route::get('blog', "web\PostController@index");
 Route::get('test', function(){
     return view('test');
 });
+Route::get('job', function(){
+    return view('job.opening');
+});
+Route::get('job/create', 'web\JobController@create');
+Route::get('job/{id}', 'web\JobController@show');

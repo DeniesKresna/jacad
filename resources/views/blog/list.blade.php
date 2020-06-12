@@ -1,5 +1,9 @@
 @extends('user')
 
+@section('banner')
+	@include('partial.header.blog')
+@endsection
+
 @section('content')
 	<section>
 		<div class="block">
