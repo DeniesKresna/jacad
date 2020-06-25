@@ -15,11 +15,24 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
+            $table->string('position')->nullable();
             $table->string('type')->nullable();
             $table->unsignedInteger('location_id')->nullable();
             $table->text('job_desc')->nullable();
+            $table->string('dress_style')->nullable();
+            $table->string('language')->nullable();
+            $table->string('facility')->nullable();
+            $table->string('salary')->nullable();
+            $table->string('how_to_send')->nullable();
+            $table->string('process_time')->nullable();
+            $table->string('transfer_url')->nullable();
+            $table->string('transfer_path')->nullable();
+            $table->string('poster_url')->nullable();
+            $table->string('poster_path')->nullable();
+            $table->string('jobhun_info')->nullable();
+            $table->unsignedInteger('company_id')->nullable();
             $table->string('view')->nullable();
+            $table->smallInteger('read')->nullable();
             $table->timestamp('expired')->nullable();
             $table->unsignedInteger('verificator_id')->nullable();
             $table->timestamps();

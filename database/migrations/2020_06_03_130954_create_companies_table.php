@@ -16,8 +16,10 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->string('image_url')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('tagline')->nullable();
+            $table->string('information')->nullable();
+            $table->string('logo_url')->nullable();
+            $table->string('logo_path')->nullable();
             $table->string('address')->nullable();
             $table->string('site_url')->nullable();
             $table->string('phone')->nullable();

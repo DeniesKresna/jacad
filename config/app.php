@@ -169,6 +169,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+        Igoshev\Captcha\Providers\CaptchaServiceProvider::class,
         /*
          * Application Service Providers...
          */
