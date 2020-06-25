@@ -169,7 +169,7 @@ export default{
 	        this.data.logo = this.$refs.logo.files[0];
 	    },
 	    storeData(){
-	        this.$store.dispatch('post/STORE', this.data).then(response=>{
+	        this.$store.dispatch('job/STORE', this.data).then(response=>{
 	          this.data = {title: '', content: "", categories_objects: [], categories: [], file: null};
 	          this.$refs.file.value = "";
 	        });

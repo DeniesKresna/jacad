@@ -10,15 +10,7 @@
 	<meta name="author" content="CreativeLayers">
 
 	<!-- Styles -->
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/bootstrap-grid.css')}}" />
-	<link rel="stylesheet" href="{{asset('theme/jobhun/css/icons.css')}}">
-	<link rel="stylesheet" href="{{asset('theme/jobhun/css/animate.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/style.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/responsive.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/chosen.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/colors/colors.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{asset('theme/jobhun/css/bootstrap.css')}}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	@include('partial.maincss')
 	
 </head>
 <body>
@@ -556,15 +548,7 @@
 	</div>
 </div><!-- SIGNUP POPUP -->
 
-<script src="{{asset('theme/jobhun/js/jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/modernizr.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/script.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/bootstrap.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/wow.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/slick.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/parallax.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/select-chosen.js')}}" type="text/javascript"></script>
-<script src="{{asset('theme/jobhun/js/jquery.scrollbar.min.js')}}" type="text/javascript"></script>
+@include('partial.mainjs')
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/gallery
+/resources/assets/js/bootstrap.js
 /storage/*.key
 /vendor
 /.idea
