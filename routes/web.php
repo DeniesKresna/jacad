@@ -27,5 +27,7 @@ Route::get('test', function(){
 Route::get('job', function(){
     return view('job.opening');
 });
+Route::get('job', 'web\JobController@index');
 Route::get('job/create', 'web\JobController@create');
 Route::get('job/{id}', 'web\JobController@show');
+

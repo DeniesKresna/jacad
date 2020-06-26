@@ -80789,8 +80789,8 @@ var state = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\xampp\htdocs\jacad\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! c:\xampp\htdocs\jacad\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\magang\jacad\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\magang\jacad\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

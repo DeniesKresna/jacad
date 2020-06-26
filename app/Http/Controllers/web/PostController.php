@@ -14,11 +14,12 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $page = $request->page;
+
         if($request->page_size)
         	$page_size = $request->page_size;
         else
         	$page_size = 10;
-
+        
         $posts = Post::with('author')->orderBy("id","desc")->paginate($page_size);
         $recentposts = Post::orderBy("created_at","desc")->limit(3)->get();
         $categories = Category::orderBy('name')->get();
