@@ -1,6 +1,7 @@
 @extends('user')
 
 @section('content')
+
     {{-- SEARCH BAR HEADER --}}
     <section class="overlape">
         <div class="block no-padding">
@@ -160,4 +161,5 @@
         </div>
     </section>
     {{-- MAIN CONTENT --}}
+    
 @endsection
