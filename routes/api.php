@@ -73,6 +73,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],func
 });
 
 
+    
 
 
 
@@ -90,5 +91,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
     Route::resource('/categories','v1\Admin\CategoryController');
     Route::resource('/jobs','v1\Admin\JobController');
     Route::post('/medias','v1\Admin\MediaController@store');
+
+    Route::post('/adi/test','v1\TestController@adi');
 });
 
