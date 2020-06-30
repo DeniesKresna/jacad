@@ -7,3 +7,6 @@
 <script src="{{asset('public/theme/jobhun/js/parallax.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/theme/jobhun/js/select-chosen.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/theme/jobhun/js/jquery.scrollbar.min.js')}}" type="text/javascript"></script>
+
+{{-- LOGIN JONATHAN --}}
+<script src="{{asset('public/js/login.js')}}" type="text/javascript"></script>

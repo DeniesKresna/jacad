@@ -14,13 +14,13 @@
 	
 </head>
 <body>
+
 <!--
 <div class="page-loading">
 	<img src="images/loader.gif" alt="" />
 </div>-->
 
 <div class="theme-layout" id="scrollup">
-	
 	@include('partial.menu')
 
 	@include('partial.header.home')
@@ -469,22 +469,27 @@
 
 </div>
 
+<!-- LOGIN POPUP -->
 <div class="account-popup-area signin-popup-box">
 	<div class="account-popup">
-		<span class="close-popup"><i class="la la-close"></i></span>
+		<span class="close-popup">
+            <i class="la la-close"></i>
+        </span>
 		<h3>User Login</h3>
-		<span>Click To Login With Demo User</span>
-		<div class="select-user">
+        <span>Click To Login With Demo User</span>
+        
+		{{-- <div class="select-user">
 			<span>Candidate</span>
 			<span>Employer</span>
-		</div>
-		<form>
+        </div> --}}
+        
+		<form id="login-form" {{-- action="login" method="POST" --}}>
 			<div class="cfield">
-				<input type="text" placeholder="Username" />
+				<input type="text" placeholder="Username" name="username"/>
 				<i class="la la-user"></i>
 			</div>
 			<div class="cfield">
-				<input type="password" placeholder="********" />
+				<input type="password" placeholder="********" name="password"/>
 				<i class="la la-key"></i>
 			</div>
 			<p class="remember-label">
@@ -492,7 +497,8 @@
 			</p>
 			<a href="#" title="">Forgot Password?</a>
 			<button type="submit">Login</button>
-		</form>
+        </form>
+        
 		<div class="extra-login">
 			<span>Or</span>
 			<div class="login-social">
@@ -501,8 +507,10 @@
 			</div>
 		</div>
 	</div>
-</div><!-- LOGIN POPUP -->
+</div>
+<!-- LOGIN POPUP -->
 
+<!-- SIGNUP POPUP -->
 <div class="account-popup-area signup-popup-box">
 	<div class="account-popup">
 		<span class="close-popup"><i class="la la-close"></i></span>
@@ -546,7 +554,8 @@
 			</div>
 		</div>
 	</div>
-</div><!-- SIGNUP POPUP -->
+</div>
+<!-- SIGNUP POPUP -->
 
 @include('partial.mainjs')
 

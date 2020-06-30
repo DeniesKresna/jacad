@@ -24,9 +24,15 @@ Route::get('blog', "web\PostController@index");
 Route::get('test', function(){
     return view('test');
 });
+
 Route::get('job', function(){
     return view('job.opening');
 });
+
 Route::get('job', 'web\JobController@index');
 Route::get('job/{id}', 'web\JobController@show');
 Route::get('job/create', 'web\JobController@create');
+
+/* LOGIN & LOGOUT JONATHAN ROUTE */
+Route::post('login', 'web\LoginController@index');
+Route::get('logout', 'web\LogoutController@index');
