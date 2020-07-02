@@ -33,6 +33,12 @@ Route::get('job', 'web\JobController@index');
 Route::get('job/{id}', 'web\JobController@show');
 Route::get('job/create', 'web\JobController@create');
 
-/* LOGIN & LOGOUT JONATHAN ROUTE */
+/* JONATHAN ROUTE */
+
+Route::post('register', 'web\RegisterController@index');
 Route::post('login', 'web\LoginController@index');
+
 Route::get('logout', 'web\LogoutController@index');
+Route::get('register-token/{token}', 'web\RegisterController@checkToken');
+
+/* JONATHAN ROUTE */

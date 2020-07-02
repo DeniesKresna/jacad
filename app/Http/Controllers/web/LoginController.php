@@ -34,7 +34,7 @@ class LoginController extends Controller {
             ]));
         }   
 
-        $user->name= explode(' ', $user->name)[0].' '.strtoupper(explode(' ', $user->name)[1]);
+        //$user->name= explode(' ', $user->name)[0].' '.strtoupper(explode(' ', $user->name)[1]);
 
         Session::put('user', $user);
 

@@ -8,5 +8,12 @@
 <script src="{{asset('public/theme/jobhun/js/select-chosen.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/theme/jobhun/js/jquery.scrollbar.min.js')}}" type="text/javascript"></script>
 
-{{-- LOGIN JONATHAN --}}
+{{-- JONATHAN --}}
+
 <script src="{{asset('public/js/login.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/js/register.js')}}" type="text/javascript"></script>
+<script>
+    var BASE_URL= {!! json_encode(url('/')); !!}
+</script>
+
+{{-- JONATHAN --}}

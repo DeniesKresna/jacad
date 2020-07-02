@@ -11,10 +11,8 @@
 
 	<!-- Styles -->
 	@include('partial.maincss')
-	
 </head>
 <body>
-
 <!--
 <div class="page-loading">
 	<img src="images/loader.gif" alt="" />
@@ -514,38 +512,49 @@
 <div class="account-popup-area signup-popup-box">
 	<div class="account-popup">
 		<span class="close-popup"><i class="la la-close"></i></span>
-		<h3>Sign Up</h3>
-		<div class="select-user">
+        <h3>Sign Up</h3>
+        
+		{{-- <div class="select-user">
 			<span>Candidate</span>
 			<span>Employer</span>
-		</div>
-		<form>
-			<div class="cfield">
-				<input type="text" placeholder="Username" />
+		</div> --}}
+        
+        <form id="register-form" {{-- action="register" method="POST" --}}>
+            <div class="cfield">
+				<input type="text" placeholder="Name" name="name"/>
+				<i class="la la-name"></i>
+			</div>
+            <div class="cfield">
+				<input type="text" placeholder="Username" name="username"/>
 				<i class="la la-user"></i>
 			</div>
 			<div class="cfield">
-				<input type="password" placeholder="********" />
+				<input type="password" placeholder="Password" name="password"/>
+				<i class="la la-key"></i>
+            </div>
+            <div class="cfield">
+				<input type="password" placeholder="Confirm - Password" name="password_confirmation"/>
 				<i class="la la-key"></i>
 			</div>
 			<div class="cfield">
-				<input type="text" placeholder="Email" />
+				<input type="email" placeholder="Email" name="email"/>
 				<i class="la la-envelope-o"></i>
-			</div>
-			<div class="dropdown-field">
+            </div>
+			{{-- <div class="dropdown-field">
 				<select data-placeholder="Please Select Specialism" class="chosen">
 					<option>Web Development</option>
 					<option>Web Designing</option>
 					<option>Art & Culture</option>
 					<option>Reading & Writing</option>
 				</select>
-			</div>
+			</div> --}}
 			<div class="cfield">
-				<input type="text" placeholder="Phone Number" />
+				<input type="text" placeholder="Phone Number" name="phone"/>
 				<i class="la la-phone"></i>
 			</div>
 			<button type="submit">Signup</button>
-		</form>
+        </form>
+        
 		<div class="extra-login">
 			<span>Or</span>
 			<div class="login-social">
@@ -558,7 +567,6 @@
 <!-- SIGNUP POPUP -->
 
 @include('partial.mainjs')
-
 </body>
 </html>
 

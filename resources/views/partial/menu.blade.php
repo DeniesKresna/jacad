@@ -167,9 +167,9 @@
             </span>
             <p>{{ Session::get('user')->email }}</p>
             <p>Member Since, 2017</p>
-            <p>
+            {{-- <p>
                 <i class="la la-map-marker"></i> {{ Session::get('user')->address }}
-            </p>
+            </p> --}}
         </div>
         
         <div class="tree_widget-sec">

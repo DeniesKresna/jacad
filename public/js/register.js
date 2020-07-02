@@ -1,8 +1,10 @@
-$('#login-form').on('submit', function(e) {
+$('#register-form').on('submit', function(e) {
     e.preventDefault();
 
-    $.ajax({    
-        url: 'login',
+    alert('Please wait...');
+
+    $.ajax({
+        url: 'register',
         method: 'POST',
         data: $(this).serialize(),
         success: (response) => {
@@ -13,13 +15,13 @@ $('#login-form').on('submit', function(e) {
                 Object.keys(response.messages).forEach(key => messages+= `${response.messages[key]}\n`);
 
                 return alert(messages);
-            } else if (response.status_code === 404) {
-                messages+= response.messages;
-                
-                return alert(messages);
-            }
+            } 
 
+            messages+= `Register success\nCheck your e-mail to verifiy`;
+
+            alert(messages);
+            
             return window.location.href= BASE_URL;
         }
-    })
+    });
 });
