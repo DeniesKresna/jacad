@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\v1\User\Auth;
 
-use App\Http\Controllers\ApiController;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends ApiController
-{
+use App\Http\Controllers\ApiController;
+use App\Models\Role;
+use App\Models\User;
+
+class RegisterController extends ApiController {
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -26,8 +26,7 @@ class RegisterController extends ApiController
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest');
     }
 
@@ -35,11 +34,13 @@ class RegisterController extends ApiController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request){
+    public function index(Request $request) {
         $validate = $this->validate($request);
-        if (!$validate->error){
+
+        if (!$validate->error) {
             $res = $this->create($request->all());
-            if ($res){
+
+            if ($res) {
                 return self::success_responses($res);
             } else {
                 return self::error_responses("Unkown error");
@@ -61,12 +62,15 @@ class RegisterController extends ApiController
             'name' => 'required|string|max:100',
             'email' => 'required|string|max:200|unique:users',
             'phone' => 'required|string|max:30',
-            'address' => 'required|string|max:100',
+            //'address' => 'required|string|max:100',
             'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|max:100|confirmed',
+            'password_confirmation' => 'required'
         ];
+        
         $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()){
+
+        if ($validator->fails()) {
             return to_object(["error"=>true,"messages"=>$validator->errors()]);
         } else {
             return to_object(["error"=>false]);
@@ -77,21 +81,22 @@ class RegisterController extends ApiController
      * @param array $data
      * @return bool|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public function create(array $data)
-    {
+    public function create(array $data) {
         $user =  User::create([
             'name'=>$data["name"],
             'email'=>$data["email"],
             'phone'=>$data["phone"],
-            'address'=>$data["address"],
+            //'address'=>$data["address"],
             'username'=>$data["username"],
             'password'=>password_encrypt($data["password"]),
             //'type'=>'customer',
             'active'=>1,
         ]);
+        
         $user->attachRole(Role::query()->where("name","=","customer")->first());
         $user->save();
-        if ($user){
+        
+        if ($user) {
             return $user;
         } else {
             return false;

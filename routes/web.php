@@ -18,22 +18,32 @@ Route::get('/', function(){
     return view('home');
 });
 
-	/*
-    | Blogs routes
-    */
-	Route::get('blogs/category/{category}','web\PostController@indexCategory');
-	Route::get('blogs/{url_title}', "web\PostController@getFromTitle");
-	Route::resource('blogs', "web\PostController");
+/*
+| Blogs routes
+*/
+Route::get('blogs/category/{category}','web\PostController@indexCategory');
+Route::get('blogs/{url_title}', "web\PostController@getFromTitle");
+Route::resource('blogs', "web\PostController");
 
-	Route::get('test', function(){
-	    return view('test');
-	});
+Route::get('test', function(){
+    return view('test');
+});
 
-	/*
-    | Jobs routes
-    */
-	Route::get('jobs/opening', function(){
-	    return view('job.opening');
-	});
+/*
+| Jobs routes
+*/
+Route::get('jobs/opening', function(){
+    return view('job.opening');
+});
 
-	Route::resource('jobs','web\JobController');
+Route::resource('jobs','web\JobController');
+
+/* JONATHAN ROUTE */
+
+Route::post('register', 'web\RegisterController@index');
+Route::post('login', 'web\LoginController@index');
+
+Route::get('logout', 'web\LogoutController@index');
+Route::get('register-token/{token}', 'web\RegisterController@checkToken');
+
+/* JONATHAN ROUTE */

@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('dt_end');
             $table->text('notification_emails')->nullable();
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

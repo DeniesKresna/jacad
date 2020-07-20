@@ -33,6 +33,7 @@
 
 </div>
 
+<!-- LOGIN POPUP -->
 <div class="account-popup-area signin-popup-box">
 	<div class="account-popup">
 		<span class="close-popup"><i class="la la-close"></i></span>
@@ -65,8 +66,10 @@
 			</div>
 		</div>
 	</div>
-</div><!-- LOGIN POPUP -->
+</div>
+<!-- LOGIN POPUP -->
 
+<!-- SIGNUP POPUP -->
 <div class="account-popup-area signup-popup-box">
 	<div class="account-popup">
 		<span class="close-popup"><i class="la la-close"></i></span>
@@ -110,7 +113,8 @@
 			</div>
 		</div>
 	</div>
-</div><!-- SIGNUP POPUP -->
+</div>
+<!-- SIGNUP POPUP -->
 
 @include('partial.mainjs')
 @yield('extrajs')
