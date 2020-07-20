@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use App\Models\Job;
 use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -57,7 +58,11 @@ class JobController extends Controller {
     }
 
     public function create() {
+        $companies = Company::limit(10)->get();
+    	return view('job.create',['title' => 'Post Job', 'companies'=>$companies]);
+    }
 
-    	return view('job.create',['title' => 'Post Job']);
+    public function store(){
+        
     }
 }

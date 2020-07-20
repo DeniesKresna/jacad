@@ -95,3 +95,8 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
     Route::post('/adi/test','v1\TestController@adi');
 });
 
+Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
+    Route::resource('/jobs','v1\User\JobController');
+    Route::get('/companies/name/{name}','v1\User\CompanyController@showByName');
+});
+

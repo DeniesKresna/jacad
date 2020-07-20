@@ -17,13 +17,14 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('tagline')->nullable();
-            $table->string('information')->nullable();
+            $table->text('information')->nullable();
             $table->string('logo_url')->nullable();
             $table->string('logo_path')->nullable();
             $table->string('address')->nullable();
             $table->string('site_url')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('employee_amount')->nullable();
             $table->unsignedInteger('updater_id')->nullable();
             $table->timestamps();
         });

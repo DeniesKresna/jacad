@@ -18,15 +18,22 @@ Route::get('/', function(){
     return view('home');
 });
 
-Route::get('blog/category/{category}','web\PostController@indexCategory');
-Route::get('blog/{url_title}', "web\PostController@getFromTitle");
-Route::get('blog', "web\PostController@index");
-Route::get('test', function(){
-    return view('test');
-});
-Route::get('job', function(){
-    return view('job.opening');
-});
-Route::get('job', 'web\JobController@index');
-Route::get('job/{id}', 'web\JobController@show');
-Route::get('job/create', 'web\JobController@create');
+	/*
+    | Blogs routes
+    */
+	Route::get('blogs/category/{category}','web\PostController@indexCategory');
+	Route::get('blogs/{url_title}', "web\PostController@getFromTitle");
+	Route::resource('blogs', "web\PostController");
+
+	Route::get('test', function(){
+	    return view('test');
+	});
+
+	/*
+    | Jobs routes
+    */
+	Route::get('jobs/opening', function(){
+	    return view('job.opening');
+	});
+
+	Route::resource('jobs','web\JobController');

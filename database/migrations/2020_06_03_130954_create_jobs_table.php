@@ -19,6 +19,7 @@ class CreateJobsTable extends Migration
             $table->string('type')->nullable();
             $table->unsignedInteger('location_id')->nullable();
             $table->text('job_desc')->nullable();
+            $table->string('work_time')->nullable();
             $table->string('dress_style')->nullable();
             $table->string('language')->nullable();
             $table->string('facility')->nullable();
@@ -33,6 +34,8 @@ class CreateJobsTable extends Migration
             $table->unsignedInteger('company_id')->nullable();
             $table->string('view')->nullable();
             $table->smallInteger('read')->nullable();
+            $table->unsignedInteger('first_reader_id')->nullable();
+            $table->unsignedInteger('creator_id')->nullable();
             $table->timestamp('expired')->nullable();
             $table->unsignedInteger('verificator_id')->nullable();
             $table->timestamps();

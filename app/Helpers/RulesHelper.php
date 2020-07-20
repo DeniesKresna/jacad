@@ -58,6 +58,38 @@ if (! function_exists('rules_lists')) {
                 ];
             }
         }
+
+        //================================Job=================================
+        else if($controller == "JobController"){
+            if($method=="store"){
+                return [
+                    'name' => 'required|max:199',
+                    'tagline' => 'required|max:199',
+                    'address' => 'required|max:199',
+                    'site_url' => 'required|max:199',
+                    'phone' => 'required|max:199',
+                    'email' => 'required|max:199',
+                    'position' => 'required|max:199',
+                    'type' => 'required|max:199',
+                    'location_id' => 'required|digits:10',
+                    'job_desc' => 'required|max:199',
+                    'work_time' => 'required|max:199',
+                    'dress_style' => 'required|max:199',
+                    'language' => 'required|max:199',
+                    'facility' => 'required|max:199',
+                    'salary' => 'required|max:199',
+                    'how_to_send' => 'required|max:199',
+                    'process_time' => 'required|max:199',
+                    'jobhun_info' => 'required|max:199',
+                    'expired' => 'required|max:199'
+                ];
+            }else{
+                return [
+                    'title' => 'required|max:199',
+                    'content' => 'required'
+                ];
+            }
+        }
         
         //========================Global============================================
 
