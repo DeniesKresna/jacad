@@ -5,31 +5,31 @@
 @endsection
 
 @section('extracss')
-	<link rel="stylesheet" type="text/css" href="{{asset('jqte/jquery-te-1.4.0.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{asset('datepicker/js/bootstrap-datepicker.min.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('jqte/jquery-te-1.4.0.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('datepicker/css/bootstrap-datepicker.min.css') }}"/>
 @endsection
 
 @section('extrajs')
-	<script src="{{asset('jqte/jquery-te-1.4.0.min.js')}}" type="text/javascript"></script>
-	<script src="{{asset('datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-
+	<script src="{{ asset('jqte/jquery-te-1.4.0.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    
 	<script>
 		$( document ).ready(function() {
 		    $(".special_ta").jqte();
-
 		    $(".datepicker").datepicker({
 			      format: 'yyyy-mm-dd',
 			      autoclose: true,
 			      todayHighlight: true,
-			  });
-
+			});
+            
 		    $.ajaxSetup({
 		        headers: {
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 		    });
 
-		    $("#logo").change(function(e){
+            //LOGO COMPANY
+		    $("#logo").change(function(e) {
 		    	var reader = new FileReader();
 			    reader.onload = function (e) {
 			        document.getElementById("logo-img").src = e.target.result;
@@ -37,78 +37,91 @@
 			    reader.readAsDataURL(this.files[0]);
 		    });
 
+            //AJAX GET DATA COMPANY - AUTO INPUT
 		    $("#company_name").focusout(function(){
-		    	if($("#company_name").val().length > 2){
+		    	if ($("#company_name").val().length > 2){
 		    		$('body').loading();
 		    		$.ajax({
-			           type:'GET',
-			           url: "{{url('/')}}" + '/api/v1/user/companies/name/' + $("#company_name").val(),
-			           dataType: 'JSON',
-			           success:function(data){
-			           	var company = data.company;
-		    			$('body').loading('stop');
-		    			$('#jobForm input, #jobForm select').each(
-						    function(index){  
-						        let input = $(this);
-						        for(let prop in company){
-						        	if(input.attr('name')==prop){
-						        		input.val(company[prop]);
-						        	}
-						        }
-						    }
-						);
-						$('#jobForm textarea').each(
-						    function(index){  
-						        let input = $(this);
-						        for(let prop in company){
-						        	if(input.attr('name')==prop){
-						        		input.html(company[prop]);
-						        	}
-						        }
-						    }
-						);
-
-						$('#logo-img').attr('src',company.logo_url);
-			           },
-			           error: function(error){
-			           	$('body').loading('stop');
-			           }
+			            type:'GET',
+			            url: "{{url('/')}}" + '/api/v1/user/companies/name/' + $("#company_name").val(),
+			            dataType: 'JSON',
+			            success: function(data) {
+                            var company = data.company;
+                            $('body').loading('stop');
+                            $('#jobForm input, #jobForm select').each(
+                                function(index){  
+                                    let input = $(this);
+                                    for (let prop in company){
+                                        if (input.attr('name') == prop) {
+                                            input.val(company[prop]);
+                                        }
+                                    }
+                                }
+                            );
+                            $('#jobForm textarea').each(
+                                function(index){  
+                                    let input = $(this);
+                                    for (let prop in company){
+                                        if(input.attr('name') == prop){
+                                            input.html(company[prop]);
+                                        }
+                                    }
+                                }
+                            );
+                            $('#logo-img').attr('src',company.logo_url);
+                        },
+			            error: function(error) {
+			           	    $('body').loading('stop');
+			            }
 			        });
-		    	}
+		        }
 		    });
-
+            
+            //AJAX FORM SUBMIT   
 		    $("#btnSubmit").click(function(e){
 		        e.preventDefault();
 
 		        var formData = new FormData($('form')[0]);
-		        formData.set('logo',$("#logo").prop('files')[0]);
 
+		        formData.set('logo', $("#logo").prop('files')[0]);
+                formData.set('sector_ids', $('.chosen').val());
+                
 		        for (var pair of formData.entries()) {
 		        	let iptDom = document.getElementsByName(pair[0])[0];
 		           	iptDom.style.backgroundColor = "white";
 				}
 
 		        $.ajax({
-		           type:'POST',
-		           url: "{{url('/')}}" + '/api/v1/user/jobs',
-		           data:formData,
-		           dataType: 'JSON',
-    			   processData: false,
-    			   contentType: false,
-		           success:function(data){
-		              alert(data.message);
-		           },
-		           error:function(error){
-		           	if(error.status == 422){
-		           		let msg = "";
-		           		for(let prop in error.responseJSON.message){
-		           			let iptDom = document.getElementsByName(prop)[0];
-		           			iptDom.style.backgroundColor = "yellow";
-		           			//msg = msg + error.responseJSON.message[prop][0] + "\n";
-		           		}
-		           		swal({ title: 'Validation Error', text: "check the yellow background inputs", icon: "error" });
-		           	}
-		           }
+		            type: 'POST',
+		            url: "{{url('/')}}" + '/api/v1/user/jobs',
+		            data: formData,
+		            dataType: 'JSON',
+    			    processData: false,
+    			    contentType: false,
+		            success: function(response) {
+                        swal({ 
+                            title: 'Create success!', 
+                            text: "", 
+                            icon: "success" 
+                        });
+		            },
+                    error: function(error) {
+		           	    if (error.status === 422){
+		           		    let msg = "";
+                            
+		           		    for (let prop in error.responseJSON.message){
+		           			    let iptDom = document.getElementsByName(prop)[0];
+		           			    iptDom.style.backgroundColor = "yellow";
+		           			    //msg = msg + error.responseJSON.message[prop][0] + "\n";
+		           		    }
+                            
+                            swal({ 
+                                title: 'Validation Error', 
+                                text: "check the yellow background inputs", 
+                                icon: "error" 
+                            });
+                        }
+		            }
 		        });
 			});
 		});
@@ -122,11 +135,14 @@
 				 <div class="row no-gape">
 				 	<div class="col-lg-9 column">
 				 		<div class="padding-left">
+                            
 					 		<div class="profile-title">
-					 			<h3>Post a New Job</h3>
-					 		</div>
+					 		    <h3>Post a New Job</h3>
+                            </div>
+                            
+                            <!-- FORM -->
 					 		<div class="profile-form-edit">
-					 			<form id="jobForm">
+					 			<form id="jobForm" {{-- action="{{ url('api/v1/user/jobs') }}" method="POST" --}} enctype="multipart/form-data">
 					 				<div class="row">
 					 					<div class="col-lg-12">
 					 						<span class="pf-title">Nama Perusahaan</span>
@@ -296,7 +312,9 @@
 					 					</div>
 					 				</div>
 					 			</form>
-					 		</div>
+                             </div>
+                             
+                             <!-- FORM -->
 					 	</div>
 					</div>
 				 </div>

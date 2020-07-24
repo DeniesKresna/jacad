@@ -59,7 +59,7 @@ class PostController extends ApiController
         else
             return response()->json(["message"=>"cant create post"],400);
     }
-
+    
     public function update(Request $request, $id){
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;

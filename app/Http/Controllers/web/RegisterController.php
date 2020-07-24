@@ -23,7 +23,7 @@ class RegisterController extends Controller {
                 'messages' => $validation->messages
             ]));
         }
-
+        
         $stored= $this->store($request->all());
 
         if (!$stored) {

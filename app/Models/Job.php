@@ -81,8 +81,8 @@ class Job extends Eloquent
 		'expired',
 		'verificator_id'
 	];
-
-	public function company(){
-		return $this->belongsTo('App\Models\Company');
+    
+	public function company() {
+		return $this->belongsTo('App\Models\Company', 'creator_id');
 	}
 }

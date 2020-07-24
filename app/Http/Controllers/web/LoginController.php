@@ -5,7 +5,6 @@ namespace App\Http\Controllers\web;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Crypt;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -33,7 +32,7 @@ class LoginController extends Controller {
                 'messages' => 'Wrong username or password!'
             ]));
         }   
-
+        
         //$user->name= explode(' ', $user->name)[0].' '.strtoupper(explode(' ', $user->name)[1]);
 
         Session::put('user', $user);

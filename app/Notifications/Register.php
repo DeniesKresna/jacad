@@ -38,8 +38,8 @@ class Register extends Notification {
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable) {   
-        $url= 'register-token/'.$this->token; //DEVELOPMENT
-
+        $url= 'api/v1/register-token/'.$this->token; //DEVELOPMENT
+        
         return (new MailMessage)
                     ->subject('Jobhun E-mail Verification')
                     ->line('You are getting closer, clink link in below to verify your account')
