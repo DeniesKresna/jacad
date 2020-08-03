@@ -13,8 +13,8 @@
 
 {{-- LOGIN --}}
 
-<script src="{{asset('public/js/login.js')}}" type="text/javascript"></script>
-<script src="{{asset('public/js/register.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/login.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/register.js')}}" type="text/javascript"></script>
 
 {{-- END OF LOGIN --}}
 
