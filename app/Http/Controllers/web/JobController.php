@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\web;
 
-use App\Models\Job;
-use App\Models\Category;
-use App\Models\Company;
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
-use Validator;
+use App\Models\Job;
+use App\Models\Company;
 
 class JobController extends Controller {
 
@@ -49,20 +48,39 @@ class JobController extends Controller {
             ]),
         ];
 
+        if (!empty(Job::all())) {
+            $jobs= Job::all();
+            
+            foreach ($jobs as $key => $job) { //IF LOCATION SEMENTARA
+                if ($job->location_id == 1) $job->location= 'Jakarta';
+                else if ($job->location_id == 2) $job->location= 'Surabaya';
+                else if ($job->location_id == 3) $job->location= 'Yogyakarta'; 
+            }
+        }
+
         return view('job.list', ['jobs' => $jobs]);
     }
 
     public function show($job_id) {
+        $job= Job::where(['id' => $job_id])->first();
+        
+        $job->type= strtoupper($job->type);
+        $job->posted_at= time_elapsed_string(strval($job->created_at));
 
-        return view('job.show');
+        //IF LOCATION SEMENTARA
+        if ($job->location_id == 1) $job->location= 'Jakarta';
+        else if ($job->location_id == 2) $job->location= 'Surabaya';
+        else if ($job->location_id == 3) $job->location= 'Yogyakarta';
+
+        return view('job.show', ['job' => $job]);
     }
 
     public function create() {
         $companies = Company::limit(10)->get();
-    	return view('job.create',['title' => 'Post Job', 'companies'=>$companies]);
-    }
-
-    public function store(){
         
+    	return view('job.create', [
+            'title' => 'Post Job', 
+            'companies'=> $companies
+        ]);
     }
 }

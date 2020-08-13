@@ -1,7 +1,7 @@
 $('#register-form').on('submit', function(e) {
     e.preventDefault();
-
-    alert('Please wait...');
+    
+    /*alert('Please wait...');
 
     $.ajax({
         url: 'register',
@@ -22,6 +22,22 @@ $('#register-form').on('submit', function(e) {
             alert(messages);
             
             return window.location.href= BASE_URL;
+        }
+    });*/
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: "{{ url('/') }}" + '/api/v1/register',
+        data: $(this).serialize(),
+        dataType: 'JSON',
+        success: function(response) {
+            console.log(response);
         }
     });
 });

@@ -10,11 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 **/
+
+use Illuminate\Support\Facades\Session;
+
 Route::get('admin', function(){
     return view('admin');
 });
 
-Route::get('/', function(){
+Route::get('/', function() {
+    //Session::remove('user');
+
+    if (Session::has('user')) {
+        //dd(Session::get('user'));
+    }
+
     return view('home');
 });
 
@@ -36,9 +45,9 @@ Route::get('jobs/opening', function(){
     return view('job.opening');
 });
 
-Route::resource('jobs','web\JobController');
+Route::resource('jobs', 'web\JobController');
 
-/* JONATHAN ROUTE */
+/* JONATHAN ROUTE (DIUBAH PKE API) */
 
 Route::post('register', 'web\RegisterController@index');
 Route::post('login', 'web\LoginController@index');
@@ -46,4 +55,8 @@ Route::post('login', 'web\LoginController@index');
 Route::get('logout', 'web\LogoutController@index');
 Route::get('register-token/{token}', 'web\RegisterController@checkToken');
 
-/* JONATHAN ROUTE */
+/* JONATHAN ROUTE (DIUBAH PKE API) */
+
+//SESSION ROUTE - SEMENTARA
+Route::post('session-user', 'web\SessionController@store');
+Route::get('session-user', 'web\SessionController@destroy');

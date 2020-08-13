@@ -49,7 +49,7 @@ class Company extends Eloquent
 		'updater_id'
 	];
 
-	public function jobs(){
+	public function jobs() {
 		return $this->hasMany('App\Models\Job');
 	}
 }

@@ -100,3 +100,15 @@ Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::get('/companies/name/{name}','v1\User\CompanyController@showByName');
 });
 
+/* API LOGIN & REGISTER JONATHAN*/
+
+Route::group(['prefix' => 'v1', 'middleware' => []], function() {
+    Route::post('/register', 'v1\RegisterController@store');
+    Route::get('/register-token/{token}', 'v1\RegisterController@checkToken');
+    
+    Route::post('/login', 'v1\LoginController@index');
+});
+
+/* API LOGIN & REGISTER JONATHAN*/
+
+
