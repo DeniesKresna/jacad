@@ -86,6 +86,31 @@ if (!function_exists('rules_lists')) {
             } else {
                 return [
                     'title' => 'required|max:199',
+                    'content' => 'required',
+                    'address' => 'required|max:199'
+                ];
+            }
+        }
+        
+        //================================Student Ambassador=================================
+        else if ($controller == 'StudentAmbassadorController') {
+            if ($method == 'store') {
+                return [
+                    'email' => 'required|max:199',
+                    'name' => 'required|max:199',
+                    'age' => 'required|numeric',
+                    'address' => 'required|max:199',
+                    'university' => 'required|max:199',
+                    'faculty' => 'required|max:199',
+                    'major' => 'required|max:199',
+                    'phone' => 'required|max:199',
+                    'line_id' => 'required|max:199',
+                    'ig_link' => 'required|max:199',
+                    'linkedin_link' => 'required|max:199'
+                ];
+            } else {
+                return [
+                    'title' => 'required|max:199',
                     'content' => 'required'
                 ];
             }
