@@ -23,7 +23,7 @@
                   <div class="collapse" id="sbservice">
                     <a href="#sbservicech" class="list-group-item" data-toggle="collapse">Jobhun Career Hub<span class="glyphicon glyphicon-chevron-right"></span></a>
                     <div class="collapse list-group-submenu" id="sbservicech">
-                      <a href="#" class="list-group-item">Index</a>
+                      <router-link :to="'/job'" class="list-group-item">Index</router-link>
                       <a href="#" class="list-group-item">Create</a>
                       <a href="#" class="list-group-item">Report</a>
                     </div>

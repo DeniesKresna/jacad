@@ -18,7 +18,7 @@ const category = {
     actions: {
         INDEX({commit},payload){
             return new Promise((resolve,reject)=>{
-                axios.get('/admin/categories?page_size=10&' + payload).then(response=>{
+                axios.get('/admin/jobs?page_size=10&' + payload).then(response=>{
                     resolve(response.data);
                 });
             });

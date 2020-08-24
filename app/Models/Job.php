@@ -30,7 +30,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $poster_path
  * @property string $jobhun_info
  * @property int $company_id
- * @property string $view
+ * @property int $view
  * @property int $read
  * @property int $first_reader_id
  * @property int $creator_id
@@ -46,7 +46,9 @@ class Job extends Eloquent
 	protected $casts = [
 		'location_id' => 'int',
 		'company_id' => 'int',
+		'view' => 'int',
 		'read' => 'int',
+		'verified' => 'int',
 		'first_reader_id' => 'int',
 		'creator_id' => 'int',
 		'verificator_id' => 'int'
