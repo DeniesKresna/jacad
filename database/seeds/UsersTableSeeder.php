@@ -59,7 +59,17 @@ class UsersTableSeeder extends Seeder
                 'active'=>1,
                 'created_at'=>date("Y-m-d H:i:s"),
                 'updated_at'=>date("Y-m-d H:i:s")
-            ]
+            ],
+            [
+                'name' => 'Jonathan Gani',
+                'email' => 'jonathangani279@gmail.com',
+                'phone' => '08157006008',
+                'username' => 'syndic2',
+                'password' => password_encrypt("asdasd"),
+                'active' => 1,
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ],
         ]);
 
         $user = DB::table('role_user')->insert([
@@ -74,7 +84,11 @@ class UsersTableSeeder extends Seeder
             [
                 'user_id'=>3,
                 'role_id'=>2,
-            ]
+            ],
+            [
+                'user_id' => 4,
+                'role_id' => 2,
+            ],
         ]);
 
         $res = DB::table('companies')->insert([

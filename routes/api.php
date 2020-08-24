@@ -96,8 +96,10 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
-    Route::resource('/jobs','v1\User\JobController');
-    Route::get('/companies/name/{name}','v1\User\CompanyController@showByName');
+    Route::resource('/jobs', 'v1\User\JobController');
+    Route::resource('/studentAmbassadors', 'v1\User\StudentAmbassadorController');
+
+    Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
 });
 
 /* API LOGIN & REGISTER JONATHAN*/

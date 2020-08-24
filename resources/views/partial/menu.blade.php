@@ -57,19 +57,38 @@
                 <li class="menu-item-has-children">
                     <a href="#" title="">Services</a>
                     <ul>
-                        <li><a href="employer_list1.html" title=""> Jobhun Career Hub</a></li>
-                        <li><a href="employer_list2.html" title=""> Jobhun Academy</a></li>
-                        <li><a href="employer_list3.html" title=""> Jobhun Class</a></li>
-                        <li><a href="employer_list4.html" title=""> Jobhun Talent Pool</a></li>
+                        <li>
+                            <a href="employer_list1.html" title=""> Jobhun Career Hub</a>
+                        </li>
+                        <li>
+                            <a href="employer_list2.html" title=""> Jobhun Academy</a>
+                        </li>
+                        <li>
+                            <a href="employer_list3.html" title=""> Jobhun Class</a>
+                        </li>
+                        <li>
+                            <a href="employer_list4.html" title=""> Jobhun Talent Pool</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children">
                     <a href="#" title="">Program</a>
                     <ul>
-                        <li><a href="candidates_list.html" title=""> Jobhun Internship</a></li>
-                        <li><a href="candidates_list2.html" title=""> Jobhun Talks</a></li>
-                        <li><a href="candidates_list3.html" title=""> Jobhun Visit</a></li>
-                        <li><a href="candidates_single.html" title=""> Jobhun Speak</a></li>
+                        <li>
+                            <a href="candidates_list.html" title=""> Jobhun Internship</a>
+                        </li>
+                        <li>
+                            <a href="candidates_list2.html" title=""> Jobhun Talks</a>
+                        </li>
+                        <li>
+                            <a href="candidates_list3.html" title=""> Jobhun Visit</a>
+                        </li>
+                        <li>
+                            <a href="candidates_single.html" title=""> Jobhun Speak</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/studentAmbassador') }}" title=""> Jobhun Student Ambrassador</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item">
@@ -141,10 +160,21 @@
                     <li class="menu-item-has-children">
                         <a href="#" title="">Program</a>
                         <ul>
-                            <li><a href="candidates_list.html" title=""> Jobhun Internship</a></li>
-                            <li><a href="candidates_list2.html" title=""> Jobhun Talks</a></li>
-                            <li><a href="candidates_list3.html" title=""> Jobhun Visit</a></li>
-                            <li><a href="candidates_single.html" title=""> Jobhun Speak</a></li>
+                            <li>
+                                <a href="candidates_list.html" title=""> Jobhun Internship</a>
+                            </li>
+                            <li>
+                                <a href="candidates_list2.html" title=""> Jobhun Talks</a>
+                            </li>
+                            <li>
+                                <a href="candidates_list3.html" title=""> Jobhun Visit</a>
+                            </li>
+                            <li>
+                                <a href="candidates_single.html" title=""> Jobhun Speak</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/studentAmbassador') }}" title=""> Jobhun Student Ambrassador</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="menu-item">
@@ -153,6 +183,15 @@
                     <li class="menu-item">
                         <a href="#" title="">About</a>
                     </li>
+                    @if (Session::has('user'))
+                        <li class="menu-item">
+                            <div class="btn-extars">
+                                <a href="{{ url('/jobs/create') }}" title="" class="post-job-btn">
+                                    <i class="la la-plus"></i> Post Jobs
+                                </a>
+                            </div> 
+                        </li>
+                    @endif
                 </ul>
             </nav><!-- Menus -->
         </div>

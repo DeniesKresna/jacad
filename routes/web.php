@@ -60,3 +60,10 @@ Route::get('register-token/{token}', 'web\RegisterController@checkToken');
 //SESSION ROUTE - SEMENTARA
 Route::post('session-user', 'web\SessionController@store');
 Route::get('session-user', 'web\SessionController@destroy');
+
+/*
+| Student Ambassador Routes
+*/
+Route::get('studentAmbassador', function() {
+    return view('studentAmbassador.opening', ['title' => 'Student Ambassador']);
+});

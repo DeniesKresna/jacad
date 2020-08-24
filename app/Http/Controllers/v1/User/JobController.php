@@ -42,7 +42,7 @@ class JobController extends ApiController {
             Post::findOrFail($id)->load(['categories'])
         );
     }
-
+    
     public function store(Request $request) {
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;
@@ -53,7 +53,7 @@ class JobController extends ApiController {
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'fail' => false, 
                 'message' => $validator->messages(),
