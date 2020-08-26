@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\v1\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 use App\Http\Controllers\ApiController;
+use App\Notifications\Job as NotifyJob;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobSector;
@@ -79,6 +81,9 @@ class JobController extends ApiController {
             }
 
             if ($job && $job_sector) {
+                Notification::route('mail', $company->email)
+                            ->notify(new NotifyJob());
+                
                 return response()->json([
                     'data' => [
                         'job' => $job,

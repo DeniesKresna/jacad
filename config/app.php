@@ -179,6 +179,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class
     ],
 
     /*
@@ -233,6 +234,6 @@ return [
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'Str' => Illuminate\Support\Str::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class
     ],
-
 ];

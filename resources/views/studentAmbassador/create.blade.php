@@ -5,7 +5,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         }); 
-
+        
         let aboutJSA_Content= `
             <h2>
                 <strong>Jobhun Student Ambassador</strong>

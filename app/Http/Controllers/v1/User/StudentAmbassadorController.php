@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\v1\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 use App\Http\Controllers\ApiController;
+use App\Notifications\StudentAmbassador as NotifyJSA;
 use App\Models\StudentAmbassador;
 
 use Validator;
@@ -35,6 +37,9 @@ class StudentAmbassadorController extends ApiController {
         $jsa= StudentAmbassador::create($datas);
         
         if ($jsa) {
+            Notification::route('mail', $datas['email'])
+                        ->notify(new NotifyJSA());
+            
             return response()->json([
                 'data' => [
                     'jsa' => $jsa
