@@ -2,10 +2,10 @@
     <div class="content-row">
         <div class="row">
             <div class="col-md-5">
-                <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResults(1)">
+                <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResult(1)">
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">

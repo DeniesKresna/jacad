@@ -27,7 +27,7 @@ class JobController extends ApiController {
         
         return response()->json($datas);
     }
-    
+
     public function show($job_id) {
         $job= Job::where(['id' => $job_id])->first();
         
@@ -38,7 +38,7 @@ class JobController extends ApiController {
         if ($job->location_id == 1) $job->location= 'Jakarta';
         else if ($job->location_id == 2) $job->location= 'Surabaya';
         else if ($job->location_id == 3) $job->location= 'Yogyakarta';
-
+        
         return response()->json([
             'job' => $job,
             'company' => $job->company

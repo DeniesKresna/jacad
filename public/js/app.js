@@ -49469,7 +49469,7 @@ var render = function() {
               ) {
                 return null
               }
-              return _vm.getResults(1)
+              return _vm.getResult(1)
             },
             input: function($event) {
               if ($event.target.composing) {
