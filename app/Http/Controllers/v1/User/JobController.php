@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\ApiController;
 use App\Notifications\Job as NotifyJob;
@@ -50,8 +51,8 @@ class JobController extends ApiController {
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
         $datas['sector_ids']= explode(',', $datas['sector_ids']);
-        $datas["creator_id"] = 1;
-        $datas["updater_id"] = 1;   
+        $datas["creator_id"] = Session::get('user')->id;
+        $datas["updater_id"] = Session::get('user')->id;   
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
@@ -103,7 +104,7 @@ class JobController extends ApiController {
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
-        $datas["creator_id"] = 1;
+        $datas["creator_id"] = Session::get('user')->id;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         

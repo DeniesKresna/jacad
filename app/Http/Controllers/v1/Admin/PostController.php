@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\v1\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 use App\Http\Controllers\ApiController;
 use App\Models\Post;
-use Illuminate\Http\Request;
+
 use Validator;
 
 class PostController extends ApiController
 {
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
@@ -41,7 +42,7 @@ class PostController extends ApiController
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
-        $datas["author_id"] = 1;
+        $datas["author_id"] = Session::get('user')->id;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);
@@ -64,7 +65,7 @@ class PostController extends ApiController
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
-        $datas["author_id"] = 1;
+        $datas["author_id"] = Session::get('user')->id;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);

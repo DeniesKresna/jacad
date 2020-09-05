@@ -1,10 +1,12 @@
-import Example from './components/ExampleComponent.vue';
 import HomeIndex from './components/home/Index.vue';
 import PostIndex from './components/post/Index.vue';
 import PostCreate from './components/post/Create.vue';
 import PostEdit from './components/post/Edit.vue';
 import CategoryIndex from './components/category/Index.vue';
 import CategoryCreate from './components/category/Create.vue';
+
+import JobIndex from './components/job/Index.vue';
+import JobDetail from './components/job/Detail.vue';
 
 export const routes = [
     {
@@ -36,6 +38,16 @@ export const routes = [
         name: 'categoryCreate',
         path: '/category/create',
         component: CategoryCreate
+    },
+    {
+        name: 'jobIndex',
+        path: '/job/',
+        component: JobIndex
+    },
+    {
+        name: 'jobDetail',
+        path: '/job/:id',
+        component: JobDetail
     }
 /*
     {

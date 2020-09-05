@@ -24,7 +24,7 @@ class SocialiteLoginController extends Controller {
         }
         
         $existingUser= User::where('email', $user->email)->first();
-
+        
         if (!$existingUser) {
             $user= User::create([
                 'name' => $user->name,

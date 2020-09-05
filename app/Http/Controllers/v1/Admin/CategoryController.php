@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\v1\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 use App\Http\Controllers\ApiController;
 use App\Models\Category;
-use Illuminate\Http\Request;
+
 use Validator;
 
 class CategoryController extends ApiController
@@ -39,7 +42,8 @@ class CategoryController extends ApiController
     public function store(Request $request){
         $req = $request->all();
         //$session_id = $request->get('auth')->user->id;
-        $session_id = 1;
+        $session_id = Session::get('user')->id;
+        
         $datas["updater_id"] = $session_id;
         $validator = Validator::make($req, rules_lists(__CLASS__, __FUNCTION__));
         if($validator->fails()) return response()->json(['fail'=>false,'message'=>$validator->messages()],422);

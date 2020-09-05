@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {state} from './state';
-import {actions} from './actions';
-import {mutations} from './mutations';
-import {getters} from './getters'; 
+import { state } from './state';
+import { actions } from './actions';
+import { mutations } from './mutations';
+import { getters } from './getters'; 
 
 import post from './modules/post';
 import category from './modules/category';
+import job from './modules/_job';
+
 /*
 import donatur from './modules/donatur'
 import clients from './modules/clients'*/
@@ -19,7 +21,8 @@ export default new Vuex.Store({
   	getters,
     modules: {
     	post,
-      category
+        category,
+        job
     	/*
         donatur,
         clients,*/
