@@ -8,6 +8,8 @@ import CategoryCreate from './components/category/Create.vue';
 import JobIndex from './components/job/Index.vue';
 import JobDetail from './components/job/Detail.vue';
 
+import StudentAmbassadorIndex from './components/studentAmbassador/Index.vue';
+
 export const routes = [
     {
         name: 'homeIndex',
@@ -48,6 +50,11 @@ export const routes = [
         name: 'jobDetail',
         path: '/job/:id',
         component: JobDetail
+    },
+    {
+        name: 'studentAmbassadorIndex',
+        path: '/studentAmbassador',
+        component: StudentAmbassadorIndex
     }
 /*
     {

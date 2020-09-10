@@ -5,7 +5,7 @@
                 <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResult(1)">
             </div>
         </div>
-
+    
         <div class="row">
             <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">
@@ -18,19 +18,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in result.data">
+                            <tr v-bind:key="index"
+                                v-for="(item, index) in result.data">
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.position }}</td>
-                                <td>
+                                <td v-if="accepted[index]">
                                     <router-link :to="`/job/${item.id}`">
                                         <button class="btn btn-blue">Details</button>
                                     </router-link>
-                                    <button @click="accept(index)" class="btn btn-primary" v-if="accepted[index]">
+                                    <button @click="accept(index)" class="btn btn-primary">
                                         Accept
                                     </button>
                                     <button @click="reject" class="btn btn-danger">
                                         Reject
                                     </button>
+                                </td>
+                                <td v-else>
+                                     <router-link :to="`/job/${item.id}`">
+                                        <button class="btn btn-blue">Details</button>
+                                    </router-link>
                                 </td>
                             </tr>
                         </tbody>

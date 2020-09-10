@@ -8,6 +8,7 @@ import { getters } from './getters';
 import post from './modules/post';
 import category from './modules/category';
 import job from './modules/_job';
+import jsambassador from './modules/jsambassador';
 
 /*
 import donatur from './modules/donatur'
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     modules: {
     	post,
         category,
-        job
+        job,
+        jsambassador
     	/*
         donatur,
         clients,*/

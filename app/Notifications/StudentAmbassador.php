@@ -11,14 +11,16 @@ class StudentAmbassador extends Notification
 {
     use Queueable;
 
+    private $text;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($text)
     {
-        //
+        $this->text= $text;
     }
 
     /**
@@ -41,8 +43,7 @@ class StudentAmbassador extends Notification
     public function toMail($notifiable) {
         return (new MailMessage)
             ->subject('Jobhun Student Ambassador')
-            ->line('Terima kasih telah bergabung pada Jobhun Student Ambassador.')
-            ->line('Tunggu informasi lebih lanjut dari kami ya!');
+            ->line($this->text);
     }
     
     /**

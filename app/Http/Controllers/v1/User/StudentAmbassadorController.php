@@ -24,6 +24,7 @@ class StudentAmbassadorController extends ApiController {
 
     public function store(Request $request) {
         $datas= $request->all();
+        $datas['status']= 0;
         
         $validator= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
 
@@ -38,7 +39,10 @@ class StudentAmbassadorController extends ApiController {
         
         if ($jsa) {
             Notification::route('mail', $datas['email'])
-                        ->notify(new NotifyJSA());
+                        ->notify(new NotifyJSA(
+                            'Terima kasih telah mendaftar pada Jobhun Student Ambassador.
+                            \r\nTunggu informasi lebih lanjut dari kami ya!'
+                        ));
             
             return response()->json([
                 'data' => [

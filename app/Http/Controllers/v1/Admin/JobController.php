@@ -27,7 +27,7 @@ class JobController extends ApiController {
         
         return response()->json($datas);
     }
-
+    
     public function show($job_id) {
         $job= Job::where(['id' => $job_id])->first();
         

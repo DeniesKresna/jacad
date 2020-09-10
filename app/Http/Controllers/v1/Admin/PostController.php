@@ -85,6 +85,7 @@ class PostController extends ApiController
 
     public function destroy(Request $request, $id){
         $post = Post::findOrFail($id);
+        
         if ($request->has('hard')) {
             if (filter_var(request()->hard, FILTER_VALIDATE_BOOLEAN)) {
                 @unlink(base_upload_dir().$post->image_path);

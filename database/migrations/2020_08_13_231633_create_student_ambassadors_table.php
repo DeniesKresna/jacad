@@ -26,6 +26,7 @@ class CreateStudentAmbassadorsTable extends Migration
             $table->string('line_id');
             $table->string('ig_link');
             $table->string('linkedin_link')->nullable();
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
