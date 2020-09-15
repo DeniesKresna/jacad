@@ -58,7 +58,7 @@
                     <a href="#" title="">Services</a>
                     <ul>
                         <li>
-                            <a href="employer_list1.html" title=""> Jobhun Career Hub</a>
+                            <a href="{{url('jobs')}}" title=""> Jobhun Career Hub</a>
                         </li>
                         <li>
                             <a href="employer_list2.html" title=""> Jobhun Academy</a>
@@ -87,7 +87,7 @@
                             <a href="candidates_single.html" title=""> Jobhun Speak</a>
                         </li>
                         <li>
-                            <a href="{{ url('/studentAmbassador') }}" title=""> Jobhun Student Ambrassador</a>
+                            <a href="{{ url('/student-ambassador') }}" title=""> Jobhun Student Ambrassador</a>
                         </li>
                     </ul>
                 </li>
@@ -151,7 +151,7 @@
                     <li class="menu-item-has-children">
                         <a href="#" title="">Services</a>
                         <ul>
-                            <li><a href="employer_list1.html" title=""> Jobhun Career Hub</a></li>
+                            <li><a href="{{url('/jobs')}}" title=""> Jobhun Career Hub</a></li>
                             <li><a href="employer_list2.html" title=""> Jobhun Academy</a></li>
                             <li><a href="employer_list3.html" title=""> Jobhun Class</a></li>
                             <li><a href="employer_list4.html" title=""> Jobhun Talent Pool</a></li>
@@ -173,7 +173,7 @@
                                 <a href="candidates_single.html" title=""> Jobhun Speak</a>
                             </li>
                             <li>
-                                <a href="{{ url('/studentAmbassador') }}" title=""> Jobhun Student Ambrassador</a>
+                                <a href="{{ url('/student-ambassador') }}" title=""> Jobhun Student Ambrassador</a>
                             </li>
                         </ul>
                     </li>

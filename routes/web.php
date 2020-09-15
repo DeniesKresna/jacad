@@ -64,7 +64,7 @@ Route::get('session-user', 'web\SessionController@destroy');
 /*
 | Student Ambassador Routes
 */
-Route::get('studentAmbassador', function() {
+Route::get('student-ambassador', function() {
     return view('studentAmbassador.opening', ['title' => 'Student Ambassador']);
 });
 

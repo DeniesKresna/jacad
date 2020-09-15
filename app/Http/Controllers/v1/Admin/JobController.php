@@ -22,9 +22,9 @@ class JobController extends ApiController {
         $datas = Job::where('id','>',0);
         if($request->has('search')){
             $datas = $datas->where('position','like',"%".$search."%")
-                        ->orWhereHas(['company' => function($query) use($search){
+                        ->orWhereHas('company',function($query) use($search){
                             $query->where('name','like','%'.$search.'%');
-                        }]);
+                        });
         }
 
         $datas = $datas->orderBy("id","desc")->paginate($page_size);
