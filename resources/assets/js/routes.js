@@ -1,6 +1,5 @@
 import HomeIndex from './components/home/Index.vue';
 import PostIndex from './components/post/Index.vue';
-import JobIndex from './components/job/Index.vue';
 import PostCreate from './components/post/Create.vue';
 import PostEdit from './components/post/Edit.vue';
 import CategoryIndex from './components/category/Index.vue';
