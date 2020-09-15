@@ -62,7 +62,7 @@ Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer']],function
     Route::resource('locations','v1\User\LocationController')->except(['store','update','destroy']);
 });
 
-
+Route::get('test','v1\TestController@adi');
 
 
 
