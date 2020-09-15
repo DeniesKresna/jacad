@@ -20,7 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in result.data">
+              <tr v-bind:key="index"
+                  v-for="(item,index) in result.data">
                 <td>{{index + (result.from)}}</td><td>{{item.title}}</td><td>{{item.author.name}}</td>
                 <td><router-link :to="'/post/' + item.id"><span class="fa fa-pencil-square-o"></span></router-link>&nbsp<a href="javascript:void(0)" @click="destroyData(item.id, item.title)"><span class="fa fa-trash-o"></span></a>&nbsp<a :href="item.url" target="_blank"><span class="fa fa-eye"></span></a></td>
               </tr>

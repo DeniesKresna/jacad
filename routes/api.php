@@ -93,6 +93,9 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
     Route::post('/medias','v1\Admin\MediaController@store');
     
     Route::post('/adi/test','v1\TestController@adi');
+    
+    Route::resource('/jobs', 'v1\Admin\JobController');
+    Route::resource('/studentAmbassadors', 'v1\Admin\StudentAmbassadorController');
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {

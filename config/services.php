@@ -47,4 +47,16 @@ return [
         'auth_provider_x509_cert_url'=>env('FIREBASE_AUTH_PROVIDER_X509_CERT_URL'),
         'client_x509_cert_url'=>env('FIREBASE_CLIENT_X509_CERT_URL'),
     ],
+
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT')
+    ],
+    
+    'facebook' => [
+        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_APP_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT'),
+      ],
 ];

@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
-class JobController extends ApiController
-{
-
+class JobController extends ApiController {
     /**
      * Show the application dashboard.
      *
@@ -27,13 +25,7 @@ class JobController extends ApiController
                         ->orWhereHas(['company' => function($query) use($search){
                             $query->where('name','like','%'.$search.'%');
                         }]);
-
         }
-        /*
-        $datas = $datas->with(['author'=>function($query) use ($search){
-            $query->orWhere('name','like',"%".$search."%");
-        }]);
-        */
 
         $datas = $datas->orderBy("id","desc")->paginate($page_size);
         return response()->json($datas);
@@ -70,5 +62,19 @@ class JobController extends ApiController
         $job->delete();
         return response()->json(['data'=>$job,'message'=>'post deleted']);
     }
-}
+/*
+    public function index(Request $request) {   
+        $page = $request->page;
+        $page_size = $request->page_size;
+        $search = $request->search;
+        $datas = Job::where('id', '>', 0);
+        
+        if ($request->has('search')) {
+            $datas = $datas->where('position','like',"%".$search."%");
+        }
 
+        $datas = $datas->orderBy('id', 'desc')->paginate($page_size);
+        
+        return response()->json($datas);
+    }*/
+}

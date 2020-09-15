@@ -1,4 +1,3 @@
-import Example from './components/ExampleComponent.vue';
 import HomeIndex from './components/home/Index.vue';
 import PostIndex from './components/post/Index.vue';
 import JobIndex from './components/job/Index.vue';
@@ -6,6 +5,11 @@ import PostCreate from './components/post/Create.vue';
 import PostEdit from './components/post/Edit.vue';
 import CategoryIndex from './components/category/Index.vue';
 import CategoryCreate from './components/category/Create.vue';
+
+import JobIndex from './components/job/Index.vue';
+import JobDetail from './components/job/Detail.vue';
+
+import StudentAmbassadorIndex from './components/studentAmbassador/Index.vue';
 
 export const routes = [
     {
@@ -41,7 +45,17 @@ export const routes = [
     {
         name: 'jobIndex',
         path: '/job/',
-        component: PostIndex
+        component: JobIndex
+    },
+    {
+        name: 'jobDetail',
+        path: '/job/:id',
+        component: JobDetail
+    },
+    {
+        name: 'studentAmbassadorIndex',
+        path: '/studentAmbassador',
+        component: StudentAmbassadorIndex
     }
 /*
     {

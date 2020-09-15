@@ -51,7 +51,7 @@ class RegisterController extends ApiController {
         if ($newUser && $registerToken) {
             Notification::route('mail', $newUser->email)
                         ->notify(new Register($token));
-
+            
             return response()->json([
                 'newUser' => $newUser
             ], 200);

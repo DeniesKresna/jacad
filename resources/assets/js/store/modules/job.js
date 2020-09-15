@@ -8,7 +8,7 @@ const category = {
         
     },
     getters:{
-        categories: (state)=>{
+        categories: (state) => {
             return state.categories;
         }
     },
@@ -39,7 +39,7 @@ const category = {
                 });
             });
         },
-
+        
         UPDATE({commit},payload){
             return new Promise((resolve, reject)=>{
                 axios.put('admin/categories/' + payload.id, qs.stringify(payload)).then(response=>{

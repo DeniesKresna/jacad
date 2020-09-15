@@ -18,7 +18,7 @@ class LoginController extends ApiController {
      */
     public function index(Request $request) {
         $datas = $request->all();
-
+        
         $validate= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validate->fails()) {

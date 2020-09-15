@@ -67,3 +67,10 @@ Route::get('session-user', 'web\SessionController@destroy');
 Route::get('studentAmbassador', function() {
     return view('studentAmbassador.opening', ['title' => 'Student Ambassador']);
 });
+
+/*
+| Login Socialite Routes
+*/
+
+Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
+Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');

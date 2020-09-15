@@ -20,7 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in result.data">
+              <tr v-bind:key="index"
+                  v-for="(item,index) in result.data">
                 <td>{{index + (result.from)}}</td><td>{{item.name}}</td><td></td>
               </tr>
             </tbody>
