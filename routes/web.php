@@ -44,7 +44,6 @@ Route::get('test', function(){
 Route::get('jobs/opening', function(){
     return view('job.opening');
 });
-<<<<<<< HEAD
 
 Route::resource('jobs', 'web\JobController');
 
@@ -75,9 +74,7 @@ Route::get('student-ambassador', function() {
 
 Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
 Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
-=======
 Route::get('job', 'web\JobController@index');
 Route::get('job/create', 'web\JobController@create');
 Route::get('job/{id}', 'web\JobController@show');
 
->>>>>>> master
