@@ -1,6 +1,7 @@
 @extends('user')
 
 @section('content')
+<<<<<<< HEAD
 
     {{-- SEARCH BAR HEADER --}}
     <section class="overlape">
@@ -9,6 +10,15 @@
             {{-- PARALLAX BACKGROUND IMAGE --}}
             <div data-velocity="-.1" style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div>
             
+=======
+    {{-- SEARCH BAR HEADER --}}
+    <section class="overlape">
+        <div class="block no-padding">
+
+            {{-- PARALLAX BACKGROUND IMAGE --}}
+            <div data-velocity="-.1" style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div>
+
+>>>>>>> master
             <div class="container fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -57,7 +67,11 @@
         <img src="{{ url('/public/theme/jobhun/images/loader.gif') }}" alt="" />
         <span>Skip Loader</span>
     </div>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> master
     {{-- MAIN CONTENT --}}
     <section>
         <div class="block">
@@ -107,13 +121,21 @@
                                                 <h3>
                                                     <a href="#" title="">{{ $job->position }}</a>
                                                 </h3>
+<<<<<<< HEAD
                                                 <span>{{ $job->company->name }}</span>
+=======
+                                                <span>{{ $job->company }}</span>
+>>>>>>> master
                                                 <span class="fav-job">
                                                     <i class="la la-heart-o"></i>
                                                 </span>
                                             </div>
                                             <span class="job-lctn">{{ $job->location }}</span>
+<<<<<<< HEAD
                                             <a href="{{ url('/jobs').'/'.$job->id }}" title="">APPLY NOW</a>
+=======
+                                            <a  href="#" title="">APPLY NOW</a>
+>>>>>>> master
                                         </div>
                                     </div>
                                 @endforeach
@@ -161,5 +183,8 @@
         </div>
     </section>
     {{-- MAIN CONTENT --}}
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
 @endsection

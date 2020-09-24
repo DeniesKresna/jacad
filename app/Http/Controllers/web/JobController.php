@@ -5,8 +5,12 @@ namespace App\Http\Controllers\web;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\Job;
 use App\Models\Company;
+=======
+use Validator;
+>>>>>>> master
 
 class JobController extends Controller {
 
@@ -48,6 +52,7 @@ class JobController extends Controller {
             ]),
         ];
 
+<<<<<<< HEAD
         if (!empty(Job::all())) {
             $jobs= Job::all();
             
@@ -58,10 +63,13 @@ class JobController extends Controller {
             }
         }
 
+=======
+>>>>>>> master
         return view('job.list', ['jobs' => $jobs]);
     }
 
     public function show($job_id) {
+<<<<<<< HEAD
         $job= Job::where(['id' => $job_id])->first();
         
         $job->type= strtoupper($job->type);
@@ -82,5 +90,14 @@ class JobController extends Controller {
             'title' => 'Post Job', 
             'companies'=> $companies
         ]);
+=======
+
+        return view('job.show');
+    }
+
+    public function create() {
+
+    	return view('job.create',['title' => 'Post Job']);
+>>>>>>> master
     }
 }
