@@ -38,9 +38,15 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
+<!--
+                      <router-link :to="'/job'" class="list-group-item">Index</router-link>
+                      <a href="#" class="list-group-item">Create</a>
+                      <a href="#" class="list-group-item">Report</a>
+-->
                         <router-link :to="'/job/'" class="list-group-item">Index</router-link>
                         <!--<a href="#" class="list-group-item">Create</a>-->
                         <a href="#" class="list-group-item">Report</a>
+<!-- -->
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
                         Jobhun Academy

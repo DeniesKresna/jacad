@@ -149,7 +149,6 @@
                 });
             },
             error: function(error) {
-                console.log(error);
                 
                 let msg= '';
                 
@@ -205,7 +204,6 @@
                 });
             },
             error: function(error) {
-                console.log(error);
 
                 if (error.status === 422) {
                     let msg= '';

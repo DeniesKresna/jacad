@@ -11,6 +11,13 @@
 <script src="{{asset('jquery-loading/dist/jquery.loading.js')}}" type="text/javascript"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+{{-- LOGIN --}}
+
+<script src="{{asset('js/login.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/register.js')}}" type="text/javascript"></script>
+
+{{-- END OF LOGIN --}}
+
 <script>
     var BASE_URL= {!! json_encode(url('/')); !!}
 </script>

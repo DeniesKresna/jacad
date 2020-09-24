@@ -32,8 +32,9 @@ class CreateJobsTable extends Migration
             $table->string('poster_path')->nullable();
             $table->string('jobhun_info')->nullable();
             $table->unsignedInteger('company_id')->nullable();
-            $table->string('view')->nullable();
+            $table->integer('view')->nullable();
             $table->smallInteger('read')->nullable();
+            $table->smallInteger('verified')->default(0);
             $table->unsignedInteger('first_reader_id')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->timestamp('expired')->nullable();

@@ -19,6 +19,6 @@
     <div id="app" v-cloak>
       <app-component></app-component>
     </div>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js')}} "></script>
   </body>
 </html>

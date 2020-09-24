@@ -29,8 +29,7 @@ class LoginController extends ApiController {
         }
 
         $datas['password']= password_encrypt($datas['password']);
-        $user= User::where($datas)->first();    
-        
+        $user= User::where($datas)->orWhere(['email'=>$datas['username'], 'password'=>$datas['password']])->first();    
         if (!$user) {
             return response()->json([
                 'data' => $datas, 

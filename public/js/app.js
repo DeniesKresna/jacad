@@ -2488,6 +2488,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -50008,7 +50014,7 @@ var render = function() {
           [
             _c("router-link", { attrs: { to: "/" } }, [
               _c("i", { staticClass: "glyphicon glyphicon-home" }),
-              _vm._v("Home \n            ")
+              _vm._v("Home \n                ")
             ])
           ],
           1
@@ -50180,7 +50186,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "glyphicon glyphicon-edit" }),
-        _vm._v("Post  \n                "),
+        _vm._v("Post  \n                    "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50230,7 +50236,9 @@ var staticRenderFns = [
         attrs: { href: "#sbservicech", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Career Hub\n                    "),
+        _vm._v(
+          "\n                        Jobhun Career Hub\n                        "
+        ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50246,7 +50254,9 @@ var staticRenderFns = [
         attrs: { href: "#sbserviceac", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Academy\n                    "),
+        _vm._v(
+          "\n                        Jobhun Academy\n                        "
+        ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50288,7 +50298,7 @@ var staticRenderFns = [
       },
       [
         _vm._v(
-          "\n                    Jobhun Talent Pool\n                    "
+          "\n                        Jobhun Talent Pool\n                        "
         ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
@@ -50331,7 +50341,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "glyphicon glyphicon-briefcase" }),
-        _vm._v("Program  \n                "),
+        _vm._v("Program  \n                    "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50347,7 +50357,9 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramin", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Internship\n                    "),
+        _vm._v(
+          "\n                        Jobhun Internship\n                        "
+        ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50388,7 +50400,9 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramtl", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Talks \n                    "),
+        _vm._v(
+          "\n                        Jobhun Talks \n                        "
+        ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50429,7 +50443,9 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramvi", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Visit\n                    "),
+        _vm._v(
+          "\n                        Jobhun Visit\n                        "
+        ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -50471,7 +50487,7 @@ var staticRenderFns = [
       },
       [
         _vm._v(
-          "\n                    Jobhun Student Ambassador\n                    "
+          "\n                        Jobhun Student Ambassador\n                        "
         ),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
@@ -69230,7 +69246,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL = "http://localhost/magang/jacad/public/api/v1/";
+window.axios.defaults.baseURL = "http://localhost:280/jacad/public/api/v1/";
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -81586,8 +81602,8 @@ var state = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\magang\jacad\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\magang\jacad\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! c:\xampp\htdocs\jacad\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! c:\xampp\htdocs\jacad\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

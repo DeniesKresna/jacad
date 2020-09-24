@@ -62,7 +62,7 @@ Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer']],function
     Route::resource('locations','v1\User\LocationController')->except(['store','update','destroy']);
 });
 
-
+Route::get('test','v1\TestController@adi');
 
 
 
@@ -91,7 +91,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
     Route::resource('/categories','v1\Admin\CategoryController');
     Route::resource('/jobs','v1\Admin\JobController');
     Route::post('/medias','v1\Admin\MediaController@store');
-
+    
     Route::post('/adi/test','v1\TestController@adi');
     
     Route::resource('/jobs', 'v1\Admin\JobController');
