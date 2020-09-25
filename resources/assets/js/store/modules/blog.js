@@ -1,14 +1,13 @@
 import axios from 'axios';
 import qs from "qs";
 
-const post = {
+const blog = {
     namespaced: true,
     state: {
-        posts: []
-        
+        blogs: []
     },
     getters:{
-        posts: (state)=>{
+        blogs: (state)=>{
             return state.posts;
         }
     },
@@ -16,30 +15,32 @@ const post = {
         
     },
     actions: {
-        INDEX({commit},payload){
-            return new Promise((resolve,reject)=>{
-                axios.get('/admin/posts?page_size=10&' + payload).then(response=>{
+        INDEX({commit}, payload){
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/blogs?page_size=10&' + payload).then(response => {
                     resolve(response.data);
                 });
             });
         },
 
         SHOW({commit},payload){
-            return new Promise((resolve,reject)=>{
-                axios.get('/admin/posts/' + payload).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/blogs/' + payload).then(response => {
                     resolve(response.data);
                 });
             });
         },
 
-        STORE({commit},payload){
-            return new Promise((resolve, reject)=>{
+        STORE({commit}, payload) {
+            return new Promise((resolve, reject) => {
                 let formData = new FormData();
+                
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
-                formData.append('categories', payload.categories);
+                formData.append('tags', payload.tags);
                 formData.append('file', payload.file);
-                axios.post('admin/posts', formData,{
+                
+                axios.post('admin/blogs', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -49,17 +50,17 @@ const post = {
             });
         },
 
-        UPDATE({commit},payload){
-            return new Promise((resolve, reject)=>{
-                axios.put('admin/posts/' + payload.id, qs.stringify(payload)).then(response=>{
+        UPDATE({commit}, payload) {
+            return new Promise((resolve, reject) => {
+                axios.put('admin/blogs/' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
                 });
             })
         },
 
         DESTROY({commit}, payload){
-            return new Promise((resolve, reject)=>{
-                axios.delete('admin/posts/' + payload).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.delete('admin/blogs/' + payload).then(response => {
                     resolve(response.data)
                 });
             })
@@ -67,4 +68,4 @@ const post = {
     }
 }
 
-export default post
+export default blog;

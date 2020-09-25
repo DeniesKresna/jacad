@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 15 Aug 2020 17:47:25 +0700.
+ * Date: Fri, 25 Sep 2020 12:01:14 +0700.
  */
 
 namespace App\Models;
@@ -24,14 +24,17 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $line_id
  * @property string $ig_link
  * @property string $linkedin_link
+ * @property int $status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
  * @package App\Models
  */
-class StudentAmbassador extends Eloquent {
+class StudentAmbassador extends Eloquent
+{
 	protected $casts = [
-		'age' => 'int'
+		'age' => 'int',
+		'status' => 'int'
 	];
 
 	protected $fillable = [
@@ -45,6 +48,7 @@ class StudentAmbassador extends Eloquent {
 		'phone',
 		'line_id',
 		'ig_link',
-		'linkedin_link'
+		'linkedin_link',
+		'status'
 	];
 }

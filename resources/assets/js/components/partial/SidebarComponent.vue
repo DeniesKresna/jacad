@@ -10,24 +10,27 @@
             </li>
             <li class="list-group-item">
                 <router-link :to="'/'">
-                    <i class="glyphicon glyphicon-home"></i>Home 
+                    <i class="glyphicon glyphicon-home"></i> Home 
                 </router-link>
             </li>
             <li>
                 <a href="#sbpost" class="list-group-item " data-toggle="collapse">
-                    <i class="glyphicon glyphicon-edit"></i>Post  
+                    <i class="glyphicon glyphicon-edit"></i> Blogs 
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
                 <div class="collapse" id="sbpost">
-                    <router-link :to="'/post'" class="list-group-item">Index</router-link>
-                    <router-link :to="'/post/create'" class="list-group-item">Create</router-link>
+                    <router-link :to="'/blog'" class="list-group-item">Index</router-link>
+                    <router-link :to="'/blog/create'" class="list-group-item">Create</router-link>
                 </div>
             </li>
             <li>
-                <a href="#sbcategory" class="list-group-item " data-toggle="collapse"><i class="glyphicon glyphicon-th"></i>Category  <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="#sbcategory" class="list-group-item " data-toggle="collapse">
+                    <i class="glyphicon glyphicon-th"></i> Tags  
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
                 <div class="collapse" id="sbcategory">
-                    <router-link :to="'/category'" class="list-group-item">Index</router-link>
-                    <router-link :to="'/category/create'" class="list-group-item">Create</router-link>
+                    <router-link :to="'/tag'" class="list-group-item">Index</router-link>
+                    <router-link :to="'/tag/create'" class="list-group-item">Create</router-link>
                 </div>
             </li>
             <li>
@@ -38,15 +41,12 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
-<!--
-                      <router-link :to="'/job'" class="list-group-item">Index</router-link>
-                      <a href="#" class="list-group-item">Create</a>
-                      <a href="#" class="list-group-item">Report</a>
--->
+                        <!--<router-link :to="'/job'" class="list-group-item">Index</router-link>
+                        <a href="#" class="list-group-item">Create</a>
+                        <a href="#" class="list-group-item">Report</a>-->
                         <router-link :to="'/job/'" class="list-group-item">Index</router-link>
                         <!--<a href="#" class="list-group-item">Create</a>-->
                         <a href="#" class="list-group-item">Report</a>
-<!-- -->
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
                         Jobhun Academy
@@ -115,11 +115,11 @@
 </template>
 
 <script>
-  export default{
-    data(){
-      return {
+    export default{
+        data(){
+            return {
 
-      }
+            }
+        }
     }
-  }
 </script>

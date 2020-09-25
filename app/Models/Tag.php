@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 03 Jun 2020 15:35:27 +0700.
+ * Date: Fri, 25 Sep 2020 12:01:14 +0700.
  */
 
 namespace App\Models;
@@ -10,7 +10,7 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Category
+ * Class Tag
  * 
  * @property int $id
  * @property string $name
@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Category extends Eloquent
+class Tag extends Eloquent
 {
 	protected $casts = [
 		'updater_id' => 'int'
@@ -29,9 +29,9 @@ class Category extends Eloquent
 	protected $fillable = [
 		'name',
 		'updater_id'
-	];
-
-	public function updater(){
-		return $this->belongsTo('App\Models\User','updater_id');
+    ];
+    
+    public function updater() {
+		return $this->belongsTo('App\Models\User', 'updater_id');
 	}
 }

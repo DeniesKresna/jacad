@@ -19,10 +19,17 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+/** AXIOS BASE URL **/
+const axios_baseURL= {
+    master: 'http://localhost:280/jacad/public/api/v1/',
+    jonathan: 'http://localhost/magang/jacad/public/api/v1'
+}
+/** AXIOS BASE URL **/
+
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL =  "http://localhost:280/jacad/public/api/v1/";
+window.axios.defaults.baseURL= axios_baseURL.jonathan;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

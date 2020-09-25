@@ -86,9 +86,9 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],func
 //======================================no Middleware=================================================
 
 Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
-    Route::resource('/posts','v1\Admin\PostController');
-    Route::get('/categories/list','v1\Admin\CategoryController@list');
-    Route::resource('/categories','v1\Admin\CategoryController');
+    Route::resource('/blogs','v1\Admin\BlogController');
+    Route::get('/tags/list','v1\Admin\TagController@list');
+    Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/jobs','v1\Admin\JobController');
     Route::post('/medias','v1\Admin\MediaController@store');
     

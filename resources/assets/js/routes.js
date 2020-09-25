@@ -1,9 +1,11 @@
 import HomeIndex from './components/home/Index.vue';
-import PostIndex from './components/post/Index.vue';
-import PostCreate from './components/post/Create.vue';
-import PostEdit from './components/post/Edit.vue';
-import CategoryIndex from './components/category/Index.vue';
-import CategoryCreate from './components/category/Create.vue';
+
+import BlogIndex from './components/blog/Index.vue';
+import BlogCreate from './components/blog/Create.vue';
+import BlogEdit from './components/blog/Edit.vue';
+
+import TagIndex from './components/tag/Index.vue';
+import TagCreate from './components/tag/Create.vue';
 
 import JobIndex from './components/job/Index.vue';
 import JobDetail from './components/job/Detail.vue';
@@ -17,29 +19,29 @@ export const routes = [
         component: HomeIndex
     },
     {
-        name: 'postIndex',
-        path: '/post/',
-        component: PostIndex
+        name: 'blogIndex',
+        path: '/blog/',
+        component: BlogIndex
     },
     {
-        name: 'postCreate',
-        path: '/post/create',
-        component: PostCreate
+        name: 'blogCreate',
+        path: '/blog/create',
+        component: BlogCreate
     },
     {
         name: 'postEdit',
-        path: '/post/:id',
-        component: PostEdit
+        path: '/blog/:id',
+        component: BlogEdit
     },
     {
-        name: 'categoryIndex',
-        path: '/category/',
-        component: CategoryIndex
+        name: 'tagIndex',
+        path: '/tag/',
+        component: TagIndex
     },
     {
-        name: 'categoryCreate',
-        path: '/category/create',
-        component: CategoryCreate
+        name: 'tagCreate',
+        path: '/tag/create',
+        component: TagCreate
     },
     {
         name: 'jobIndex',

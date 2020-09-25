@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 15 Jun 2020 14:40:16 +0700.
+ * Date: Fri, 25 Sep 2020 12:01:14 +0700.
  */
 
 namespace App\Models;
@@ -10,7 +10,7 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Post
+ * Class Blog
  * 
  * @property int $id
  * @property string $title
@@ -26,7 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Post extends Eloquent
+class Blog extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -42,13 +42,13 @@ class Post extends Eloquent
 		'url',
 		'content',
 		'author_id'
-	];
-
-	public function categories(){
-		return $this->belongsToMany("App\Models\Category");
+    ];
+    
+    public function tags() {
+		return $this->belongsToMany("App\Models\Tag");
 	}
 
-	public function author(){
-		return $this->belongsTo("App\Models\User","author_id");
+	public function author() {
+		return $this->belongsTo("App\Models\User", "author_id");
 	}
 }

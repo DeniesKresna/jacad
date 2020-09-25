@@ -5,8 +5,8 @@ import { actions } from './actions';
 import { mutations } from './mutations';
 import { getters } from './getters'; 
 
-import post from './modules/post';
-import category from './modules/category';
+import blog from './modules/blog';
+import tag from './modules/tag';
 import job from './modules/_job';
 import jsambassador from './modules/jsambassador';
 
@@ -21,8 +21,8 @@ export default new Vuex.Store({
   	actions,
   	getters,
     modules: {
-    	post,
-        category,
+    	blog,
+        tag,
         job,
         jsambassador
     	/*

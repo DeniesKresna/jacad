@@ -1,15 +1,14 @@
 import axios from 'axios';
 import qs from "qs";
 
-const category = {
+const tag = {
     namespaced: true,
     state: {
-        posts: []
-        
+        tags: []
     },
     getters:{
-        categories: (state)=>{
-            return state.categories;
+        tags: (state)=>{
+            return state.tags;
         }
     },
     mutations: {
@@ -17,8 +16,8 @@ const category = {
     },
     actions: {
         INDEX({commit},payload){
-            return new Promise((resolve,reject)=>{
-                axios.get('/admin/categories?page_size=10&' + payload).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/tags?page_size=10&' + payload).then(response=>{
                     resolve(response.data);
                 });
             });
@@ -26,31 +25,31 @@ const category = {
 
         LIST({commit},payload){
             return new Promise((resolve,reject)=>{
-                axios.get('/admin/categories/list').then(response=>{
+                axios.get('/admin/tags/list').then(response=>{
                     resolve(response.data);
                 });
             });
         },
 
         STORE({commit},payload){
-            return new Promise((resolve, reject)=>{
-                axios.post('admin/categories', qs.stringify(payload)).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.post('admin/tags', qs.stringify(payload)).then(response=>{
                     resolve(response.data.data);
                 });
             });
         },
 
         UPDATE({commit},payload){
-            return new Promise((resolve, reject)=>{
-                axios.put('admin/categories/' + payload.id, qs.stringify(payload)).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.put('admin/tags/' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
                 });
             })
         },
-
+        
         DESTROY({commit}, payload){
-            return new Promise((resolve, reject)=>{
-                axios.delete('admin/categories/' + payload).then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.delete('admin/tags/' + payload).then(response=>{
                     resolve(response.data)
                 });
             })
@@ -58,4 +57,4 @@ const category = {
     }
 }
 
-export default category
+export default tag;

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 Jul 2020 15:19:03 +0700.
+ * Date: Fri, 25 Sep 2020 12:01:14 +0700.
  */
 
 namespace App\Models;
@@ -47,9 +47,9 @@ class Company extends Eloquent
 		'email',
 		'employee_amount',
 		'updater_id'
-	];
-
-	public function jobs() {
+    ];
+    
+    public function jobs() {
 		return $this->hasMany('App\Models\Job');
 	}
 }
