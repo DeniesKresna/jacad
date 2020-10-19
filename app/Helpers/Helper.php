@@ -140,8 +140,12 @@ function to_array($arr){
  * @param $password
  * @return string
  */
+
+use Illuminate\Support\Facades\Hash;
+
 function password_encrypt($password){
-    return md5(md5($password));
+    //return md5(md5($password));
+    return Hash::make($password);
 }
 
 /**

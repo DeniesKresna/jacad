@@ -11,21 +11,26 @@
 |
 **/
 
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('admin', function(){
-    return view('admin');
+/*
+| Views routes
+*/
+Route::get('/', 'PageController@home');
+Route::get('/admin', 'PageController@admin');
+Route::get('/student-ambassador', 'PageController@studentAmbassador');
+
+/*
+| Jobs routes
+*/
+Route::get('job/opening', function() {
+    return view('pages.job.opening');
 });
+Route::get('job', 'web\JobController@index');
+Route::get('job/create', 'web\JobController@create');
+Route::get('job/{id}', 'web\JobController@show');
 
-Route::get('/', function() {
-    //Session::remove('user');
-
-    if (Session::has('user')) {
-        //dd(Session::get('user'));
-    }
-
-    return view('home');
-});
+Route::resource('jobs', 'web\JobController');
 
 /*
 | Blogs routes
@@ -34,47 +39,20 @@ Route::get('blogs/category/{category}','web\PostController@indexCategory');
 Route::get('blogs/{url_title}', "web\PostController@getFromTitle");
 Route::resource('blogs', "web\PostController");
 
-Route::get('test', function(){
-    return view('test');
-});
 
 /*
-| Jobs routes
+| Login Socialite routes
 */
-Route::get('jobs/opening', function(){
-    return view('job.opening');
-});
-
-Route::resource('jobs', 'web\JobController');
+Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
+Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
 
 /* JONATHAN ROUTE (DIUBAH PKE API) */
-
 Route::post('register', 'web\RegisterController@index');
 Route::post('login', 'web\LoginController@index');
 
 Route::get('logout', 'web\LogoutController@index');
 Route::get('register-token/{token}', 'web\RegisterController@checkToken');
-
 /* JONATHAN ROUTE (DIUBAH PKE API) */
 
-//SESSION ROUTE - SEMENTARA
-Route::post('session-user', 'web\SessionController@store');
-Route::get('session-user', 'web\SessionController@destroy');
-
-/*
-| Student Ambassador Routes
-*/
-Route::get('student-ambassador', function() {
-    return view('studentAmbassador.opening', ['title' => 'Student Ambassador']);
-});
-
-/*
-| Login Socialite Routes
-*/
-
-Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
-Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
-Route::get('job', 'web\JobController@index');
-Route::get('job/create', 'web\JobController@create');
-Route::get('job/{id}', 'web\JobController@show');
+Route::get('logout', 'web\LogoutController@index');
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\web;
 
 use Socialite;
 
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -30,18 +30,22 @@ class SocialiteLoginController extends Controller {
                 'name' => $user->name,
                 'username' => '',
                 'email' => $user->email,
-                'password' => '',
+                'password' => password_encrypt($user->email),
                 'phone' => '',
                 'active' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
+
+            $user->save();
         } else {
             $user= $existingUser;
         }
-
-        Session::put('user', $user);
-
-        return redirect('/');
+        
+        if (Auth::guard('user')->attempt(['username' => $user->username, 'password' => $user->password])) {
+            return redirect('/');
+        } else {
+            dd('error');
+        }
     }
 }

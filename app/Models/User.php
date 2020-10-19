@@ -2,11 +2,10 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 30 Oct 2019 10:37:29 +0700.
+ * Date: Sun, 11 Oct 2020 13:04:14 +0700.
  */
 
 namespace App\Models;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -14,6 +13,23 @@ use App\Notifications\PasswordReset; // Or the location that you store your noti
 
 /**
  * Class User
+ * 
+ * @property int $id
+ * @property string $name
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ * @property \Carbon\Carbon $prev_login
+ * @property \Carbon\Carbon $last_login
+ * @property int $active
+ * @property \Carbon\Carbon $dt_start
+ * @property \Carbon\Carbon $dt_end
+ * @property string $notification_emails
+ * @property string $phone
+ * @property string $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
  * @package App\Models
  */
 class User extends Authenticatable
@@ -23,7 +39,11 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
-    protected $dates = [
+	protected $casts = [
+		'active' => 'int'
+	];
+
+	protected $dates = [
 		'prev_login',
 		'last_login',
 		'dt_start',
@@ -36,21 +56,25 @@ class User extends Authenticatable
 
 	protected $fillable = [
 		'name',
+		'username',
         'email',
         'phone',
         'address',
         'username',
 		'password',
 		'prev_login',
-		'last_login',
-		'type',
+        'last_login',
+        'type',
 		'active',
-		'notification_emails',
 		'dt_start',
+		'dt_end',
+		'notification_emails',
+        'phone',
+        'dt_start',
 		'dt_end'
-	];
-
-	/**
+    ];
+    
+    /**
 	* Send the password reset notification.
 	*
 	* @param  string  $token
@@ -61,7 +85,19 @@ class User extends Authenticatable
 	    $this->notify(new PasswordReset($token));
 	}
 
-	public function roles(){
+    /**
+     * Overrides the method to ignore the remember token.
+     */
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+        
+        if (!$isRememberTokenAttribute) {
+            parent::setAttribute($key, $value);
+        }
+    }
+
+	public function roles() {
 		return $this->belongsToMany('App\Models\Role');
 	}
 }

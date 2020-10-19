@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\ApiController;
-use App\Models\User;
 
 use Validator;
 
@@ -28,17 +28,18 @@ class LoginController extends ApiController {
             ], 422);
         }
 
-        $datas['password']= password_encrypt($datas['password']);
-        $user= User::where($datas)->orWhere(['email'=>$datas['username'], 'password'=>$datas['password']])->first();    
-        if (!$user) {
+        //$datas['password']= password_encrypt($datas['password']);
+        //$user= User::where($datas)->orWhere(['email'=>$datas['username'], 'password'=>$datas['password']])->first();    
+
+        if (!Auth::guard('user')->attempt($datas)) {
             return response()->json([
                 'data' => $datas, 
                 'messages' => 'Wrong username or password'
             ], 404);
         }
-        
+
         return response()->json([
-            'user' => $user
+            'user' => Auth::user()
         ], 200);
     }
 }

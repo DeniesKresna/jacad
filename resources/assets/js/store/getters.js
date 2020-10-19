@@ -1,11 +1,16 @@
-export const getters = {
-  isLoading: (state)=>{
-  	return state.isLoading;
-  },
-  isSidebar: (state)=>{
-  	return state.isSidebar;
-  },
-  menus: (state)=>{
-  	return state.menus;
-  }
+import { state } from "./state";
+
+export const getters= {
+    urls: () => {
+        return state.urls;
+    },
+    isLoading: () => {
+        return state.isLoading;
+    },
+    isSidebar: () => {
+        return state.isSidebar;
+    },
+    menus: () => {
+        return state.menus;
+    }
 };

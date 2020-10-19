@@ -51,9 +51,9 @@ class JobController extends ApiController {
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
         $datas['sector_ids']= explode(',', $datas['sector_ids']);
-        $datas["creator_id"] = Session::get('user')->id;
-        $datas["updater_id"] = Session::get('user')->id;   
-
+        $datas["creator_id"] = 1;
+        $datas["updater_id"] = 1;   
+        
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validator->fails()) {

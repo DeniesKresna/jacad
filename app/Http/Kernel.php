@@ -41,12 +41,14 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             'throttle:60,1',
             'bindings',
             \Barryvdh\Cors\HandleCors::class,
         ],
     ];
-
+    
     /**
      * The application's route middleware.
      *

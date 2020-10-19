@@ -7,7 +7,7 @@ const tag = {
         tags: []
     },
     getters:{
-        tags: (state)=>{
+        tags: (state) => {
             return state.tags;
         }
     },
@@ -15,7 +15,7 @@ const tag = {
         
     },
     actions: {
-        INDEX({commit},payload){
+        INDEX({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 axios.get('/admin/tags?page_size=10&' + payload).then(response=>{
                     resolve(response.data);
@@ -23,15 +23,15 @@ const tag = {
             });
         },
 
-        LIST({commit},payload){
-            return new Promise((resolve,reject)=>{
+        LIST({ commit }, payload) {
+            return new Promise((resolve,reject) => {
                 axios.get('/admin/tags/list').then(response=>{
                     resolve(response.data);
                 });
             });
         },
 
-        STORE({commit},payload){
+        STORE({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 axios.post('admin/tags', qs.stringify(payload)).then(response=>{
                     resolve(response.data.data);
@@ -39,7 +39,7 @@ const tag = {
             });
         },
 
-        UPDATE({commit},payload){
+        UPDATE({commit},payload) {
             return new Promise((resolve, reject) => {
                 axios.put('admin/tags/' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
@@ -47,7 +47,7 @@ const tag = {
             })
         },
         
-        DESTROY({commit}, payload){
+        DESTROY({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 axios.delete('admin/tags/' + payload).then(response=>{
                     resolve(response.data)

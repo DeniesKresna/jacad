@@ -1,6 +1,10 @@
 <div class="responsive-header">
     <div class="responsive-menubar">
-        <div class="res-logo"><a href="{{url('/')}}" title=""><img src="{{url('/').'/gallery/jobhun.png'}}" width="178" alt="" /></a></div>
+        <div class="res-logo">
+            <a href="{{ url('/') }}" title="">
+                <img src="{{ url('/').'/gallery/jobhun.png' }}" width="178" alt="" />
+            </a>
+        </div>
         <div class="menu-resaction">
             <div class="res-openmenu">
                 <img src="images/icon.png" alt="" /> Menu
@@ -12,7 +16,7 @@
     </div>
     
     <div class="responsive-opensec">
-        @if (!Session::has('user'))
+        @if (!Auth::check())
             <!-- Btn Extras -->
             <div class="btn-extars">
                 <a href="{{ url('jobs/create') }}" title="" class="post-job-btn">
@@ -22,12 +26,12 @@
                 <ul class="account-btns">
                     <li class="signup-popup">
                         <a title="">
-                            <i class="la la-key"></i> Sign Up
+                            <i class="la la-key"></i> Daftar
                         </a>
                     </li>
                     <li class="signin-popup">
                         <a title="">
-                            <i class="la la-external-link-square"></i> Login
+                            <i class="la la-external-link-square"></i> Masuk
                         </a>
                     </li>
                 </ul>
@@ -37,7 +41,7 @@
             <div class="my-profiles-sec">
                 <span>
                     <img src="http://placehold.it/50x50" alt="" /> 
-                    {{ Session::get('user')->name }} <i class="la la-bars"></i>
+                    {{ Auth::user()->name }} <i class="la la-bars"></i>
                 </span>
             </div>
         @endif
@@ -55,19 +59,16 @@
                     <a href="#" title="">Home</a>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="#" title="">Services</a>
+                    <a href="#" title="">Layanan</a>
                     <ul>
                         <li>
-                            <a href="{{url('jobs')}}" title="">Jobhun Academy</a>
+                            <a href="" title="">Jobhun Academy</a>
                         </li>
                         <li>
-                            <a href="employer_list2.html" title="">Jobhun Career Hub</a>
+                            <a href="" title="">Jobhun Ask Career</a>
                         </li>
                         <li>
-                            <a href="employer_list3.html" title="">Jobhun Ask Career</a>
-                        </li>
-                        <li>
-                            <a href="employer_list4.html" title="">Jobhun Class</a>
+                            <a href="{{ url('jobs') }}" title="">Jobhun Career Hub</a>
                         </li>
                     </ul>
                 </li>
@@ -75,19 +76,19 @@
                     <a href="#" title="">Program</a>
                     <ul>
                         <li>
-                            <a href="candidates_list.html" title="">Jobhun Internship</a>
+                            <a href="" title="">Jobhun Internship</a>
                         </li>
                         <li>
-                            <a href="candidates_list2.html" title="">Jobhun Talks</a>
+                            <a href="" title="">Jobhun Talks</a>
                         </li>
                         <li>
-                            <a href="candidates_list3.html" title="">Jobhun Visit</a>
-                        </li>
-                        <li>
-                            <a href="candidates_single.html" title="">Jobhun Speak</a>
+                            <a href="" title="">Jobhun Visit</a>
                         </li>
                         <li>
                             <a href="{{ url('/student-ambassador') }}" title="">Jobhun Student Ambrassador</a>
+                        </li>
+                        <li>
+                            <a href="" title="">Virtual Job Fair</a>
                         </li>
                     </ul>
                 </li>
@@ -105,62 +106,61 @@
 <header class="stick-top">
     <div class="menu-sec">
         <div class="container">
-            
-            <!-- Logo -->
+            <!-- LOGO -->
             <div class="logo">
                 <a href="{{url('/')}}" title="">
-                    <img src="{{url('/').'/gallery/jobhun.png'}}" width="178" alt="" />
+                    <img src="https://jobhun.id/wp-content/uploads/2018/11/cropped-logo-jobhun-3.png" width="80" alt="" />
                 </a>
             </div>
-            <!-- Logo -->
+            <!-- LOGO -->
 
-            @if (!Session::has('user'))
-                <!-- Btn Extras -->
+            @if (!Auth::check())
+                <!-- BUTTON EXTRAS -->
                 <div class="btn-extars">
-                    <a href="{{ url('/jobs/create') }}" title="" class="post-job-btn">
+                    <!--<a href="{{ url('/jobs/create') }}" title="" class="post-job-btn">
                         <i class="la la-plus"></i> Post Jobs
-                    </a>
+                    </a>-->
+                    
                     <ul class="account-btns">
                         <li class="signup-popup">
                             <a title="">
-                                <i class="la la-key"></i> Sign Up
+                                <i class="la la-key"></i> Daftar
                             </a>
                         </li>
                         <li class="signin-popup">
                             <a title="">
-                                <i class="la la-external-link-square"></i> Login
+                                <i class="la la-external-link-square"></i> Masuk
                             </a>
                         </li>
                     </ul>
                 </div>
-                <!-- Btn Extras -->
+                <!-- BUTTON EXTRAS -->
             @else
                 <div class="my-profiles-sec">
                     <span>
                         <img src="http://placehold.it/50x50" alt="" /> 
-                        {{ Session::get('user')->name }} <i class="la la-bars"></i>
+                        {{ Auth::user()->name }} <i class="la la-bars"></i>
                     </span>
                 </div>
             @endif
             
+            <!-- MENU -->
             <nav>
                 <ul>
-                    <li class="menu-item">
+                    <!--<li class="menu-item">
                         <a href="{{ url('/') }}" title="">Home</a>
-                    </li>
+                    </li>-->
+
                     <li class="menu-item-has-children">
-                        <a href="#" title="">Services</a>
+                        <a href="#" title="">Layanan</a>
                         <ul>
                             <li>
-                                <a href="{{url('/jobs')}}" title="">Jobhun Academy</a></li>
+                                <a href="" title="">Jobhun Academy</a></li>
                             <li>
-                                <a href="employer_list2.html" title="">Jobhun Career Hub</a>
+                                <a href="" title="">Jobhun Ask Career</a>
                             </li>
                             <li>
-                                <a href="employer_list3.html" title="">Jobhun Ask Career</a>
-                            </li>
-                            <li>
-                                <a href="employer_list4.html" title="">Jobhun Class</a>
+                                <a href="{{ url('jobs') }}" title="">Jobhun Career Hub</a>
                             </li>
                         </ul>
                     </li>
@@ -168,29 +168,31 @@
                         <a href="#" title="">Program</a>
                         <ul>
                             <li>
-                                <a href="candidates_list.html" title="">Jobhun Internship</a>
+                                <a href="" title="">Jobhun Internship</a>
                             </li>
                             <li>
-                                <a href="candidates_list2.html" title="">Jobhun Talks</a>
+                                <a href="" title="">Jobhun Talks</a>
                             </li>
                             <li>
-                                <a href="candidates_list3.html" title="">Jobhun Visit</a>
-                            </li>
-                            <li>
-                                <a href="candidates_single.html" title="">Jobhun Speak</a>
+                                <a href="" title="">Jobhun Visit</a>
                             </li>
                             <li>
                                 <a href="{{ url('/student-ambassador') }}" title="">Jobhun Student Ambrassador</a>
                             </li>
+                            <li>
+                                <a href="" title="">Virtual Job Fair</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="menu-item">
+                    
+                    <!--<li class="menu-item">
                         <a href="{{url('/blog')}}" title="">Blog</a>
                     </li>
                     <li class="menu-item">
                         <a href="#" title="">About</a>
-                    </li>
-                    @if (Session::has('user'))
+                    </li>-->
+
+                    {{-- @if (Session::has('user'))
                         <li class="menu-item">
                             <div class="btn-extars">
                                 <a href="{{ url('/jobs/create') }}" title="" class="post-job-btn">
@@ -198,27 +200,31 @@
                                 </a>
                             </div> 
                         </li>
-                    @endif
+                    @endif --}}
                 </ul>
-            </nav><!-- Menus -->
+            </nav>
+            <!-- MENU -->
+
         </div>
     </div>
 </header>
 
-@if (Session::has('user'))
+@if (Auth::check())
     <div class="profile-sidebar">
         <span class="close-profile">
             <i class="la la-close"></i>
         </span>
 
         <div class="can-detail-s">
-            <div class="cst"><img src="http://placehold.it/145x145" alt="" /></div>
-            <h3>{{ Session::get('user')->name }}</h3>
+            <div class="cst">
+                <img src="http://placehold.it/145x145" alt="" />
+            </div>
+            <h3>{{ Auth::user()->name }}</h3>
             <span>
                 <i>UX / UI Designer</i> at Atract Solutions
             </span>
-            <p>{{ Session::get('user')->email }}</p>
-            <p>Member Since, 2017</p>
+            <p>{{ Auth::user()->email }}</p>
+            <p>Bergabung sejak, 2017</p>
             {{-- <p>
                 <i class="la la-map-marker"></i> {{ Session::get('user')->address }}
             </p> --}}
@@ -228,10 +234,35 @@
             <ul>
                 <li>
                     <a href="{{ url('/public/theme/jobhun/candidates_profile.html') }}" title="">
-                        <i class="la la-file-text"></i> My Profile
+                        <i class="la la-file-text"></i> Profil
                     </a>
                 </li>
                 <li>
+                    <a href="" title="">
+                        <i class="la la-graduation-cap"></i> Kelas yang diiukuti
+                    </a>
+                </li>
+                <li>
+                    <a href="" title="">
+                        <i class="la la-book"></i> Mentoring yang diikuti
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('/public/theme/jobhun/candidates_applied_jobs.html') }}" title="">
+                        <i class="la la-paper-plane"></i> Lowongan kerja yang dilamar
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('/public/theme/jobhun/candidates_change_password.html') }}" title="">
+                        <i class="la la-flash"></i> Ganti kata sandi
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('/logout') }}" title="">
+                        <i class="la la-unlink"></i> Keluar
+                    </a>
+                </li>
+                <!--<li>
                     <a href="{{ url('/public/theme/jobhun/candidates_my_resume.html') }}" title="">
                         <i class="la la-briefcase"></i> My Resume
                     </a>
@@ -239,11 +270,6 @@
                 <li>
                     <a href="{{ url('/public/theme/jobhun/candidates_shortlist.html') }}" title="">
                         <i class="la la-money"></i> Shorlisted Job
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('/public/theme/jobhun/candidates_applied_jobs.html') }}" title="">
-                        <i class="la la-paper-plane"></i> Applied Job
                     </a>
                 </li>
                 <li>
@@ -255,17 +281,7 @@
                     <a href="{{ url('/public/theme/jobhun/candidates_cv_cover_letter.html') }}" title="">
                         <i class="la la-file-text"></i> CV & Cover Letter
                     </a>
-                </li>
-                <li>
-                    <a href="{{ url('/public/theme/jobhun/candidates_change_password.html') }}" title="">
-                        <i class="la la-flash"></i> Change Password
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('/session-user') }}" title="">
-                        <i class="la la-unlink"></i> Logout
-                    </a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>

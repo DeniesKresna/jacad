@@ -79,8 +79,8 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramin">
-                        <a href="#" class="list-group-item">Index</a>
-                        <a href="#" class="list-group-item">Create</a>
+                        <router-link :to="'/internship/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/internship/create'" class="list-group-item">Create</router-link>
                         <a href="#" class="list-group-item">Report</a>
                     </div>
                     <a href="#sbprogramtl" class="list-group-item" data-toggle="collapse">
@@ -88,8 +88,8 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramtl">
-                        <a href="#" class="list-group-item">Index</a>
-                        <a href="#" class="list-group-item">Create</a>
+                        <router-link :to="'/talks/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/talks/create'" class="list-group-item">Create</router-link>
                         <a href="#" class="list-group-item">Report</a>
                     </div>
                     <a href="#sbprogramvi" class="list-group-item" data-toggle="collapse">
@@ -97,8 +97,8 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramvi">
-                        <a href="#" class="list-group-item">Index</a>
-                        <a href="#" class="list-group-item">Create</a>
+                        <router-link :to="'/visit/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/visit/create'" class="list-group-item">Create</router-link>
                         <a href="#" class="list-group-item">Report</a>
                     </div>
                      <a href="#sbprogramsa" class="list-group-item" data-toggle="collapse">
@@ -115,10 +115,10 @@
 </template>
 
 <script>
-    export default{
-        data(){
+    export default {
+        data() {
             return {
-
+                
             }
         }
     }

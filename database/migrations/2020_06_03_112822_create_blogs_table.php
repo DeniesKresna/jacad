@@ -21,6 +21,7 @@ class CreateBlogsTable extends Migration
             $table->string('url_title');
             $table->string('url');
             $table->text('content');
+            $table->unsignedInteger('category_id');
             $table->unsignedInteger('author_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

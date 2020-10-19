@@ -7,7 +7,7 @@ const blog = {
         blogs: []
     },
     getters:{
-        blogs: (state)=>{
+        blogs: (state) => {
             return state.posts;
         }
     },
@@ -15,7 +15,7 @@ const blog = {
         
     },
     actions: {
-        INDEX({commit}, payload){
+        INDEX({ commit }, payload){
             return new Promise((resolve, reject) => {
                 axios.get('/admin/blogs?page_size=10&' + payload).then(response => {
                     resolve(response.data);
@@ -23,7 +23,7 @@ const blog = {
             });
         },
 
-        SHOW({commit},payload){
+        SHOW({ commit },payload){
             return new Promise((resolve, reject) => {
                 axios.get('/admin/blogs/' + payload).then(response => {
                     resolve(response.data);
@@ -31,12 +31,13 @@ const blog = {
             });
         },
 
-        STORE({commit}, payload) {
+        STORE({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 let formData = new FormData();
                 
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
+                formData.append('category', payload.category);
                 formData.append('tags', payload.tags);
                 formData.append('file', payload.file);
                 
@@ -44,21 +45,21 @@ const blog = {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-              }).then(response=>{
+                }).then(response=>{
                     resolve(response.data.data);
                 });
             });
         },
 
-        UPDATE({commit}, payload) {
+        UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 axios.put('admin/blogs/' + payload.id, qs.stringify(payload)).then(response=>{
                     resolve(response.data)
                 });
             })
         },
-
-        DESTROY({commit}, payload){
+        
+        DESTROY({ commit }, payload){
             return new Promise((resolve, reject) => {
                 axios.delete('admin/blogs/' + payload).then(response => {
                     resolve(response.data)

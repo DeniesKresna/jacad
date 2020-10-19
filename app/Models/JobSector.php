@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 21 Jul 2020 14:56:56 +0700.
+ * Date: Sun, 11 Oct 2020 13:04:14 +0700.
  */
 
 namespace App\Models;
@@ -20,9 +20,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class JobSector extends Eloquent {
+class JobSector extends Eloquent
+{
 	protected $table = 'job_sector';
-    
+
 	protected $casts = [
 		'job_id' => 'int',
 		'sector_id' => 'int'

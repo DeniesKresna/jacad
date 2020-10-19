@@ -85,17 +85,17 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],func
 
 //======================================no Middleware=================================================
 
-Route::group(['prefix' => 'v1/admin', 'middleware' => []],function () {
-    Route::resource('/blogs','v1\Admin\BlogController');
+Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
+    Route::get('/categories/list','v1\Admin\CategoryController@list');
     Route::get('/tags/list','v1\Admin\TagController@list');
-    Route::resource('/tags','v1\Admin\TagController');
-    Route::resource('/jobs','v1\Admin\JobController');
     Route::post('/medias','v1\Admin\MediaController@store');
     
-    Route::post('/adi/test','v1\TestController@adi');
-    
     Route::resource('/jobs', 'v1\Admin\JobController');
+    Route::resource('/blogs','v1\Admin\BlogController');
+    Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/studentAmbassadors', 'v1\Admin\StudentAmbassadorController');
+    
+    //Route::post('/adi/test','v1\TestController@adi');s
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
@@ -105,15 +105,14 @@ Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
 });
 
-/* API LOGIN & REGISTER JONATHAN*/
 
+/* API LOGIN & REGISTER JONATHAN*/
 Route::group(['prefix' => 'v1', 'middleware' => []], function() {
     Route::post('/register', 'v1\RegisterController@store');
     Route::get('/register-token/{token}', 'v1\RegisterController@checkToken');
     
     Route::post('/login', 'v1\LoginController@index');
 });
-
 /* API LOGIN & REGISTER JONATHAN*/
 
 

@@ -6,10 +6,13 @@
  */
 
 require('./bootstrap');
+
 import VueRouter from 'vue-router';
-import {routes} from './routes';
+import  { routes } from './routes';
+
 import store from './store';
 import Paginate from 'vuejs-paginate';
+
 import 'vue-select/dist/vue-select.css';
 import vSelect from 'vue-select'
 

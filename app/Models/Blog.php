@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 25 Sep 2020 12:01:14 +0700.
+ * Date: Sun, 11 Oct 2020 13:04:13 +0700.
  */
 
 namespace App\Models;
@@ -44,11 +44,15 @@ class Blog extends Eloquent
 		'author_id'
     ];
     
-    public function tags() {
-		return $this->belongsToMany("App\Models\Tag");
+    public function author() {
+		return $this->belongsTo("App\Models\User", 'author_id');
 	}
 
-	public function author() {
-		return $this->belongsTo("App\Models\User", "author_id");
+    public function category() {
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
+
+    public function tags() {
+		return $this->belongsToMany("App\Models\Tag");
 	}
 }

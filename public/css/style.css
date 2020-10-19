@@ -11601,7 +11601,6 @@ footer.ft .scrollup {
     background: -ms-linear-gradient(130deg,  rgba(20,31,114,1) 0%,rgba(52,65,161,1) 71%,rgba(52,65,161,1) 100%);
     background: linear-gradient(130deg,  rgba(20,31,114,1) 0%,rgba(52,65,161,1) 71%,rgba(52,65,161,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8b91dd', endColorstr='#10195d',GradientType=1 );
-
 }
 
 .new-slide img{ position: absolute; bottom: 0px; right: 0px; opacity: 0.20;}

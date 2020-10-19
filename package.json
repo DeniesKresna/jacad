@@ -28,7 +28,7 @@
         "vue-loading-overlay": "^3.3.2",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.3.2",
-        "vue-select": "^3.10.3",
+        "vue-select": "^3.10.8",
         "vue-swal": "^1.0.0",
         "vue2-editor": "^2.10.2",
         "vuejs-paginate": "^2.1.0",

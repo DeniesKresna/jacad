@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 02 Mar 2020 15:44:03 +0700.
+ * Date: Sun, 11 Oct 2020 13:04:14 +0700.
  */
 
 namespace App\Models;
@@ -33,14 +33,18 @@ class UserToken extends Eloquent
 		'dt_added'
 	];
 
+	protected $hidden = [
+		'token'
+	];
+
 	protected $fillable = [
 		'expired_time',
 		'dt_added',
 		'token',
 		'user_id'
-	];
-
-	public function user(){
+    ];
+    
+    public function user(){
 		return $this->belongsTo('App\Models\User');
 	}
 }

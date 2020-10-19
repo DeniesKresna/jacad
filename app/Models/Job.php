@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 Jul 2020 15:18:43 +0700.
+ * Date: Sun, 11 Oct 2020 13:04:14 +0700.
  */
 
 namespace App\Models;
@@ -32,6 +32,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $company_id
  * @property int $view
  * @property int $read
+ * @property int $verified
  * @property int $first_reader_id
  * @property int $creator_id
  * @property \Carbon\Carbon $expired
@@ -78,13 +79,14 @@ class Job extends Eloquent
 		'company_id',
 		'view',
 		'read',
+		'verified',
 		'first_reader_id',
 		'creator_id',
 		'expired',
 		'verificator_id'
-	];
+    ];
     
-	public function company() {
+    public function company() {
 		return $this->belongsTo('App\Models\Company', 'creator_id');
 	}
 }
