@@ -45,8 +45,8 @@ const blog = {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-                }).then(response=>{
-                    resolve(response.data.data);
+                }).then(response => {
+                    resolve(response.data);
                 });
             });
         },

@@ -1,6 +1,6 @@
 <template>
     <table-internship 
-        title="Internship"
+        title="Index Internship"
         category="Jobhun Internship" 
         route="/internship/" />
 </template>

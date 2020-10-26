@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Create {{ title }}</h2>
+        <h2 class="content-row-title">{{ title }}</h2>
         <div class="row">
             <form 
                 class="form-horizontal" 
@@ -92,7 +92,7 @@
         props: [
             'title',
             'category',
-            'module',
+            'menu',
             'disabled'
         ],
         data() {
@@ -120,11 +120,20 @@
             }
         },
         mounted() {
-            this.$store.dispatch('category/LIST').then(response => {
+            let stringQuery= '';
+
+            if (this.menu) {
+                stringQuery= `menu=${this.menu}`;
+            }
+
+            if (this.category) {
+                stringQuery+= `&name=${this.category}`;
+            }
+
+            this.$store.dispatch('category/LIST', stringQuery).then(response => {
                 this.options.categories= response;
-                this.picked.category= response.find(item => item.name === this.category)
+                this.picked.category= response[0];
             });
-            
             this.$store.dispatch('tag/LIST').then(response => {
                 this.options.tags = response;
             });
@@ -157,13 +166,11 @@
                 this.data.category= this.picked.category.id;
                 this.data.tags = this.picked.tags.map(tag => tag.id);
                 
-                this.$store.dispatch(this.module, this.data).then(response => {
+                this.$store.dispatch('blog/STORE', this.data).then(response => {
                     this.data = {
                         title: '', 
                         content: '',
-                        category_object: {},
-                        category: 0, 
-                        tags_objects: [], 
+                        category: 0,  
                         tags: [], 
                         file: null
                     };

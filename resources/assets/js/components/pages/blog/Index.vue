@@ -1,6 +1,7 @@
 <template>
     <table-blog 
-        title="Blog"
+        title="Index Blog"
+        menu="Blog"
         route="/blog/" />
 </template>
 

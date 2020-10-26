@@ -1,7 +1,7 @@
 <template>
     <create-blog 
-        title="Blog" 
-        module="blog/STORE" />
+        title="Create Blog" 
+        menu="Blog" />
 </template>
 
 <script>

@@ -41,7 +41,8 @@ class Blog extends Eloquent
 		'url_title',
 		'url',
 		'content',
-		'author_id'
+        'author_id',
+        'category_id'
     ];
     
     public function author() {
@@ -49,7 +50,7 @@ class Blog extends Eloquent
 	}
 
     public function category() {
-        return $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsTo('App\Models\Category');
     }
 
     public function tags() {

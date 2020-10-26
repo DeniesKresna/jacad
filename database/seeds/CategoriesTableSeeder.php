@@ -14,15 +14,50 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $seeds= [
-            [ 'name' => 'Jobhun Internship' ],
-            [ 'name' => 'Jobhun Talks' ],
-            [ 'name' => 'Jobhun Visit' ],
-            [ 'name' => 'Cerita Karier' ],
-            [ 'name' => 'infografik' ],
-            [ 'name' => 'Karierpedia' ],
-            [ 'name' => 'Artikel' ],
-            [ 'name' => 'Berita' ],
-            [ 'name' => 'Info Acara' ]
+            [ 
+                'name' => 'Jobhun Internship',
+                'menu' => 'Program' 
+            ],
+
+            [ 
+                'name' => 'Jobhun Talks' ,
+                'menu' => 'Program'
+            ],
+
+            [ 
+                'name' => 'Jobhun Visit',
+                'menu' => 'Program'
+            ],
+
+            [ 
+                'name' => 'Cerita Karier',
+                'menu' => 'Blog' 
+            ],
+
+            [ 
+                'name' => 'infografik',
+                'menu' => 'Blog'
+            ],
+
+            [ 
+                'name' => 'Karierpedia',
+                'menu' => 'Blog'
+            ],
+
+            [ 
+                'name' => 'Artikel',
+                'menu' => 'Blog'
+            ],
+
+            [ 
+                'name' => 'Berita',
+                'menu' => 'Blog'
+            ],
+
+            [ 
+                'name' => 'Info Acara',
+                'menu' => 'Blog'
+            ]
         ];
         
         foreach ($seeds as $key => $seed) {

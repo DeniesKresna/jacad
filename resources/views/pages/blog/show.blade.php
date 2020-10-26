@@ -5,7 +5,76 @@
 @endsection
 
 @section('content')
-	<section>
+    <section>
+        <div class="block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 column">
+                        <div class="blog-single">
+                            <div class="bs-thumb">
+                                <img src="{{ $blog->image_url }}" width="840" height="340" alt="" />
+                                <ul class="post-metas">
+                                    <li>
+                                        <a href="#" title="">
+                                            <img src="http://placehold.it/40x40" alt="" /> {{ $blog->author->name }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="la la-calendar-o"></i> {{ $blog->created_at}}
+                                        </a>
+                                    </li>
+                                    <!--<li><a class="metascomment" href="#" title=""><i class="la la-comments"></i>4 comments</a></li>-->
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="la la-file-text"></i>
+                                            @php
+                                                $cat = "";
+                                                
+                                                foreach($blog->tags as $tag){
+                                                    $cat = $cat.$tag->name.", ";
+                                                }
+
+                                                $cat = substr($cat, 0, -2);
+                                            @endphp
+                                            {{ $cat }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <h2>{{ $blog->title }}</h2>
+                                {!! $blog->content !!}
+                                <div class="post-navigation">
+                                    @if ($blog->prev_post)
+                                        <div class="post-hist prev">
+                                            <a href="{{ $blog->prev_post->url }}" title="">
+                                                <i class="la la-arrow-left"></i>
+                                                <span class="post-histext">
+                                                    Prev Post <i>{{ $blog->prev_post->title }}</i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @if ($blog->next_post)
+                                        <div class="post-hist next">
+                                            <a href="{{ $blog->next_post->url}}" title="">
+                                                <span class="post-histext">
+                                                    Next Post <i>{{ $blog->next_post->title }}</i>
+                                                </span>
+                                                <i class="la la-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @include('pages.blog.rightbar')
+                </div>
+            </div>
+        </div>
+    </section>
+
+	{{-- <section>
 		<div class="block">
 			<div class="container">
 				 <div class="row">
@@ -42,5 +111,5 @@
 				 </div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 @endsection

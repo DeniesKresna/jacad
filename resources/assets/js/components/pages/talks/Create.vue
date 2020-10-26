@@ -1,8 +1,8 @@
 <template>
      <create-talks
-        title="Talks" 
+        title="Create Talks" 
         category="Jobhun Talks"
-        module="blog/STORE" 
+        menu="Program"
         :disabled="true" />
 </template>
 

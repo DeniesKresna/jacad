@@ -21,6 +21,7 @@ class BlogController extends ApiController
         $page = $request->page;
         $page_size = $request->page_size;
         $category= $request->category;
+        $menu= $request->menu;
         $search = $request->search;
         $datas = Blog::where('id', '>' ,0);
         
@@ -34,6 +35,12 @@ class BlogController extends ApiController
         if ($request->has('category')) {
             $datas= $datas->whereHas('category', function($query) use ($category) {
                 $query->where('name', $category);
+            });
+        }
+
+        if ($request->has('menu')) {
+            $datas= $datas->whereHas('category', function($query) use ($menu) {
+                $query->where('menu', $menu);
             });
         }
 
@@ -65,7 +72,7 @@ class BlogController extends ApiController
         }
         
         $datas['url_title'] = str_replace(" ", "-", strtolower($request->title));
-        $datas['url'] = url("/")."/blog/".$datas['url_title'];
+        $datas['url'] = url("/")."/blogs/".$datas['url_title'];
         
         $upload = upload("/screen/medias/",$request->file('file'),'1');
         
@@ -73,14 +80,13 @@ class BlogController extends ApiController
         $datas['image_url'] = upload_dir().$upload;
         
         $blog = Blog::create($datas); 
-
+        
         $blog->category()->associate($datas['category']);
         $blog->tags()->attach($datas['tags']);
         $blog->save();
 
         if ($blog) {
-            return response()->json([
-                'data' => $blog->category(), 
+            return response()->json([ 
                 'message' => 'blog created'
             ]);
         } else {

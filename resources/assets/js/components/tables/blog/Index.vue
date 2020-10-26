@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Index {{ title }}</h2>
+        <h2 class="content-row-title">{{ title }}</h2>
         <div class="row">
             <div class="col-md-5">
                 <input 
@@ -13,7 +13,7 @@
             <div class="col-md-2">
                 <button 
                     type="button" class="btn btn-default btn-block">
-                    <router-link :to="'/blog/create'">Create</router-link>
+                    <router-link :to="this.route+'create'">Create</router-link>
                 </button>
             </div>
         </div>
@@ -72,6 +72,7 @@
         props: [
             'title',
             'category',
+            'menu',
             'route'
         ],
         data() {
@@ -89,6 +90,10 @@
             getResults(page= 1) {
                 let stringQuery= `page=${page}&search=${this.search}`;
                 
+                if (this.menu) {
+                    stringQuery+= `&menu=${this.menu}`;
+                }
+
                 if (this.category) {
                     stringQuery+= `&category=${this.category}`;
                 }

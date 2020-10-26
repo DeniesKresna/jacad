@@ -28,7 +28,8 @@ class MediaController extends ApiController
             $datas['type'] = file_type($type);
             $datas["updater_id"] = $session_id;
             $res = Media::create($datas);
-            if ($res){
+            
+            if ($res) {
                 return response()->json(["url"=>$res->url]);
             } else {
                 return response()->json(["message"=>"could not upload this image"],400);

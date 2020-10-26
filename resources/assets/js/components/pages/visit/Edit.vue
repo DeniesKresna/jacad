@@ -1,7 +1,7 @@
 <template>
     <edit-visit 
-        title="Visit"
-        module="blog/UPDATE" />
+        title="Edit Visit" 
+        :disabled="true" />
 </template>
 
 <script>

@@ -8,17 +8,22 @@ use App\Models\Job;
 
 class PageController extends Controller
 {
+    public function admin() {
+        return view('layouts.admin');
+    }
+
     public function home() {
         $academies= Academy::limit(6)->get();
         $ask_careers= AskCareer::limit(6)->get();
-        $career_hubs= Job::limit(6)->get();
+        //$career_hubs= Job::limit(6)->get();
+        $career_hubs= [1, 2, 3, 4, 5, 6];
 
         //IF LOCATION SEMENTARA
-        foreach ($career_hubs as $key => $career_hub) { 
+        /*foreach ($career_hubs as $key => $career_hub) { 
             if ($career_hub->location_id == 1) $career_hub->location= 'Jakarta';
             else if ($career_hub->location_id == 2) $career_hub->location= 'Surabaya';
             else if ($career_hub->location_id == 3) $career_hub->location= 'Yogyakarta'; 
-        }
+        }*/
 
         $testimonies= [
             (object)[
@@ -57,11 +62,7 @@ class PageController extends Controller
             'testimonies' => $testimonies
         ]);
     }
-    
-    public function admin() {
-        return view('layouts.admin');
-    }
-    
+
     public function studentAmbassador() {
         return view('pages.student-ambassador.opening', ['title' => 'Student Ambassador']);
     }

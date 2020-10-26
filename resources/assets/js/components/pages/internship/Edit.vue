@@ -1,7 +1,7 @@
 <template>
     <edit-internship 
-        title="Internship" 
-        module="blog/UPDATE" />
+        title="Edit Internship" 
+        :disabled="true" />
 </template>
 
 <script>

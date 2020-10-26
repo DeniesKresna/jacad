@@ -1,8 +1,8 @@
 <template>
     <create-internship 
-        title="Internship" 
+        title="Create Internship" 
         category="Jobhun Internship"
-        module="blog/STORE" 
+        menu="Program"
         :disabled="true" />
 </template>
 
@@ -12,11 +12,6 @@
     export default {
         components: {
             CreateInternship
-        },
-        data() {
-            return {
-                
-            }
         }
     }
 </script>

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,13 +13,11 @@
 |
 **/
 
-use Illuminate\Support\Facades\Auth;
-
 /*
-| Views routes
+| Pages routes
 */
-Route::get('/', 'PageController@home');
 Route::get('/admin', 'PageController@admin');
+Route::get('/', 'PageController@home');
 Route::get('/student-ambassador', 'PageController@studentAmbassador');
 
 /*
@@ -35,10 +35,10 @@ Route::resource('jobs', 'web\JobController');
 /*
 | Blogs routes
 */
-Route::get('blogs/category/{category}','web\PostController@indexCategory');
-Route::get('blogs/{url_title}', "web\PostController@getFromTitle");
-Route::resource('blogs', "web\PostController");
-
+Route::get('/blogs', 'web\BlogController@index');
+Route::get('blogs/category/{category}','web\BlogController@indexCategory');
+Route::get('blogs/{url_title}', 'web\BlogController@getFromTitle');
+Route::resource('blogs', 'web\BlogController');
 
 /*
 | Login Socialite routes

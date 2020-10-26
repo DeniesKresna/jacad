@@ -2070,7 +2070,7 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_0__["VueEditor"],
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
   },
-  props: ['title', 'category', 'module', 'disabled'],
+  props: ['title', 'category', 'menu', 'disabled'],
   data: function data() {
     return {
       data: {
@@ -2098,11 +2098,19 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
   mounted: function mounted() {
     var _this = this;
 
-    this.$store.dispatch('category/LIST').then(function (response) {
+    var stringQuery = '';
+
+    if (this.menu) {
+      stringQuery = "menu=".concat(this.menu);
+    }
+
+    if (this.category) {
+      stringQuery += "&name=".concat(this.category);
+    }
+
+    this.$store.dispatch('category/LIST', stringQuery).then(function (response) {
       _this.options.categories = response;
-      _this.picked.category = response.find(function (item) {
-        return item.name === _this.category;
-      });
+      _this.picked.category = response[0];
     });
     this.$store.dispatch('tag/LIST').then(function (response) {
       _this.options.tags = response;
@@ -2136,13 +2144,11 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
       this.data.tags = this.picked.tags.map(function (tag) {
         return tag.id;
       });
-      this.$store.dispatch(this.module, this.data).then(function (response) {
+      this.$store.dispatch('blog/STORE', this.data).then(function (response) {
         _this2.data = {
           title: '',
           content: '',
-          category_object: {},
           category: 0,
-          tags_objects: [],
           tags: [],
           file: null
         };
@@ -2261,7 +2267,7 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_0__["VueEditor"],
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
   },
-  props: ['title', 'module', 'disabled'],
+  props: ['title', 'category', 'menu', 'disabled'],
   data: function data() {
     return {
       data: {},
@@ -2283,7 +2289,17 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
   mounted: function mounted() {
     var _this = this;
 
-    this.$store.dispatch('category/LIST').then(function (response) {
+    var stringQuery = '';
+
+    if (this.menu) {
+      stringQuery = "menu=".concat(this.menu);
+    }
+
+    if (this.category) {
+      stringQuery += "&name=".concat(this.category);
+    }
+
+    this.$store.dispatch('category/LIST', stringQuery).then(function (response) {
       _this.options.categories = response;
     });
     this.$store.dispatch('tag/LIST').then(function (response) {
@@ -2326,7 +2342,7 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
       this.data.tags = this.picked.tags.map(function (tag) {
         return tag.id;
       });
-      this.$store.dispatch(this.module, this.data).then(function (response) {
+      this.$store.dispatch('blog/UPDATE', this.data).then(function (response) {
         _this3.getData();
       });
     }
@@ -2401,6 +2417,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2461,9 +2478,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CreateInternship: _forms_blog_Create_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {};
   }
 });
 
@@ -3052,9 +3066,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Create: _forms_blog_Create_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  data: function data() {
-    return {};
   }
 });
 
@@ -3415,7 +3426,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title', 'category', 'route'],
+  props: ['title', 'category', 'menu', 'route'],
   data: function data() {
     return {
       search: '',
@@ -3433,6 +3444,10 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var stringQuery = "page=".concat(page, "&search=").concat(this.search);
+
+      if (this.menu) {
+        stringQuery += "&menu=".concat(this.menu);
+      }
 
       if (this.category) {
         stringQuery += "&category=".concat(this.category);
@@ -49729,9 +49744,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content-row" }, [
-    _c("h2", { staticClass: "content-row-title" }, [
-      _vm._v("Create " + _vm._s(_vm.title))
-    ]),
+    _c("h2", { staticClass: "content-row-title" }, [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -49951,9 +49964,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content-row" }, [
-    _c("h2", { staticClass: "content-row-title" }, [
-      _vm._v("Edit " + _vm._s(_vm.title))
-    ]),
+    _c("h2", { staticClass: "content-row-title" }, [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -50016,17 +50027,19 @@ var render = function() {
                       attrs: { src: _vm.data.image_url, width: "322" }
                     })
                   ])
-                : _c("span", [
-                    _c("input", {
-                      ref: "file",
-                      attrs: { type: "file", id: "file" },
-                      on: {
-                        change: function($event) {
-                          return _vm.handleFileUpload()
-                        }
-                      }
-                    })
-                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", [
+                _c("input", {
+                  ref: "file",
+                  attrs: { type: "file", id: "file" },
+                  on: {
+                    change: function($event) {
+                      return _vm.handleFileUpload()
+                    }
+                  }
+                })
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -50180,7 +50193,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("create-blog", { attrs: { title: "Blog", module: "blog/STORE" } })
+  return _c("create-blog", { attrs: { title: "Create Blog", menu: "Blog" } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50204,7 +50217,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("edit-blog", { attrs: { title: "Blog", module: "blog/UPDATE" } })
+  return _c("edit-blog", { attrs: { title: "Edit Blog", menu: "Blog" } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50228,7 +50241,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table-blog", { attrs: { title: "Blog", route: "/blog/" } })
+  return _c("table-blog", {
+    attrs: { title: "Index Blog", menu: "Blog", route: "/blog/" }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50297,9 +50312,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("create-internship", {
     attrs: {
-      title: "Internship",
+      title: "Create Internship",
       category: "Jobhun Internship",
-      module: "blog/STORE",
+      menu: "Program",
       disabled: true
     }
   })
@@ -50327,7 +50342,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("edit-internship", {
-    attrs: { title: "Internship", module: "blog/UPDATE" }
+    attrs: { title: "Edit Internship", disabled: true }
   })
 }
 var staticRenderFns = []
@@ -50354,7 +50369,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("table-internship", {
     attrs: {
-      title: "Internship",
+      title: "Index Internship",
       category: "Jobhun Internship",
       route: "/internship/"
     }
@@ -51038,9 +51053,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("create-talks", {
     attrs: {
-      title: "Talks",
+      title: "Create Talks",
       category: "Jobhun Talks",
-      module: "blog/STORE",
+      menu: "Program",
       disabled: true
     }
   })
@@ -51067,7 +51082,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("edit-talks", { attrs: { title: "Talks", module: "blog/UPDATE" } })
+  return _c("edit-talks", { attrs: { title: "Edit Talks", disabled: true } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51092,7 +51107,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table-talks", {
-    attrs: { title: "Talks", category: "Jobhun Talks", route: "/talks/" }
+    attrs: { title: "Index Talks", category: "Jobhun Talks", route: "/talks/" }
   })
 }
 var staticRenderFns = []
@@ -51119,9 +51134,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("create", {
     attrs: {
-      title: "Visit",
+      title: "Create Visit",
       category: "Jobhun Visit",
-      module: "blog/STORE",
+      menu: "Program",
       disabled: true
     }
   })
@@ -51148,7 +51163,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("edit-visit", { attrs: { title: "Visit", module: "blog/UPDATE" } })
+  return _c("edit-visit", { attrs: { title: "Edit Visit", disabled: true } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51173,7 +51188,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("table-visit", {
-    attrs: { title: "Visit", category: "Jobhun Visit", route: "/visit/" }
+    attrs: { title: "Index Visit", category: "Jobhun Visit", route: "/visit/" }
   })
 }
 var staticRenderFns = []
@@ -51933,9 +51948,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content-row" }, [
-    _c("h2", { staticClass: "content-row-title" }, [
-      _vm._v("Index " + _vm._s(_vm.title))
-    ]),
+    _c("h2", { staticClass: "content-row-title" }, [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-5" }, [
@@ -51979,7 +51992,7 @@ var render = function() {
             attrs: { type: "button" }
           },
           [
-            _c("router-link", { attrs: { to: "/blog/create" } }, [
+            _c("router-link", { attrs: { to: this.route + "create" } }, [
               _vm._v("Create")
             ])
           ],
@@ -83155,7 +83168,7 @@ var blog = {
             'Content-Type': 'multipart/form-data'
           }
         }).then(function (response) {
-          resolve(response.data.data);
+          resolve(response.data);
         });
       });
     },
@@ -83208,7 +83221,7 @@ var category = {
     LIST: function LIST(_ref, payload) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/categories/list').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/categories/list?' + payload).then(function (response) {
           resolve(response.data);
         });
       });

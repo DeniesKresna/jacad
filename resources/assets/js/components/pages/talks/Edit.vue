@@ -1,7 +1,7 @@
 <template>
     <edit-talks 
-        title="Talks" 
-        module="blog/UPDATE" />
+        title="Edit Talks" 
+        :disabled="true" />
 </template>
 
 <script>

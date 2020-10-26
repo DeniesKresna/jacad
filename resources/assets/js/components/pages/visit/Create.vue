@@ -1,8 +1,8 @@
 <template>
      <create 
-        title="Visit" 
+        title="Create Visit" 
         category="Jobhun Visit"
-        module="blog/STORE" 
+        menu="Program" 
         :disabled="true" />
 </template>
 
@@ -12,11 +12,6 @@
     export default {
         components: {
             Create
-        },
-        data() {
-            return {
-                
-            }
         }
     }
 </script>

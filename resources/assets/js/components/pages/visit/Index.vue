@@ -1,6 +1,6 @@
 <template>
     <table-visit 
-        title="Visit"
+        title="Index Visit"
         category="Jobhun Visit" 
         route="/visit/" />
 </template>

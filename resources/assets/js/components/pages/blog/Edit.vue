@@ -1,7 +1,7 @@
 <template>
     <edit-blog 
-        title="Blog" 
-        module="blog/UPDATE" />
+        title="Edit Blog" 
+        menu="Blog" />
 </template>
 
 <script>

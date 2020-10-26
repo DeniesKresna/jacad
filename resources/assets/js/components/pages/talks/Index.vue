@@ -1,6 +1,6 @@
 <template>
     <table-talks 
-        title="Talks"
+        title="Index Talks"
         category="Jobhun Talks"
         route="/talks/" />
 </template>
