@@ -1,61 +1,38 @@
 import axios from 'axios';
 import qs from "qs";
 
-const category = {
+const job= {
     namespaced: true,
     state: {
-        posts: []
-        
+        jobs: []
     },
-    getters:{
-        categories: (state) => {
-            return state.categories;
+    getters: {
+        jobs: (state) => {
+            return state.jobs;
         }
-    },
+    }, 
     mutations: {
-        
+
     },
     actions: {
-        INDEX({commit},payload){
-            return new Promise((resolve,reject)=>{
-                axios.get('/admin/jobs?page_size=10&' + payload).then(response=>{
+        INDEX({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/jobs?page_size=10&' + payload)
+                     .then(response => {
                     resolve(response.data);
-                });
-            });
-        },
-
-        LIST({commit},payload){
-            return new Promise((resolve,reject)=>{
-                axios.get('/admin/categories/list').then(response=>{
-                    resolve(response.data);
-                });
-            });
-        },
-
-        STORE({commit},payload){
-            return new Promise((resolve, reject)=>{
-                axios.post('admin/jobs', qs.stringify(payload)).then(response=>{
-                    resolve(response.data.data);
                 });
             });
         },
         
-        UPDATE({commit},payload){
-            return new Promise((resolve, reject)=>{
-                axios.put('admin/categories/' + payload.id, qs.stringify(payload)).then(response=>{
-                    resolve(response.data)
+        SHOW({ comit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/jobs/' + payload)
+                     .then(response => {
+                    resolve(response.data);
                 });
-            })
-        },
-
-        DESTROY({commit}, payload){
-            return new Promise((resolve, reject)=>{
-                axios.delete('admin/categories/' + payload).then(response=>{
-                    resolve(response.data)
-                });
-            })
+            });
         }
     }
-}
+};
 
-export default category
+export default job;

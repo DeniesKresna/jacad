@@ -1,3 +1,97 @@
+<section>
+    <div class="container p-5" id="">
+        <div id="aboutJSA"></div>
+        
+        <!-- FORM -->
+        <form>
+            <div class="row" id="jsaForm-row">
+                <div class="col-lg-12" id="emailField">
+                    <span class="pf-title">E-mail</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="email" id="sa_email"/>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Nama Lengkap</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="name" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Usia</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="age" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Alamat tempat tinggal saat ini</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="address" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Asal Universitas</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="university" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Fakultas</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="faculty" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Jurusan</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="major" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">No. HP/WhatsApp</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="phone" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">ID Line</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="line_id" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Link Profile Instagram (Tidak di-private)</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="ig_link" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <span class="pf-title">Link Profile LinkedIn</span>
+                    <div class="pf-field">
+                        <input type="text" placeholder="" name="linkedin_link" />
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <button type="submit" id="btnNext">Next</button>
+                    <button type="submit" id="btnBack">Back</button>
+                </div>
+            </div>
+        </form>
+        <!-- FORM -->
+    </div>
+</section>
+
 @section('extrajs')
     <script>
         $.ajaxSetup({
@@ -122,99 +216,4 @@
         });
     </script>    
 @endsection
-
-<section>
-    <div class="container p-5" id="">
-        <div id="aboutJSA"></div>
-        
-        <!-- FORM -->
-        <form>
-            <div class="row" id="jsaForm-row">
-                <div class="col-lg-12" id="emailField">
-                    <span class="pf-title">E-mail</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="email" id="sa_email"/>
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Nama Lengkap</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="name" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Usia</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="age" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Alamat tempat tinggal saat ini</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="address" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Asal Universitas</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="university" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Fakultas</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="faculty" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Jurusan</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="major" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">No. HP/WhatsApp</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="phone" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">ID Line</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="line_id" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Link Profile Instagram (Tidak di-private)</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="ig_link" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <span class="pf-title">Link Profile LinkedIn</span>
-                    <div class="pf-field">
-                        <input type="text" placeholder="" name="linkedin_link" />
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <button type="submit" id="btnNext">Next</button>
-                    <button type="submit" id="btnBack">Back</button>
-                </div>
-            </div>
-        </form>
-        <!-- FORM -->
-
-    </div>
-</section>
 

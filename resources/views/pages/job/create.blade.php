@@ -9,128 +9,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('datepicker/css/bootstrap-datepicker.min.css') }}"/>
 @endsection
 
-@section('extrajs')
-	<script src="{{ asset('jqte/jquery-te-1.4.0.min.js') }}" type="text/javascript"></script>
-	<script src="{{ asset('datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
-    
-	<script>
-		$( document ).ready(function() {
-		    $(".special_ta").jqte();
-		    $(".datepicker").datepicker({
-			      format: 'yyyy-mm-dd',
-			      autoclose: true,
-			      todayHighlight: true,
-			});
-            
-		    $.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-		    });
-
-            //LOGO COMPANY
-		    $("#logo").change(function(e) {
-		    	var reader = new FileReader();
-			    reader.onload = function (e) {
-			        document.getElementById("logo-img").src = e.target.result;
-			    };
-			    reader.readAsDataURL(this.files[0]);
-		    });
-
-            //AJAX GET DATA COMPANY - AUTO INPUT
-		    $("#company_name").focusout(function(){
-		    	if ($("#company_name").val().length > 2){
-		    		$('body').loading();
-		    		$.ajax({
-			            type:'GET',
-			            url: "{{url('/')}}" + '/api/v1/user/companies/name/' + $("#company_name").val(),
-			            dataType: 'JSON',
-			            success: function(data) {
-                            var company = data.company;
-                            $('body').loading('stop');
-                            $('#jobForm input, #jobForm select').each(
-                                function(index){  
-                                    let input = $(this);
-                                    for (let prop in company){
-                                        if (input.attr('name') == prop) {
-                                            input.val(company[prop]);
-                                        }
-                                    }
-                                }
-                            );
-                            $('#jobForm textarea').each(
-                                function(index){  
-                                    let input = $(this);
-                                    for (let prop in company){
-                                        if(input.attr('name') == prop){
-                                            input.html(company[prop]);
-                                        }
-                                    }
-                                }
-                            );
-                            $('#logo-img').attr('src',company.logo_url);
-                        },
-			            error: function(error) {
-			           	    $('body').loading('stop');
-			            }
-			        });
-		        }
-		    });
-            
-            //AJAX FORM SUBMIT   
-		    $("#btnSubmit").click(function(e){
-		        e.preventDefault();
-
-		        var formData = new FormData($('form')[0]);
-
-		        formData.set('logo', $("#logo").prop('files')[0]);
-                formData.set('sector_ids', $('.chosen').val());
-                
-		        for (var pair of formData.entries()) {
-		        	let iptDom = document.getElementsByName(pair[0])[0];
-		           	iptDom.style.backgroundColor = "white";
-				}
-
-		        $.ajax({
-		            type: 'POST',
-		            url: "{{url('/')}}" + '/api/v1/user/jobs',
-		            data: formData,
-		            dataType: 'JSON',
-    			    processData: false,
-    			    contentType: false,
-		            success: function(response) {
-                        swal({ 
-                            title: 'Create success!', 
-                            text: "", 
-                            icon: "success" 
-                        });
-		            },
-                    error: function(error) {
-		           	    if (error.status === 422){
-		           		    let msg = "";
-                            
-		           		    for (let prop in error.responseJSON.message){
-		           			    let iptDom = document.getElementsByName(prop)[0];
-		           			    iptDom.style.backgroundColor = "yellow";
-		           			    //msg = msg + error.responseJSON.message[prop][0] + "\n";
-		           		    }
-                            
-                            swal({ 
-                                title: 'Validation Error', 
-                                text: "check the yellow background inputs", 
-                                icon: "error" 
-                            });
-                        }
-		            }
-		        });
-			});
-		});
-	</script>
-@endsection
-
 @section('content')	
 	<section>
-		<div class="block no-padding">
+		<div class="block">
 			<div class="container">
 				 <div class="row no-gape">
 				 	<div class="col-lg-9 column">
@@ -211,11 +92,9 @@
 					 						<span class="pf-title">Bidang Pekerjaan</span>
 					 						<div class="pf-field">
 					 							<select data-placeholder="Bisa pilih lebih dari satu" class="chosen" name="sector_ids" multiple>
-													<option value="1">Designer</option>
-													<option value="2">Programmer</option>
-													<option value="3">Marketing</option>
-													<option value="4">Human Resource</option>
-													<option value="5">Accounting</option>
+                                                    @foreach ($sectors as $sector)
+                                                        <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                                                    @endforeach
 												</select>
 					 						</div>
 					 					</div>
@@ -313,7 +192,6 @@
 					 				</div>
 					 			</form>
                              </div>
-                             
                              <!-- FORM -->
 					 	</div>
 					</div>
@@ -321,4 +199,129 @@
 			</div>
 		</div>
 	</section>
+@endsection
+
+@section('extrajs')
+	<script src="{{ asset('jqte/jquery-te-1.4.0.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    
+	<script>
+		$( document ).ready(function() {
+		    $(".special_ta").jqte();
+		    $(".datepicker").datepicker({
+			      format: 'yyyy-mm-dd',
+			      autoclose: true,
+			      todayHighlight: true,
+			});
+            
+		    $.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+            //LOGO COMPANY
+		    $("#logo").change(function(e) {
+		    	var reader = new FileReader();
+			    reader.onload = function (e) {
+			        document.getElementById("logo-img").src = e.target.result;
+			    };
+			    reader.readAsDataURL(this.files[0]);
+		    });
+
+            //AJAX GET DATA COMPANY - AUTO INPUT
+		    $("#company_name").focusout(function(){
+		    	if ($("#company_name").val().length > 2){
+		    		$('body').loading();
+		    		$.ajax({
+			            type:'GET',
+			            url: "{{url('/')}}" + '/api/v1/user/companies/name/' + $("#company_name").val(),
+			            dataType: 'JSON',
+			            success: function(data) {
+                            var company = data.company;
+                            $('body').loading('stop');
+                            $('#jobForm input, #jobForm select').each(
+                                function(index){  
+                                    let input = $(this);
+                                    for (let prop in company){
+                                        if (input.attr('name') == prop) {
+                                            input.val(company[prop]);
+                                        }
+                                    }
+                                }
+                            );
+                            $('#jobForm textarea').each(
+                                function(index){  
+                                    let input = $(this);
+                                    for (let prop in company){
+                                        if(input.attr('name') == prop){
+                                            input.html(company[prop]);
+                                        }
+                                    }
+                                }
+                            );
+                            $('#logo-img').attr('src', company.logo_url);
+                        },
+			            error: function(error) {
+			           	    $('body').loading('stop');
+			            }
+			        });
+		        }
+		    });
+            
+            //AJAX FORM SUBMIT   
+		    $("#btnSubmit").click(function(e){
+		        e.preventDefault();
+
+		        var formData = new FormData($('form')[0]);
+
+		        formData.set('logo', $("#logo").prop('files')[0]);
+                formData.set('sector_ids', $('.chosen').val());
+                
+		        for (var pair of formData.entries()) {
+		        	let iptDom = document.getElementsByName(pair[0])[0];
+		           	iptDom.style.backgroundColor = "white";
+				}
+
+                $('body').loading();
+
+		        $.ajax({
+		            type: 'POST',
+		            url: "{{url('/')}}" + '/api/v1/user/jobs',
+		            data: formData,
+		            dataType: 'JSON',
+    			    processData: false,
+    			    contentType: false,
+		            success: function(response) {
+                        $('body').loading('stop');
+
+                        swal({ 
+                            title: 'Create success!', 
+                            text: "", 
+                            icon: "success" 
+                        });
+		            },
+                    error: function(error) {
+                        $('body').loading('stop');
+                        
+		           	    if (error.status === 422){
+		           		    let msg = "";
+                            
+		           		    for (let prop in error.responseJSON.message){
+		           			    let iptDom = document.getElementsByName(prop)[0];
+		           			    iptDom.style.backgroundColor = "yellow";
+		           			    //msg = msg + error.responseJSON.message[prop][0] + "\n";
+		           		    }
+                            
+                            swal({ 
+                                title: 'Validation Error', 
+                                text: "check the yellow background inputs", 
+                                icon: "error" 
+                            });
+                        }
+		            }
+		        });
+			});
+		});
+	</script>
 @endsection

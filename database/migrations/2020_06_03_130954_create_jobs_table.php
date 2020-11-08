@@ -15,6 +15,7 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('company_id')->nullable();
             $table->string('position')->nullable();
             $table->string('type')->nullable();
             $table->unsignedInteger('location_id')->nullable();
@@ -31,14 +32,13 @@ class CreateJobsTable extends Migration
             $table->string('poster_url')->nullable();
             $table->string('poster_path')->nullable();
             $table->string('jobhun_info')->nullable();
-            $table->unsignedInteger('company_id')->nullable();
             $table->integer('view')->nullable();
             $table->smallInteger('read')->nullable();
             $table->smallInteger('verified')->default(0);
             $table->unsignedInteger('first_reader_id')->nullable();
+            $table->unsignedInteger('verificator_id')->nullable();
             $table->unsignedInteger('creator_id')->nullable();
             $table->timestamp('expired')->nullable();
-            $table->unsignedInteger('verificator_id')->nullable();
             $table->timestamps();
         });
     }

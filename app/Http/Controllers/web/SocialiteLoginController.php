@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\web;
 
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
@@ -28,21 +29,16 @@ class SocialiteLoginController extends Controller {
         if (!$existingUser) {
             $user= User::create([
                 'name' => $user->name,
-                'username' => '',
                 'email' => $user->email,
-                'password' => password_encrypt($user->email),
-                'phone' => '',
-                'active' => 1,
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
+                'active' => 1
             ]);
-
+            
             $user->save();
         } else {
             $user= $existingUser;
         }
         
-        if (Auth::guard('user')->attempt(['username' => $user->username, 'password' => $user->password])) {
+        if (Auth::login($user, true)) {
             return redirect('/');
         } else {
             dd('error');

@@ -11,9 +11,12 @@ class AskCareersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+
+    private $seeds;
+
+    public function __construct()
     {
-        $seeds= [   
+        $this->seeds= [   
             [
                 'name' => 'A',
                 'price' => 700000
@@ -44,8 +47,11 @@ class AskCareersTableSeeder extends Seeder
                 'price' => 700000
             ]
         ];
-        
-        foreach ($seeds as $key => $seed) {
+    }
+
+    public function run()
+    {   
+        foreach ($this->seeds as $key => $seed) {
             AskCareer::create($seed);
         }
     }

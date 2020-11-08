@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Oct 2020 13:04:14 +0700.
+ * Date: Sun, 08 Nov 2020 23:31:57 +0700.
  */
 
 namespace App\Models;
@@ -15,13 +15,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property int $user_id
  * @property int $role_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  *
  * @package App\Models
  */
 class RoleUser extends Eloquent
 {
 	protected $table = 'role_user';
-	public $timestamps = false;
 
 	protected $casts = [
 		'user_id' => 'int',

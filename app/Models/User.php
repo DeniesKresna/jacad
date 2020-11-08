@@ -36,9 +36,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use EntrustUserTrait;
-
-    public $timestamps = false;
-
+    
 	protected $casts = [
 		'active' => 'int'
 	];
@@ -99,5 +97,9 @@ class User extends Authenticatable
 
 	public function roles() {
 		return $this->belongsToMany('App\Models\Role');
-	}
+    }
+    
+    public function profile() {
+        return $this->hasOne('App\Models\Profile', 'user_id', 'id');
+    }
 }

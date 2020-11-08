@@ -30,9 +30,14 @@
                         </thead>
                         <tbody>
                             <tr v-bind:key="index"
-                                v-for="(item,index) in result.data">
-                            <td>{{ index + (result.from) }}</td>
-                            <td>{{ item.name }}</td>
+                                v-for="(item, index) in result.data">
+                                <td>{{ index + (result.from) }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    <a href="javascript:void(0)" @click="destroyData(item.id, item.name)">
+                                        <span class="fa fa-trash-o"></span>
+                                    </a> &nbsp;
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,11 +74,20 @@
             this.getResults(1);
         },
         methods: {
-            getResults(page=1){
+            getResults(page=1) {
                 let stringQuery = "page="+page+"&search="+this.search;
-                this.$store.dispatch('tag/INDEX', stringQuery).then(response=>{
+                
+                this.$store.dispatch('tag/INDEX', stringQuery).then(response => {
                     this.result = response;
                 });
+            },
+
+            destroyData(id, name) {
+                if (confirm(`Are you sure want to delete this ${name} tag?`)) {
+                    this.$store.dispatch('tag/DESTROY', id).then(response => {
+                        this.getResults(this.result.current_page);
+                    });;
+                }   
             }
         }
     }

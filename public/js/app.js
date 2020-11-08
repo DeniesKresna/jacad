@@ -2939,6 +2939,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2960,6 +2965,16 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('tag/INDEX', stringQuery).then(function (response) {
         _this.result = response;
       });
+    },
+    destroyData: function destroyData(id, name) {
+      var _this2 = this;
+
+      if (confirm("Are you sure want to delete this ".concat(name, " tag?"))) {
+        this.$store.dispatch('tag/DESTROY', id).then(function (response) {
+          _this2.getResults(_this2.result.current_page);
+        });
+        ;
+      }
     }
   }
 });
@@ -3329,16 +3344,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -3356,6 +3361,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -50982,7 +50988,23 @@ var render = function() {
                       return _c("tr", { key: index }, [
                         _c("td", [_vm._v(_vm._s(index + _vm.result.from))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.name))])
+                        _c("td", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "javascript:void(0)" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.destroyData(item.id, item.name)
+                                }
+                              }
+                            },
+                            [_c("span", { staticClass: "fa fa-trash-o" })]
+                          ),
+                          _vm._v("  \n                            ")
+                        ])
                       ])
                     }),
                     0
@@ -51519,8 +51541,8 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
+                  "router-link",
+                  { staticClass: "list-group-item", attrs: { to: "" } },
                   [_vm._v("Report")]
                 )
               ],
@@ -51529,19 +51551,41 @@ var render = function() {
             _vm._v(" "),
             _vm._m(6),
             _vm._v(" "),
-            _vm._m(7),
-            _vm._v(" "),
-            _vm._m(8),
-            _vm._v(" "),
-            _vm._m(9)
+            _c(
+              "div",
+              {
+                staticClass: "collapse list-group-submenu",
+                attrs: { id: "sbserviceac" }
+              },
+              [
+                _c(
+                  "router-link",
+                  { staticClass: "list-group-item", attrs: { to: "" } },
+                  [_vm._v("Index")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "list-group-item", attrs: { to: "" } },
+                  [_vm._v("Create")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "list-group-item", attrs: { to: "" } },
+                  [_vm._v("Report")]
+                )
+              ],
+              1
+            )
           ])
         ]),
         _vm._v(" "),
         _c("li", [
-          _vm._m(10),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "collapse", attrs: { id: "sbprogram" } }, [
-            _vm._m(11),
+            _vm._m(8),
             _vm._v(" "),
             _c(
               "div",
@@ -51566,18 +51610,12 @@ var render = function() {
                     attrs: { to: "/internship/create" }
                   },
                   [_vm._v("Create")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Report")]
                 )
               ],
               1
             ),
             _vm._v(" "),
-            _vm._m(12),
+            _vm._m(9),
             _vm._v(" "),
             _c(
               "div",
@@ -51599,18 +51637,12 @@ var render = function() {
                     attrs: { to: "/talks/create" }
                   },
                   [_vm._v("Create")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Report")]
                 )
               ],
               1
             ),
             _vm._v(" "),
-            _vm._m(13),
+            _vm._m(10),
             _vm._v(" "),
             _c(
               "div",
@@ -51632,18 +51664,12 @@ var render = function() {
                     attrs: { to: "/visit/create" }
                   },
                   [_vm._v("Create")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "list-group-item", attrs: { href: "#" } },
-                  [_vm._v("Report")]
                 )
               ],
               1
             ),
             _vm._v(" "),
-            _vm._m(14),
+            _vm._m(11),
             _vm._v(" "),
             _c(
               "div",
@@ -51659,6 +51685,12 @@ var render = function() {
                     attrs: { to: "/studentAmbassador/" }
                   },
                   [_vm._v("Index")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "list-group-item", attrs: { to: "" } },
+                  [_vm._v("Report")]
                 )
               ],
               1
@@ -51737,7 +51769,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "glyphicon glyphicon-cloud" }),
-        _vm._v("Services  "),
+        _vm._v(" Services  \n                "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51753,7 +51785,7 @@ var staticRenderFns = [
         attrs: { href: "#sbservicech", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Career Hub\n                    "),
+        _vm._v("\n                    Jobhun Career Hub "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51769,76 +51801,8 @@ var staticRenderFns = [
         attrs: { href: "#sbserviceac", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Academy\n                    "),
+        _vm._v("\n                    Jobhun Academy "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "collapse list-group-submenu",
-        attrs: { id: "sbserviceac" }
-      },
-      [
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Index")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Create")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Report")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "list-group-item",
-        attrs: { href: "#sbservicetp", "data-toggle": "collapse" }
-      },
-      [
-        _vm._v(
-          "\n                    Jobhun Talent Pool\n                    "
-        ),
-        _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "collapse list-group-submenu",
-        attrs: { id: "sbservicetp" }
-      },
-      [
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Index")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Create")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "list-group-item", attrs: { href: "#" } }, [
-          _vm._v("Report")
-        ])
       ]
     )
   },
@@ -51854,7 +51818,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "glyphicon glyphicon-briefcase" }),
-        _vm._v("Program  \n                "),
+        _vm._v(" Program  \n                "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51870,7 +51834,7 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramin", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Internship\n                    "),
+        _vm._v("\n                    Jobhun Internship "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51886,7 +51850,7 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramtl", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Talks \n                    "),
+        _vm._v("\n                    Jobhun Talks "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51902,7 +51866,7 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramvi", "data-toggle": "collapse" }
       },
       [
-        _vm._v("\n                    Jobhun Visit\n                    "),
+        _vm._v("\n                    Jobhun Visit "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -51918,9 +51882,7 @@ var staticRenderFns = [
         attrs: { href: "#sbprogramsa", "data-toggle": "collapse" }
       },
       [
-        _vm._v(
-          "\n                    Jobhun Student Ambassador\n                    "
-        ),
+        _vm._v("\n                    Jobhun Student Ambassador "),
         _c("span", { staticClass: "glyphicon glyphicon-chevron-right" })
       ]
     )
@@ -83025,7 +82987,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/assets/js/store/actions.js");
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mutations */ "./resources/assets/js/store/mutations.js");
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getters */ "./resources/assets/js/store/getters.js");
-/* harmony import */ var _modules_job__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/_job */ "./resources/assets/js/store/modules/_job.js");
+/* harmony import */ var _modules_job__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/job */ "./resources/assets/js/store/modules/job.js");
 /* harmony import */ var _modules_blog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/blog */ "./resources/assets/js/store/modules/blog.js");
 /* harmony import */ var _modules_studentAmbassador__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/studentAmbassador */ "./resources/assets/js/store/modules/studentAmbassador.js");
 /* harmony import */ var _modules_category__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/category */ "./resources/assets/js/store/modules/category.js");
@@ -83059,55 +83021,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     tag: _modules_tag__WEBPACK_IMPORTED_MODULE_10__["default"]
   }
 }));
-
-/***/ }),
-
-/***/ "./resources/assets/js/store/modules/_job.js":
-/*!***************************************************!*\
-  !*** ./resources/assets/js/store/modules/_job.js ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var job = {
-  namespaced: true,
-  state: {
-    jobs: []
-  },
-  getters: {
-    jobs: function jobs(state) {
-      return state.jobs;
-    }
-  },
-  mutations: {},
-  actions: {
-    INDEX: function INDEX(_ref, payload) {
-      var commit = _ref.commit;
-      return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/jobs?page_size=10&' + payload).then(function (response) {
-          resolve(response.data);
-        });
-      });
-    },
-    SHOW: function SHOW(_ref2, payload) {
-      var comit = _ref2.comit;
-      return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/jobs/' + payload).then(function (response) {
-          resolve(response.data);
-        });
-      });
-    }
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (job);
 
 /***/ }),
 
@@ -83232,6 +83145,55 @@ var category = {
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/modules/job.js":
+/*!**************************************************!*\
+  !*** ./resources/assets/js/store/modules/job.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var job = {
+  namespaced: true,
+  state: {
+    jobs: []
+  },
+  getters: {
+    jobs: function jobs(state) {
+      return state.jobs;
+    }
+  },
+  mutations: {},
+  actions: {
+    INDEX: function INDEX(_ref, payload) {
+      var commit = _ref.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/jobs?page_size=10&' + payload).then(function (response) {
+          resolve(response.data);
+        });
+      });
+    },
+    SHOW: function SHOW(_ref2, payload) {
+      var comit = _ref2.comit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/admin/jobs/' + payload).then(function (response) {
+          resolve(response.data);
+        });
+      });
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (job);
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/modules/studentAmbassador.js":
 /*!****************************************************************!*\
   !*** ./resources/assets/js/store/modules/studentAmbassador.js ***!
@@ -83332,7 +83294,7 @@ var tag = {
     STORE: function STORE(_ref3, payload) {
       var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('admin/tags', qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/tags', qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
           resolve(response.data.data);
         });
       });
@@ -83340,7 +83302,7 @@ var tag = {
     UPDATE: function UPDATE(_ref4, payload) {
       var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('admin/tags/' + payload.id, qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/admin/tags/' + payload.id, qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(payload)).then(function (response) {
           resolve(response.data);
         });
       });
@@ -83348,7 +83310,7 @@ var tag = {
     DESTROY: function DESTROY(_ref5, payload) {
       var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('admin/tags/' + payload).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/admin/tags/' + payload).then(function (response) {
           resolve(response.data);
         });
       });

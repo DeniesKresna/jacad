@@ -14,32 +14,31 @@
         @yield('extracss')
     </head>
     <body>
-    <!--
-    <div class="page-loading">
-        <img src="images/loader.gif" alt="" />
-        <span>Skip Loader</span>
-    </div>-->
+        <!--
+        <div class="page-loading">
+            <img src="images/loader.gif" alt="" />
+            <span>Skip Loader</span>
+        </div>-->
 
-    <div class="theme-layout" id="scrollup">
-        @include('partial.menu')
+        <div class="theme-layout" id="scrollup">
+            @include('partial.menu')
 
-        @yield('banner')
+            @yield('banner')
 
-        @yield('content')
+            @yield('content')
 
-        @include('partial.footer')
-    </div>
+            @include('partial.footer')
+        </div>
     
-    @include('partial.asset.main-js')
+        @include('partial.asset.main-js')
 
-    @yield('extrajs')
+        @yield('extrajs')
 
-    <!-- LOGIN & REGISTER -->
+        <!-- LOGIN & REGISTER -->
 
-    @include('partial.popup.login-register')
+        @include('partial.popup.login-register')
 
-    <!-- LOGIN & REGISTER -->
-
+        <!-- LOGIN & REGISTER -->
     </body>
 </html>
 

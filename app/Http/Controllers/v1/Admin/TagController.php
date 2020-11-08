@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Blog;
 use App\Models\Tag;
 
 use Validator;
@@ -26,14 +27,14 @@ class TagController extends ApiController
         $datas = Tag::where('id','>',0);
         
         if ($request->has('search')) {
-            $datas = $datas->where('name','like',"%".$search."%");
+            $datas = $datas->where('name', 'like', "%".$search."%");
         }
 
-        $datas = $datas->with(['updater'=>function($query) use ($search){
-            $query->orWhere('name','like',"%".$search."%");
+        $datas = $datas->with(['creator' => function($query) use ($search){
+            $query->orWhere('name', 'like', "%".$search."%");
         }]);
 
-        $datas = $datas->orderBy("id","desc")->paginate($page_size);
+        $datas = $datas->orderBy("id", "desc")->paginate($page_size);
 
         return response()->json($datas);
     }
@@ -46,7 +47,7 @@ class TagController extends ApiController
         $req = $request->all();
         //$session_id = $request->get('auth')->user->id;
         $session_id = Session::get('user') ? Session::get('user')->id : 1;
-        $datas["updater_id"] = $session_id;
+        $req["creator_id"] = $session_id;
         $validator = Validator::make($req, rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validator->fails()) 
@@ -55,17 +56,34 @@ class TagController extends ApiController
                 'message' => $validator->messages()
             ], 422);
         
-        $category = Tag::create($req);
+        $tag = Tag::create($req);
         
-        if ($category)
+        if ($tag) {
             return response()->json([
-                'data' => $category, 
+                'data' => $tag, 
                 'message' => 'category created'
             ]);
-        else
+        } else {
             return response()->json([
                 "message" => "cant create category"
             ], 400);
+        }   
+    }
+
+    public function destroy(Request $request, $id) {
+        $tag= Tag::findOrFail($id);
+        $blogs= Blog::all();
+
+        foreach ($blogs as $key => $blog) {
+            $blog->tags()->detach($tag->id);
+        }
+
+        $tag->delete();
+
+        return response()->json([
+            'deleted' => $tag,
+            'message' =>  'tag deleted'
+        ]);
     }
 }
 

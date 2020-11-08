@@ -16,7 +16,7 @@ class CreateLocationsTable extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->unsignedInteger('updater_id')->nullable();
+            $table->unsignedInteger('creator_id')->nullable();
             $table->timestamps();
         });
     }

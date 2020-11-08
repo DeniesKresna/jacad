@@ -17,15 +17,15 @@ const tag = {
     actions: {
         INDEX({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('/admin/tags?page_size=10&' + payload).then(response=>{
+                axios.get('/admin/tags?page_size=10&' + payload).then(response => {
                     resolve(response.data);
                 });
             });
         },
 
         LIST({ commit }, payload) {
-            return new Promise((resolve,reject) => {
-                axios.get('/admin/tags/list').then(response=>{
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/tags/list').then(response => {
                     resolve(response.data);
                 });
             });
@@ -33,15 +33,15 @@ const tag = {
 
         STORE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.post('admin/tags', qs.stringify(payload)).then(response=>{
+                axios.post('/admin/tags', qs.stringify(payload)).then(response => {
                     resolve(response.data.data);
                 });
             });
         },
 
-        UPDATE({commit},payload) {
+        UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put('admin/tags/' + payload.id, qs.stringify(payload)).then(response=>{
+                axios.put('/admin/tags/' + payload.id, qs.stringify(payload)).then(response => {
                     resolve(response.data)
                 });
             })
@@ -49,7 +49,7 @@ const tag = {
         
         DESTROY({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete('admin/tags/' + payload).then(response=>{
+                axios.delete('/admin/tags/' + payload).then(response => {
                     resolve(response.data)
                 });
             })

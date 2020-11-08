@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Oct 2020 13:04:14 +0700.
+ * Date: Mon, 09 Nov 2020 00:24:17 +0700.
  */
 
 namespace App\Models;
@@ -13,6 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Job
  * 
  * @property int $id
+ * @property int $company_id
  * @property string $position
  * @property string $type
  * @property int $location_id
@@ -29,14 +30,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $poster_url
  * @property string $poster_path
  * @property string $jobhun_info
- * @property int $company_id
  * @property int $view
  * @property int $read
  * @property int $verified
  * @property int $first_reader_id
+ * @property int $verificator_id
  * @property int $creator_id
  * @property \Carbon\Carbon $expired
- * @property int $verificator_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -45,14 +45,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 class Job extends Eloquent
 {
 	protected $casts = [
-		'location_id' => 'int',
 		'company_id' => 'int',
+		'location_id' => 'int',
 		'view' => 'int',
 		'read' => 'int',
 		'verified' => 'int',
 		'first_reader_id' => 'int',
-		'creator_id' => 'int',
-		'verificator_id' => 'int'
+		'verificator_id' => 'int',
+		'creator_id' => 'int'
 	];
 
 	protected $dates = [
@@ -60,6 +60,7 @@ class Job extends Eloquent
 	];
 
 	protected $fillable = [
+		'company_id',
 		'position',
 		'type',
 		'location_id',
@@ -76,17 +77,20 @@ class Job extends Eloquent
 		'poster_url',
 		'poster_path',
 		'jobhun_info',
-		'company_id',
 		'view',
 		'read',
 		'verified',
 		'first_reader_id',
+		'verificator_id',
 		'creator_id',
-		'expired',
-		'verificator_id'
+		'expired'
     ];
     
     public function company() {
-		return $this->belongsTo('App\Models\Company', 'creator_id');
-	}
+        return $this->belongsTo('App\Models\Company', 'creator_id');
+    }
+
+    public function sectors() {
+        return $this->belongsToMany('App\Models\Sector');
+    }
 }

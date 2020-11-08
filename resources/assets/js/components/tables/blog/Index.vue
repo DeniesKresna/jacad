@@ -40,7 +40,8 @@
                                         <span class="fa fa-pencil-square-o"></span>
                                     </router-link> &nbsp;
                                     <a href="javascript:void(0)" @click="destroyData(item.id, item.title)">
-                                        <span class="fa fa-trash-o"></span></a> &nbsp;
+                                        <span class="fa fa-trash-o"></span>
+                                    </a> &nbsp;
                                     <a :href="item.url" target="_blank">
                                         <span class="fa fa-eye"></span>
                                     </a>

@@ -16,17 +16,17 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('username');
+            $table->string('username')->nullable();
             $table->string('email');
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('notification_emails')->nullable();
+            $table->smallInteger('active');
             $table->timestamp('prev_login');
             $table->timestamp('last_login');
             //$table->string('type',30)->default('superuser');
-            $table->smallInteger('active');
             $table->timestamp('dt_start');
             $table->timestamp('dt_end');
-            $table->text('notification_emails')->nullable();
-            $table->string('phone')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

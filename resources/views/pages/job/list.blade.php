@@ -64,8 +64,7 @@
                     <div class="col-lg-12">
                         <span class="emlthis">
                             <a href="mailto:example.com" title="">
-                                <i class="la la-envelope-o"></i> 
-                                Email me Jobs Like These
+                                <i class="la la-envelope-o"></i> Email me Jobs Like These
                             </a>
                         </span>
                         
@@ -93,7 +92,6 @@
                         {{-- LIST JOB --}}
                         <div class="job-grid-sec">
                             <div class="row">
-                                
                                 {{-- JOB ITEM -> FOR DISINI --}}
                                 @foreach ($jobs as $job)
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
@@ -106,14 +104,12 @@
                                                     <a href="#" title="">{{ $job->position }}</a>
                                                 </h3>
                                                 <span>{{ $job->company->name }}</span>
-                                                <span>{{ $job->company }}</span>
                                                 <span class="fav-job">
                                                     <i class="la la-heart-o"></i>
                                                 </span>
                                             </div>
                                             <span class="job-lctn">{{ $job->location }}</span>
-                                            <a href="{{ url('/jobs').'/'.$job->id }}" title="">APPLY NOW</a>
-                                            <a  href="#" title="">APPLY NOW</a>
+                                            <a href="{{ url('/jobs/').'/'.$job->id }}" title="">APPLY NOW</a>
                                         </div>
                                     </div>
                                 @endforeach

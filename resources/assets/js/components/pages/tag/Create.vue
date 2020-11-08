@@ -39,7 +39,7 @@
         },
         methods: {
             storeData(){
-                this.$store.dispatch('tag/STORE', this.data).then(response=>{
+                this.$store.dispatch('tag/STORE', this.data).then(response => {
                     this.data = { 
                         name: '' 
                     };

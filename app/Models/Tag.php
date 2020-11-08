@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Oct 2020 13:04:14 +0700.
+ * Date: Sun, 08 Nov 2020 18:57:17 +0700.
  */
 
 namespace App\Models;
@@ -14,7 +14,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $name
- * @property int $updater_id
+ * @property int $creator_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -23,15 +23,15 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 class Tag extends Eloquent
 {
 	protected $casts = [
-		'updater_id' => 'int'
+		'creator_id' => 'int'
 	];
 
 	protected $fillable = [
 		'name',
-		'updater_id'
+		'creator_id'
     ];
     
-    public function updater() {
-		return $this->belongsTo('App\Models\User', 'updater_id');
-	}
+    public function creator() {
+        return $this->belongsTo('App\Models\User', 'creator_id');
+    }
 }

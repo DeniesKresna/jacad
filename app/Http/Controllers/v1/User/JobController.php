@@ -10,7 +10,6 @@ use App\Http\Controllers\ApiController;
 use App\Notifications\Job as NotifyJob;
 use App\Models\Company;
 use App\Models\Job;
-use App\Models\JobSector;
 
 use Validator;
 
@@ -48,11 +47,8 @@ class JobController extends ApiController {
     
     public function store(Request $request) {
         $datas = $request->all();
-        //$session_id = $request->get('auth')->user->id;
-        //$datas["customer_id"] = $session_id;
         $datas['sector_ids']= explode(',', $datas['sector_ids']);
-        $datas["creator_id"] = 1;
-        $datas["updater_id"] = 1;   
+        $datas['creator_id'] = 1; 
         
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
@@ -69,19 +65,21 @@ class JobController extends ApiController {
         $datas['image_url'] = upload_dir().$upload;
 
         $company = Company::updateOrCreate(['name' => trim($datas['name'])], $datas);
-        
+
         if ($company) {
-            $job = Job::create($datas)->load(['company']);
-            $job_sector= null;
+            $job = Job::create($datas)->load('company');
+            $job->sectors()->attach($datas['sector_ids']);
+
+            //$job_sector= null;
             
-            foreach ($datas['sector_ids'] as $key => $id) {
+            /*foreach ($datas['sector_ids'] as $key => $id) {
                 $job_sector= JobSector::create([
                     'job_id' => $job->id,
                     'sector_id' => $id
                 ]);
-            }
+            }*/
 
-            if ($job && $job_sector) {
+            if ($job) {
                 Notification::route('mail', $company->email)
                             ->notify(new NotifyJob());
                 
@@ -146,7 +144,8 @@ class JobController extends ApiController {
         $post->delete();
 
         return response()->json([
-            'data' => $post,'message' => 'post deleted'
+            'data' => $post,
+            'message' => 'post deleted'
         ]);
     }
 }

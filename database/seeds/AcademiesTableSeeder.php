@@ -10,9 +10,12 @@ class AcademiesTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+
+    private $seeds;
+
+    public function __construct()
     {
-        $seeds= [
+        $this->seeds= [
             [
                 'name' => 'Content Writer',
                 'description' => '',
@@ -107,10 +110,13 @@ class AcademiesTableSeeder extends Seeder
                 'mentor_id' => 6,
                 'creator_id' => 1,
                 'updater_id' => 1 
-            ],
+            ]
         ];
-
-        foreach ($seeds as $key => $seed) {
+    }
+    
+    public function run()
+    {
+        foreach ($this->seeds as $key => $seed) {
             Academy::create($seed);
         }
     }

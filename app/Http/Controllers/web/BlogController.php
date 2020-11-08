@@ -49,7 +49,7 @@ class BlogController extends Controller
     }
     
     public function getFromTitle($url_title) {
-        $blog= Blog::where('url_title', $url_title)->first();
+        $blog= Blog::where('url_title', $url_title)->firstOrFail();
         $blog->prev_post = Blog::where('created_at', '<', $blog->created_at)->orderBy('id', 'desc')->first(['title', 'url']);
     	$blog->next_post = Blog::where('created_at', '>', $blog->created_at)->orderBy('id', 'asc')->first(['title', 'url']);
         $recent_blogs= Blog::orderBy('created_at', 'desc')->limit(3)->get();

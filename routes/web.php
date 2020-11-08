@@ -26,19 +26,16 @@ Route::get('/student-ambassador', 'PageController@studentAmbassador');
 Route::get('job/opening', function() {
     return view('pages.job.opening');
 });
-Route::get('job', 'web\JobController@index');
-Route::get('job/create', 'web\JobController@create');
-Route::get('job/{id}', 'web\JobController@show');
-
-Route::resource('jobs', 'web\JobController');
+Route::get('/jobs', 'web\JobController@index');
+Route::get('/jobs/create', 'web\JobController@create');
+Route::get('/jobs/{id}', 'web\JobController@show');
 
 /*
 | Blogs routes
 */
 Route::get('/blogs', 'web\BlogController@index');
-Route::get('blogs/category/{category}','web\BlogController@indexCategory');
-Route::get('blogs/{url_title}', 'web\BlogController@getFromTitle');
-Route::resource('blogs', 'web\BlogController');
+Route::get('/blogs/category/{category}','web\BlogController@indexCategory');
+Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
 
 /*
 | Login Socialite routes
@@ -46,13 +43,13 @@ Route::resource('blogs', 'web\BlogController');
 Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
 Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
 
-/* JONATHAN ROUTE (DIUBAH PKE API) */
-Route::post('register', 'web\RegisterController@index');
-Route::post('login', 'web\LoginController@index');
+Route::get('/logout', 'web\LogoutController@index');
 
-Route::get('logout', 'web\LogoutController@index');
-Route::get('register-token/{token}', 'web\RegisterController@checkToken');
 /* JONATHAN ROUTE (DIUBAH PKE API) */
+Route::post('/register', 'web\RegisterController@index');
+Route::post('/login', 'web\LoginController@index');
 
-Route::get('logout', 'web\LogoutController@index');
+Route::get('/logout', 'web\LogoutController@index');
+Route::get('/register-token/{token}', 'web\RegisterController@checkToken');
+/* JONATHAN ROUTE (DIUBAH PKE API) */
 

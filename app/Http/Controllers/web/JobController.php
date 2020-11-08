@@ -7,63 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\Company;
-use Validator;
+use App\Models\Sector;
 
-class JobController extends Controller {
-
+class JobController extends Controller 
+{
     public function index(Request $request) {
         $page = $request->page;
         $page_size = $page ? $request->page_size : 10;
-        
-        //DUMMY DATA SEMENTARA
-        $jobs= [
-            to_object([
-                'position' => 'Web Developer',
-                'company' => 'Company 1',
-                'location' => 'City 1'
-            ]),
-            to_object([
-                'position' => 'Web Designer',
-                'company' => 'Company 2',
-                'location' => 'City 2'
-            ]),
-            to_object([
-                'position' => 'Graphic Designer',
-                'company' => 'Company 3',
-                'location' => 'City 3'
-            ]),
-            to_object([
-                'position' => 'Graphic Designer',
-                'company' => 'Company 4',
-                'location' => 'City 4'
-            ]),
-            to_object([
-                'position' => 'UI/UX Designer',
-                'company' => 'Company 5',
-                'location' => 'City 5'
-            ]),
-            to_object([
-                'position' => 'Android Developer',
-                'company' => 'Company 6',
-                'location' => 'City 6'
-            ]),
-        ];
+        $jobs= Job::all();
 
-        if (!empty(Job::all())) {
-            $jobs= Job::all();
-            
-            foreach ($jobs as $key => $job) { //IF LOCATION SEMENTARA
-                if ($job->location_id == 1) $job->location= 'Jakarta';
-                else if ($job->location_id == 2) $job->location= 'Surabaya';
-                else if ($job->location_id == 3) $job->location= 'Yogyakarta'; 
-            }
+        foreach ($jobs as $key => $job) { //IF LOCATION SEMENTARA
+            if ($job->location_id == 1) $job->location= 'Jakarta';
+            else if ($job->location_id == 2) $job->location= 'Surabaya';
+            else if ($job->location_id == 3) $job->location= 'Yogyakarta'; 
         }
 
         return view('pages.job.list', ['jobs' => $jobs]);
     }
 
-    public function show($job_id) {
-        $job= Job::where(['id' => $job_id])->first();
+    public function show($id) {
+        $job= Job::findOrFail($id);
         
         $job->type= strtoupper($job->type);
         $job->posted_at= time_elapsed_string(strval($job->created_at));
@@ -78,10 +41,12 @@ class JobController extends Controller {
 
     public function create() {
         $companies = Company::limit(10)->get();
-        
+        $sectors= Sector::all();
+
     	return view('pages.job.create', [
             'title' => 'Post Job', 
-            'companies'=> $companies
+            'companies' => $companies,
+            'sectors' => $sectors
         ]);
     }
 }
