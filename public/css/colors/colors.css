@@ -7,7 +7,7 @@ Background Color
 .pricetable > a,
 .pricetable.active,
 .bottom-line.style2{
-    background-color: #141f72 ;
+    background-color: #fb236a ;
 }
 
 /*------------------------------------------------------------------
@@ -16,7 +16,7 @@ Text Color
 .text-color,
 .pricetable-head h2,
 .pricetable.active > a{
-    color: #141f72;
+    color: #fb236a;
 }
 
 /*------------------------------------------------------------------

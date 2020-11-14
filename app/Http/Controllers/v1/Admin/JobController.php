@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\v1\Admin;
 
-use App\Http\Controllers\ApiController;
-use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Validator;
+
+use App\Http\Controllers\ApiController;
+use App\Models\Job;
 
 class JobController extends ApiController {
     /**
@@ -19,20 +19,24 @@ class JobController extends ApiController {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
-        $datas = Job::where('id','>',0);
-        if($request->has('search')){
-            $datas = $datas->where('position','like',"%".$search."%")
-                        ->orWhereHas('company',function($query) use($search){
-                            $query->where('name','like','%'.$search.'%');
-                        });
+        $datas = Job::where('id', '>', 0);
+        
+        if ($request->has('search')) {
+            $datas = $datas->where('position', 'like', "%".$search."%")
+                        ->orWhereHas('company', function($query) use ($search) {
+                $query->where('name', 'like', '%'.$search.'%');
+            });
         }
+        
+        $datas = $datas->with('company')->orderBy("id", "desc")->paginate($page_size);
 
-        $datas = $datas->orderBy("id","desc")->paginate($page_size);
         return response()->json($datas);
     }
 
-    public function show($id){
-        return response()->json(Job::findOrFail($id)->load(['categories']));
+    public function show($id) {
+        $job= Job::with(['company', 'location'])->findOrFail($id);
+
+        return response()->json($job);
     }
 
     public function update(Request $request, $id){
@@ -41,6 +45,7 @@ class JobController extends ApiController {
         //$datas["customer_id"] = $session_id;
         $datas["verificator_id"] = 1;
         $res = "rejected";
+
         if($request->verified == "y"){
             $datas["verified"] = 1;
             $res = "accepted";

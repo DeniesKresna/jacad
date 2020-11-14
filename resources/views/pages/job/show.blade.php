@@ -140,9 +140,51 @@
 				 		</div>
                     </div>
                     
-				 	@include('partial.jobrightbar')
+				 	@include('pages.job.right-bar')
 				</div>
 			</div>
 		</div>
 	</section>
+@endsection
+
+@section('extrajs')
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+		    });
+
+            $('#btn-apply-job').click(function() {
+                $('body').loading();
+
+                $.ajax({
+                    url: `{{ url('/api/v1/user/job-applications') }}`,
+                    type: 'POST',
+                    data: { id : `{{ $job->id }}` },
+                    success: function(response) {
+                        $('body').loading('stop');
+                        
+                        swal({ 
+                            title: 'Pengajuan berhasil!', 
+                            text: response, 
+                            icon: "success" 
+                        });
+                    },
+                    error: function(error) {
+                        $('body').loading('stop');
+
+                        if (error.status === 403) {
+                            swal({ 
+                                title: 'Pengajuan gagal!', 
+                                text: error.responseJSON, 
+                                icon: "error" 
+                            });
+                        }
+                    }   
+                });
+            });
+        });
+    </script>
 @endsection

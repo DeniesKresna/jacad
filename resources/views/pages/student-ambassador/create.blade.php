@@ -143,7 +143,7 @@
                 if ($('#btnBack').is(':visible')) {
                     $.ajax({
                         type: 'POST',
-                        url: `{{ url('/api/v1/user/studentAmbassadors') }}`,
+                        url: `{{ url('/api/v1/user/student-ambassadors') }}`,
                         data: formData,
                         dataTypes: 'JSON',
                         processData: false,

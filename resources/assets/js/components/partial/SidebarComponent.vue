@@ -44,6 +44,7 @@
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
                         <router-link :to="'/job/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/applications/'" class="list-group-item">Application</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
@@ -95,7 +96,7 @@
                         Jobhun Student Ambassador <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramsa">
-                        <router-link :to="'/studentAmbassador/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/student-ambassador/'" class="list-group-item">Index</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                 </div>

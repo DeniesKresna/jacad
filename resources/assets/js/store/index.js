@@ -6,15 +6,13 @@ import { actions } from './actions';
 import { mutations } from './mutations';
 import { getters } from './getters'; 
 
-import job from './modules/job';
-import blog from './modules/blog';
-import studentAmbassador from './modules/studentAmbassador';
-import category from './modules/category';
+import user from './modules/user';
 import tag from './modules/tag';
-
-/*
-import donatur from './modules/donatur'
-import clients from './modules/clients'*/
+import category from './modules/category';
+import blog from './modules/blog';
+import job from './modules/job';
+import job_application from './modules/job-application';
+import student_ambassador from './modules/student-ambassador';
 
 Vue.use(Vuex);
 
@@ -24,10 +22,12 @@ export default new Vuex.Store({
   	actions,
   	getters,
     modules: {
-        job,
-        blog,
-        studentAmbassador,
-        category,
+        user,
         tag,
+        category,
+        blog,
+        job,
+        job_application,
+        student_ambassador
     }
 });

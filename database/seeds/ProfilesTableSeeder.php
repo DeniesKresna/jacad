@@ -21,7 +21,7 @@ class ProfilesTableSeeder extends Seeder
                 'user_id' => 4,
                 'desc' => 'dummy_text',
                 'domicile' => 'Surabaya',
-                'date_of_birth' => date("Y-m-d H:i:s"),
+                'birth_date' => date("Y-m-d H:i:s"),
                 'facebook_url' => 'facebook.com/user-profile/dummy',
                 'linkedIn_url' => 'linkedIn.com/user-profile/dummy'
             ]

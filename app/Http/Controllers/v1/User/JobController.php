@@ -35,11 +35,11 @@ class JobController extends ApiController {
         }]);
 
         $datas = $datas->orderBy("id","desc")->paginate($page_size);
-
+        
         return response()->json($datas);
     }
 
-    public function show($id){
+    public function show($id) {
         return response()->json(
             Post::findOrFail($id)->load(['categories'])
         );
@@ -70,15 +70,6 @@ class JobController extends ApiController {
             $job = Job::create($datas)->load('company');
             $job->sectors()->attach($datas['sector_ids']);
 
-            //$job_sector= null;
-            
-            /*foreach ($datas['sector_ids'] as $key => $id) {
-                $job_sector= JobSector::create([
-                    'job_id' => $job->id,
-                    'sector_id' => $id
-                ]);
-            }*/
-
             if ($job) {
                 Notification::route('mail', $company->email)
                             ->notify(new NotifyJob());
@@ -86,7 +77,6 @@ class JobController extends ApiController {
                 return response()->json([
                     'data' => [
                         'job' => $job,
-                        'sector_ids' => $datas['sector_ids']
                     ],
                     'message' => 'job created'
                 ]);

@@ -89,8 +89,20 @@ class Job extends Eloquent
     public function company() {
         return $this->belongsTo('App\Models\Company', 'creator_id');
     }
+    
+    public function location() {
+        return $this->hasOne('App\Models\Location', 'id', 'location_id');
+    }
 
     public function sectors() {
         return $this->belongsToMany('App\Models\Sector');
+    }
+
+    public function applicants() {
+        return $this->belongsToMany('App\Models\User', 'job_applications', 'job_id', 'applicant_id');
+    }   
+    
+    public function scopePosition($query, $position) {
+        return $query->where('position', 'like', '%'.$position.'%');
     }
 }

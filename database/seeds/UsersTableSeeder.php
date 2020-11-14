@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
                 'active' => 1
             ],
     
-            /*[
+            [
                 'name' => 'Jonathan Gani',
                 'email' => 'jonathangani279@gmail.com',
                 'phone' => '08157006008',
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
                 'active' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
-            ]*/
+            ]
         ];
     }
 

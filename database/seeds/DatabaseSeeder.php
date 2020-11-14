@@ -20,9 +20,14 @@ class DatabaseSeeder extends Seeder
             JobsTableSeeder::class,
             SectorsTableSeeder::class,
             JobSectorTableSeeder::class,
-            CategoriesTableSeeder::class,
             AcademiesTableSeeder::class,
-            AskCareersTableSeeder::class
+            AskCareersTableSeeder::class,
+            StudentAmbassadorsTableSeeder::class,
+            CategoriesTableSeeder::class,
+            TagsTableSeeder::class,
+            BlogsTableSeeder::class,
+            BlogTagTableSeeder::class,
+            LocationsTableSeeder::class
         ]);
     }
 }

@@ -120,9 +120,9 @@
 					 						<span class="pf-title">Lokasi Pekerjaan</span>
 					 						<div class="pf-field">
 					 							<select data-placeholder="Pilih salah satu" class="chosen" name="location_id">
-													<option value="1">Jakarta</option>
-													<option value="2">Surabaya</option>
-													<option value="3">Yogyakarta</option>
+													@foreach ($locations as $location)
+                                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                                    @endforeach
 												</select>
 					 						</div>
 					 					</div>

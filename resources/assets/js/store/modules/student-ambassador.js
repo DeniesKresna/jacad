@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const studentAmbassador= {
+const student_ambassador= {
     namespaced: true,
     state: {
-        jsambassadors: []
+        student_ambassadors: []
     },
     getters: {
-        jsambassadors: (state) => {
-            return state.jsambassadors;
+        student_ambassadors: (state) => {
+            return state.student_ambassadors;
         }
     }, 
     mutations: {
@@ -16,7 +16,7 @@ const studentAmbassador= {
     actions: {
         INDEX({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get(`/admin/studentAmbassadors?page_size=10&${payload}`)
+                axios.get(`/admin/student-ambassadors?page_size=10&${payload}`)
                      .then(response => {
                     resolve(response.data);
                 });
@@ -25,7 +25,7 @@ const studentAmbassador= {
         
         UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put(`/admin/studentAmbassadors/${payload}`)
+                axios.put(`/admin/student-ambassadors/${payload}`)
                      .then(response => {
                     resolve(response.data)         
                 })
@@ -34,7 +34,7 @@ const studentAmbassador= {
 
         DESTROY({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete(`/admin/studentAmbassadors/${payload}`)
+                axios.delete(`/admin/student-ambassadors/${payload}`)
                      .then(response => {
                     resolve(response.data)
                 });
@@ -43,4 +43,4 @@ const studentAmbassador= {
     }
 };
 
-export default studentAmbassador;
+export default student_ambassador;

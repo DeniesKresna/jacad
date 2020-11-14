@@ -11,10 +11,9 @@
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
-                <button 
-                    type="button" class="btn btn-default btn-block">
-                    <router-link :to="this.route+'create'">Create</router-link>
-                </button>
+                <router-link :to="this.route+'create'">
+                    <button type="button" class="btn btn-default btn-block">Create</button>
+                </router-link>
             </div>
         </div>
         <div class="row">
@@ -66,7 +65,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
     export default {

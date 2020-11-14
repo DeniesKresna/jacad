@@ -11593,7 +11593,7 @@ footer.ft .scrollup {
     height: 700px;
     overflow: hidden;
     position: relative;
-    background: rgb(20,31,114);
+    background: rgb(20, 31, 114);
     background: -moz-linear-gradient(130deg,  rgba(20,31,114,1) 0%, rgba(52,65,161,1) 71%, rgba(52,65,161,1) 100%);
     background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(20,31,114,1)), color-stop(71%,rgba(52,65,161,1)), color-stop(100%,rgba(52,65,161,1)));
     background: -webkit-linear-gradient(130deg,  rgba(20,31,114,1) 0%,rgba(52,65,161,1) 71%,rgba(52,65,161,1) 100%);

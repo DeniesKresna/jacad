@@ -1,8 +1,14 @@
 <div class="col-lg-4 column">
-    <a class="apply-thisjob" href="#" title=""><i class="la la-paper-plane"></i>Apply for job</a>
+    <a id="btn-apply-job" class="apply-thisjob" title="">
+        <i class="la la-paper-plane"></i> Apply for job
+    </a>
     <div class="apply-alternative">
-        <a href="#" title=""><i class="la la-linkedin"></i> Apply with Linkedin</a>
-        <span><i class="la la-heart-o"></i> Shortlist</span>
+        <a href="" title="">
+            <i class="la la-linkedin"></i> Apply with Linkedin
+        </a>
+        <span>
+            <i class="la la-heart-o"></i> Shortlist
+        </span>
     </div>
     
     <!-- JOB OVERVIEW -->

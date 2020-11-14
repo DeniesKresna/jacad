@@ -9,7 +9,7 @@
                         <div class="job-statistic">
                             <span>{{ $job->type }}</span>
                             <p>
-                                <i class="la la-map-marker"></i> {{ $job->location }}
+                                <i class="la la-map-marker"></i> {{ $job->location->name }}
                             </p>
                             <p>
                                 <i class="la la-calendar-o"></i> Posted {{ $job->posted_at }}

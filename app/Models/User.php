@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Notifications\PasswordReset; // Or the location that you store your notifications (this is default).
+use Matrix\Functions;
 
 /**
  * Class User
@@ -101,5 +102,9 @@ class User extends Authenticatable
     
     public function profile() {
         return $this->hasOne('App\Models\Profile', 'user_id', 'id');
+    }
+    
+    public function job_applications() {
+        return $this->belongsToMany('App\Models\Job', 'job_applications', 'applicant_id', 'job_id');
     }
 }

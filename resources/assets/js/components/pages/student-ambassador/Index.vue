@@ -2,9 +2,8 @@
     <div class="content-row">
         <div class="row">
             <div class="col-md-5">
-                <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResult(1)">
+                <input type="text" class="form-control" v-model="search" placeholder="Search then type Enter" @keyup.enter="getResults(1)">
             </div>
-
             <div class="row">
                 <div class="col-md-12" v-if="result.data.length">
                     <div class="table-responsive">
@@ -19,14 +18,14 @@
                             <tbody>
                                 <tr v-bind:key="index"
                                     v-for="(item, index) in result.data">
-                                    <td>{{ item.id }}</td>
+                                    <td>{{ (index+1) }}</td>
                                     <td>{{ item.name }}</td>
                                     <td v-if="item.status === 0">
                                         <button @click="accept(item)" class="btn btn-primary">
-                                            Accept
+                                            <span class="fa fa-check"></span>
                                         </button>
                                         <button @click="reject(item)" class="btn btn-danger">
-                                            Reject
+                                            <span class="fa fa-times"></span>
                                         </button>
                                     </td>
                                     <td v-else>
@@ -56,13 +55,13 @@
             }
         },
         mounted() {
-            this.getResult(1);
+            this.getResults(1);
         },
         methods: {
-            getResult(page= 1) {
+            getResults(page= 1) {
                 let query= `page=${page}&search=${this.search}`;
 
-                this.$store.dispatch('jsambassador/INDEX', query)
+                this.$store.dispatch('student_ambassador/INDEX', query)
                            .then(response => {
                     this.result = response;
                 });
@@ -70,9 +69,9 @@
             
             accept(jsa) {
                 if (confirm(`Are you sure want to accept: ${jsa.name}?`)) {
-                    this.$store.dispatch('jsambassador/UPDATE', jsa.id)
+                    this.$store.dispatch('student_ambassador/UPDATE', jsa.id)
                                .then(response => {
-                        this.getResult(1);
+                        this.getResults(1);
 
                         alert('Telah di accept oleh user XXXX');
                     });
@@ -81,14 +80,14 @@
 
             reject(jsa) {
                 if (confirm(`Are you sure want to reject: ${jsa.name}?`)) {
-                    this.$store.dispatch('jsambassador/DESTROY', jsa.id)
+                    this.$store.dispatch('student_ambassador/DESTROY', jsa.id)
                                .then(response => {
-                        this.getResult(this.result.current_page);
+                        this.getResults(this.result.current_page);
                         
                         alert('Telah di reject oleh user XXXX');
                     });
                 }
             }
-        }
+        }   
     }
 </script>

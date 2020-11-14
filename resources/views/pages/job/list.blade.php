@@ -14,22 +14,21 @@
                             <div class="job-search-sec">
                                 <div class="job-search">
                                     <h4>Explore Thousand Of Jobs With Just Simple Search...</h4>
-
-                                    <form>
+                                    <form action="{{ url('/jobs') }}" method="GET">
 										<div class="row">
 											<div class="col-lg-7">
 												<div class="job-field">
-													<input type="text" placeholder="Job title, keywords or company name"/>
+													<input type="text" name="position" placeholder="Posisi pekerjaan"/>
 													<i class="la la-keyboard-o"></i>
 												</div>
 											</div>
 											<div class="col-lg-4">
 												<div class="job-field">
-													<select data-placeholder="City, province or region" class="chosen-city">
-														<option>Istanbul</option>
-														<option>New York</option>
-														<option>London</option>
-														<option>Russia</option>
+													<select name="location_id" data-placeholder="Lokasi" class="chosen-city">
+                                                        <option value="all">- Semua lokasi -</option>
+                                                        @foreach ($locations as $location)
+                                                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                                        @endforeach
 													</select>
 													<i class="la la-map-marker"></i>
 												</div>
@@ -62,16 +61,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <span class="emlthis">
+                        <!--<span class="emlthis">
                             <a href="mailto:example.com" title="">
                                 <i class="la la-envelope-o"></i> Email me Jobs Like These
                             </a>
-                        </span>
+                        </span>-->
                         
                         {{--  FILTER BAR --}}
                         <div class="filterbar">
                             <h5>{{ count($jobs) }} Jobs & Vacancies</h5>
-                            <div class="sortby-sec">
+                            <!--<div class="sortby-sec">
                                 <span>Sort by</span>
                                 <select data-placeholder="Most Recent" class="chosen">
                                    <option>Most Recent</option>
@@ -85,7 +84,7 @@
                                    <option>50 Per Page</option>
                                    <option>60 Per Page</option>
                                 </select>
-                            </div>
+                            </div>-->
                         </div>
                         {{--  FILTER BAR --}}
 
@@ -108,8 +107,8 @@
                                                     <i class="la la-heart-o"></i>
                                                 </span>
                                             </div>
-                                            <span class="job-lctn">{{ $job->location }}</span>
-                                            <a href="{{ url('/jobs/').'/'.$job->id }}" title="">APPLY NOW</a>
+                                            <span class="job-lctn">{{ $job->location->name }}</span>
+                                            <a href="{{ url('/jobs/'.$job->id) }}" title="">APPLY NOW</a>
                                         </div>
                                     </div>
                                 @endforeach

@@ -11,9 +11,9 @@
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-default btn-block">
-                    <router-link :to="'/category/create'">Create</router-link>
-                </button>
+                <router-link :to="'/tag/create'">
+                    <button type="button" class="btn btn-default btn-block">Create</button>
+                </router-link>
             </div>
         </div>
 

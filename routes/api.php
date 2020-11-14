@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -90,19 +89,22 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::get('/tags/list','v1\Admin\TagController@list');
     Route::post('/medias','v1\Admin\MediaController@store');
     
-    Route::resource('/jobs', 'v1\Admin\JobController');
-    Route::resource('/blogs','v1\Admin\BlogController');
+    Route::resource('/users', 'v1\Admin\UserController');
     Route::resource('/tags','v1\Admin\TagController');
-    Route::resource('/studentAmbassadors', 'v1\Admin\StudentAmbassadorController');
+    Route::resource('/blogs','v1\Admin\BlogController');
+    Route::resource('/jobs', 'v1\Admin\JobController');
+    Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
+    Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
     
-    //Route::post('/adi/test','v1\TestController@adi');s
+    //Route::post('/adi/test','v1\TestController@adi');
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::resource('/jobs', 'v1\User\JobController');
-    Route::resource('/studentAmbassadors', 'v1\User\StudentAmbassadorController');
-
-    Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
+    Route::resource('/job-applications', 'v1\User\JobApplicationController');
+    Route::resource('/student-ambassadors', 'v1\User\StudentAmbassadorController');
+    
+    //Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
 });
 
 

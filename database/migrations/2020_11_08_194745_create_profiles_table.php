@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('desc')->nullable();
             $table->string('domicile')->nullable();
-            $table->date('date_of_birth')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('facebook_url')->nullable();
             $table->string('linkedIn_url')->nullable();
             $table->timestamps();
