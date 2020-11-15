@@ -1,24 +1,23 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">{{ title }}</h2>
+        <h2 class="content-row-title">Academy Edit</h2>
         <div class="row">
             <form
                 class="form-horizontal" 
-                role="form" 
+                role="form"
                 @submit.prevent="updateData">
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Title</label>
+                    <label class="col-md-2 control-label">Name</label>
                     <div class="col-md-10">
                         <input 
+                            class="form-control"
                             type="text" 
-                            required="" 
-                            placeholder="Title" 
-                            class="form-control" 
-                            v-model="data.title">
+                            placeholder="Name"  
+                            v-model="data.name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Featured Image</label>
+                    <label class="col-md-2 control-label">Featured Image</label>
                     <div class="col-md-10">
                         <span v-if="data.image_url">
                             <img :src="data.image_url" width="300">
@@ -28,31 +27,48 @@
                                 type="file" 
                                 id="file" 
                                 ref="file" 
-                                @change="handleFileUpload()">
+                                 @change="handleFileUpload()">
                         </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Content</label>
+                    <label class="col-md-2 control-label">Description</label>
                     <div class="col-md-10">
                         <vue-editor 
                             useCustomImageHandler 
                             :editorOptions="editorSettings" 
                             @image-added="handleImageAdded" 
-                            v-model="data.content">
+                            v-model="data.desc">
                         </vue-editor>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Categories</label>
+                    <label class="col-md-2 control-label">Category</label>
                     <div class="col-md-10">
-                        <v-select 
-                            placeholder="Pick some"
-                            label="name"
-                            track-by="id"
-                            v-model="picked.category" 
-                            :options="options.categories" 
-                            :disabled="disabled" />
+                        <input 
+                            class="form-control"
+                            type="text" 
+                            disabled
+                            v-model="data.category">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Price</label>
+                    <div class="col-md-10">
+                        <input 
+                            class="form-control"
+                            type="number"
+                            v-model="data.price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">SKU</label>
+                    <div class="col-md-10">
+                        <input 
+                            class="form-control"
+                            type="text"
+                            placeholder="SKU"
+                            v-model="data.sku">
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,9 +89,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-info" type="submit">Edit</button>
+                        <button class="btn btn-info" type="submit">Update</button>
                     </div>
-                </div>
+                </div> 
             </form>
         </div>
     </div>
@@ -87,27 +103,19 @@
     import Multiselect from 'vue-multiselect';
     
     Quill.register('modules/imageResize', ImageResize);
-    
+
     export default {
         components: {
             VueEditor, 
             Multiselect
         },
-        props: [
-            'title',
-            'category',
-            'menu',
-            'disabled'
-        ],
         data() {
             return {
                 data: {},
                 options: {
-                    categories: [],
                     tags: [],
                 },
                 picked: {
-                    category: 0,
                     tags: []
                 },
                 editorSettings: {
@@ -117,20 +125,7 @@
                 }
             }
         },
-        mounted() {
-            let stringQuery= '';
-
-            if (this.menu) {
-                stringQuery= `menu=${this.menu}`;
-            }
-
-            if (this.category) {
-                stringQuery+= `&name=${this.category}`;
-            }
-
-            this.$store.dispatch('category/LIST', stringQuery).then(response => {
-                this.options.categories = response;
-            });
+        mounted() { 
             this.$store.dispatch('tag/LIST').then(response => {
                 this.options.tags = response;
             });
@@ -138,9 +133,8 @@
         },
         methods: {
             getData() {
-                this.$store.dispatch('blog/SHOW', this.$route.params.id).then(response => {
+                this.$store.dispatch('academy/SHOW', this.$route.params.id).then(response => {                    
                     this.data = response;
-                    this.picked.category= response.category;
                     this.picked.tags= response.tags;
                 });
             },
@@ -168,11 +162,9 @@
                 this.data.file = this.$refs.file.files[0];
             },
             updateData() {
-                this.data.id = this.$route.params.id;
-                this.data.category= this.picked.category.id;
                 this.data.tags = this.picked.tags.map(tag => tag.id);
                 
-                this.$store.dispatch('blog/UPDATE', this.data).then(response => {
+                this.$store.dispatch('academy/UPDATE', this.data).then(response => {
                     this.getData();
                 });
             }

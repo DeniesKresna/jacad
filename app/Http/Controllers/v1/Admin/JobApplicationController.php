@@ -51,8 +51,6 @@ class JobApplicationController extends ApiController
 
                 return response()->json($job_applications);
             }
-
-            return response()->json($job_applications);
         }
         
         $job_applications= $job_applications

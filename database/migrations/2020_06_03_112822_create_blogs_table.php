@@ -16,11 +16,11 @@ class CreateBlogsTable extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->text('content');
+            $table->string('url');
+            $table->string('url_title');
             $table->string('image_url');
             $table->string('image_path');
-            $table->string('url_title');
-            $table->string('url');
-            $table->text('content');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('author_id')->nullable();
             $table->softDeletes();

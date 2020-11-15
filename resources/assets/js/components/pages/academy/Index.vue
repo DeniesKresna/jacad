@@ -1,42 +1,47 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Index</h2>
+        <h2 class="content-row-title">Academy Index</h2>
         <div class="row">
             <div class="col-md-5">
-                <input
+                <input 
+                    type="text" 
                     class="form-control" 
-                    type="text"  
                     v-model="search" 
                     placeholder="Search then type Enter" 
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
-                <router-link :to="'/tag/create'">
-                    <button type="button" class="btn btn-default btn-block">Create</button>
-                </router-link>
+                <router-link :to="'/academy/create'" class="btn btn-default btn-block">Create</router-link>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-12" v-if="result.data.length > 0">
+            <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Creator</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-bind:key="index"
                                 v-for="(item, index) in result.data">
-                                <td>{{ index + (result.from) }}</td>
+                                <td>{{ (index+1) }}</td>
                                 <td>{{ item.name }}</td>
+                                <td>{{ item.creator.name }}</td>
                                 <td>
+                                    <router-link :to="`/academy/${item.id}`">
+                                        <span class="fa fa-pencil-square-o"></span>
+                                    </router-link> &nbsp;
                                     <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
                                     </a> &nbsp;
+                                    <a :href="item.url" target="_blank">
+                                        <span class="fa fa-eye"></span>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -50,7 +55,6 @@
                     </paginate>
                 </div>
             </div>
-
             <div v-else>
                 <div class="col-md-12">
                     <p>no data yet</p>
@@ -61,33 +65,33 @@
 </template>
 
 <script>
-    export default{
+    export default {
         data() {
-            return{
+            return {
                 search: '',
                 result: {
                     data: []
                 }
             }
         },
-        mounted(){
+        mounted() {
             this.getResults(1);
         },
         methods: {
-            getResults(page=1) {
-                let stringQuery = "page="+page+"&search="+this.search;
-                
-                this.$store.dispatch('tag/INDEX', stringQuery).then(response => {
+            getResults(page= 1) {
+                let stringQuery= `page=${page}&search=${this.search}`;
+
+                this.$store.dispatch('academy/INDEX', stringQuery).then(response => {
                     this.result = response;
                 });
             },
-
-            destroyData(tag) {
-                if (confirm(`Are you sure want to delete this ${tag.name} tag?`)) {
-                    this.$store.dispatch('tag/DESTROY', tag.id).then(response => {
+            destroyData(academy) {
+                if (confirm(`Are you sure want to delete academy: ${academy.name}?`)) {
+                    this.$store.dispatch('academy/DESTROY', academy.id).then(response => {
                         this.getResults(this.result.current_page);
-                    });;
-                }   
+                        console.log(this.result.current_page);
+                    });
+                }
             }
         }
     }

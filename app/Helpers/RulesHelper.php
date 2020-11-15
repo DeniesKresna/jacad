@@ -5,7 +5,7 @@ if (!function_exists('rules_lists')) {
         $controller = array_pop($path);
 
         //================================Category=======================
-        if ($controller == "CategoryController") {
+        if ($controller == "TagController") {
             if ($method=="store") {
                 return [
                     'name' => 'required|max:199'
@@ -16,34 +16,11 @@ if (!function_exists('rules_lists')) {
                     'name' => 'required|max:199'
                 ];
             }
-
         }
-
-        //================================Location =================================
-        else if ($controller == "LocationController") {
-            if ($method=="store") {
-                return [
-                    'name' => 'required|max:199',
-                ];
-            } else {
-                return [
-                    'name' => 'required|max:199',
-                ];
-            }
-        }
-
-        //================================Media=================================
-        else if ($controller == "MediaController") {
-            if ($method=="store") {
-                return [
-                    'image' => 'required',
-                ];
-            }
-        }
-
-        //================================Post=================================
-        else if ($controller == "PostController") {
-            if ($method=="store") {
+        
+        //================================Blog=================================
+        else if ($controller == "BlogController") {
+            if ($method == "store") {
                 return [
                     'title' => 'required|max:199',
                     'content' => 'required',
@@ -57,9 +34,31 @@ if (!function_exists('rules_lists')) {
             }
         }
 
+        //================================Media=================================
+        else if ($controller == "MediaController") {
+            if ($method == "store") {
+                return [
+                    'image' => 'required',
+                ];
+            }
+        }
+
+        //================================Location =================================
+        else if ($controller == "LocationController") {
+            if ($method == "store") {
+                return [
+                    'name' => 'required|max:199',
+                ];
+            } else {
+                return [
+                    'name' => 'required|max:199',
+                ];
+            }
+        }
+
         //================================Job=================================
         else if ($controller == "JobController") {
-            if ($method=="store") {
+            if ($method == "store") {
                 return [
                     'name' => 'required|max:199',
                     'tagline' => 'required|max:199',
@@ -70,7 +69,6 @@ if (!function_exists('rules_lists')) {
                     'position' => 'required|max:199',
                     'type' => 'required|max:199',
                     'sector_ids' => 'required',
-                    //'location_id' => 'required|digits:10',
                     'location_id' => 'required',
                     'job_desc' => 'required|max:199',
                     'work_time' => 'required|max:199',
@@ -83,15 +81,28 @@ if (!function_exists('rules_lists')) {
                     'jobhun_info' => 'required|max:199',
                     'expired' => 'required|max:199'
                 ];
-            } else {
-                return [
-                    'title' => 'required|max:199',
-                    'content' => 'required',
-                    'address' => 'required|max:199'
-                ];
             }
         }
-        
+
+        //================================Academy=================================
+        else if ($controller == 'AcademyController') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required|max:199',
+                    'desc' => 'required',
+                    'price' => 'required',
+                    'sku' => 'required'
+                ];
+            } else if ($method == 'update') {
+                /*return [
+                    'name' => 'required|max:199',
+                    'desc' => 'required',
+                    'price' => 'required',
+                    'sku' => 'required'
+                ];*/
+            }
+        }
+
         //================================Student Ambassador=================================
         else if ($controller == 'StudentAmbassadorController') {
             if ($method == 'store') {
@@ -107,11 +118,6 @@ if (!function_exists('rules_lists')) {
                     'line_id' => 'required|max:199',
                     'ig_link' => 'required|max:199',
                     'linkedin_link' => 'required|max:199'
-                ];
-            } else {
-                return [
-                    'title' => 'required|max:199',
-                    'content' => 'required'
                 ];
             }
         }
@@ -142,7 +148,7 @@ if (!function_exists('rules_lists')) {
         
         //========================Global============================================
         else if ($controller == "Global"){
-            if ($method=="any"){
+            if ($method == "any"){
                 return [
                     'start_date' => 'date|date_format:Y-m-d',
                     'end_date' => 'date|date_format:Y-m-d|after_or_equal:start_date',

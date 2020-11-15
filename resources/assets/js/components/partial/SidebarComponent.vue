@@ -43,16 +43,16 @@
                         Jobhun Career Hub <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
-                        <router-link :to="'/job/'" class="list-group-item">Index</router-link>
-                        <router-link :to="'/applications/'" class="list-group-item">Application</router-link>
+                        <router-link :to="'/job'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/job-application'" class="list-group-item">Application</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
                         Jobhun Academy <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbserviceac">
-                        <router-link :to="''" class="list-group-item">Index</router-link>
-                        <router-link :to="''" class="list-group-item">Create</router-link>
+                        <router-link :to="'/academy'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/academy/create'" class="list-group-item">Create</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <!--<a href="#sbservicetp" class="list-group-item" data-toggle="collapse">
@@ -75,28 +75,28 @@
                         Jobhun Internship <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramin">
-                        <router-link :to="'/internship/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/internship'" class="list-group-item">Index</router-link>
                         <router-link :to="'/internship/create'" class="list-group-item">Create</router-link>
                     </div>
                     <a href="#sbprogramtl" class="list-group-item" data-toggle="collapse">
                         Jobhun Talks <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramtl">
-                        <router-link :to="'/talks/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/talks'" class="list-group-item">Index</router-link>
                         <router-link :to="'/talks/create'" class="list-group-item">Create</router-link>
                     </div>
                     <a href="#sbprogramvi" class="list-group-item" data-toggle="collapse">
                         Jobhun Visit <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramvi">
-                        <router-link :to="'/visit/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/visit'" class="list-group-item">Index</router-link>
                         <router-link :to="'/visit/create'" class="list-group-item">Create</router-link>
                     </div>
                      <a href="#sbprogramsa" class="list-group-item" data-toggle="collapse">
                         Jobhun Student Ambassador <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramsa">
-                        <router-link :to="'/student-ambassador/'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/student-ambassador'" class="list-group-item">Index</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import TagCreate from '../components/pages/tag/Create.vue';
 export const tag= [
     {
         name: 'TagIndex',
-        path: '/tag/',
+        path: '/tag',
         component: TagIndex
     },
     {

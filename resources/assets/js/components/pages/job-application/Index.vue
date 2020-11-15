@@ -33,10 +33,10 @@
                                 <td>{{ item.position }}</td>
                                 <td>{{ item.applicant.name }}</td>
                                 <td>
-                                    <router-link :to="`/applications/job/${item.id}`">
+                                    <router-link :to="`/job-application/job/${item.id}`">
                                         <span class="fa fa-briefcase"></span>
                                     </router-link>
-                                    <router-link :to="`/applications/applicant/${item.applicant.id}`">
+                                    <router-link :to="`/job-application/applicant/${item.applicant.id}`">
                                         <span class="fa fa-user"></span>
                                     </router-link>
                                 </td>
@@ -76,7 +76,7 @@
             getResults(page= 1) {
                 let query= `page=${page}&search=${this.search}`;
 
-                this.$store.dispatch('job_application/INDEX', query).then(response => {
+                this.$store.dispatch('job_application/INDEX', query).then(response => {                    
                     this.result= response;
 
                     let applications= [];

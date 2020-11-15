@@ -1,21 +1,21 @@
-import ApplicationIndex from '../components/pages/job-application/Index.vue';
+import JobApplicationIndex from '../components/pages/job-application/Index.vue';
 import JobDetail from '../components/pages/job-application/JobDetail.vue';
 import ApplicantDetail from '../components/pages/job-application/ApplicantDetail.vue';
 
 export const job_application= [
     {
         name: 'ApplicationIndex',
-        path: '/applications',
-        component: ApplicationIndex
+        path: '/job-application',
+        component: JobApplicationIndex
     },
     {
         name: 'JobDetail',
-        path: '/applications/job/:id',
+        path: '/job-application/job/:id',
         component: JobDetail
     },
     {
         name: 'ApplicantDetail',
-        path: '/applications/applicant/:id',
+        path: '/job-application/applicant/:id',
         component: ApplicantDetail
     },
 ];

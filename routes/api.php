@@ -94,6 +94,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::resource('/blogs','v1\Admin\BlogController');
     Route::resource('/jobs', 'v1\Admin\JobController');
     Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
+    Route::resource('/academies', 'v1\Admin\AcademyController');
     Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
     
     //Route::post('/adi/test','v1\TestController@adi');

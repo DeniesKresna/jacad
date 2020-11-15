@@ -11,9 +11,7 @@
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
-                <router-link :to="this.route+'create'">
-                    <button type="button" class="btn btn-default btn-block">Create</button>
-                </router-link>
+                <router-link :to="this.route+'create'" class="btn btn-default btn-block">Create</router-link>
             </div>
         </div>
         <div class="row">
@@ -31,14 +29,14 @@
                         <tbody>
                             <tr v-bind:key="index"
                                 v-for="(item, index) in result.data">
-                                <td>{{ index + (result.from) }}</td>
+                                <td>{{ (index+1) }}</td>
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.author.name }}</td>
                                 <td>
                                     <router-link :to="route+item.id">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </router-link> &nbsp;
-                                    <a href="javascript:void(0)" @click="destroyData(item.id, item.title)">
+                                    <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
                                     </a> &nbsp;
                                     <a :href="item.url" target="_blank">
@@ -101,9 +99,9 @@
                     this.result = response;
                 });
             },
-            destroyData(id, title) {
-                if (confirm("Are you sure delete post : "+title + " ?")) {
-                    this.$store.dispatch('blog/DESTROY', id).then(response => {
+            destroyData(blog) {
+                if (confirm("Are you sure delete blog : "+blog.title + "?")) {
+                    this.$store.dispatch('blog/DESTROY', blog.id).then(response => {
                         this.getResults(this.result.current_page);
                     });
                 }

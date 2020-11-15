@@ -16,18 +16,17 @@ class CreateAcademiesTable extends Migration
         Schema::create('academies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
-            $table->float('rating');
-            $table->string('review');
+            $table->text('desc');
             $table->integer('price');
-            $table->string('faq');
-            $table->string('learning_resources');
-            $table->string('learning_process');
-            $table->string('starting_time');
-            $table->string('platform');
-            $table->integer('mentor_id');
-            $table->integer('creator_id');
-            $table->integer('updater_id');
+            $table->string('sku');
+            $table->string('category');
+            $table->string('url');
+            $table->string('url_name');
+            $table->string('image_url');
+            $table->string('image_path');
+            $table->unsignedInteger('creator_id')->nullable();
+            $table->unsignedInteger('updater_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

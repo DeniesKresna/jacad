@@ -5,7 +5,7 @@ import BlogEdit from '../components/pages/blog/Edit.vue';
 export const blog= [
     {
         name: 'BlogIndex',
-        path: '/blog/',
+        path: '/blog',
         component: BlogIndex
     },
     {

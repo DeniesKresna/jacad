@@ -20,25 +20,25 @@ class BlogController extends ApiController
     public function index(Request $request) {
         $page = $request->page;
         $page_size = $request->page_size;
-        $category= $request->category;
-        $menu= $request->menu;
         $search = $request->search;
         $datas = Blog::where('id', '>' ,0);
         
-        if ($request->has('search')) {
+        if ($request->has('search') && $request->search) {
             $datas= $datas->where(function($query) use ($search) {
                 $query->where('title', 'like', "%".$search."%")
                       ->orWhere('url', 'like', "%".$search."%");
             });
         }
 
-        if ($request->has('category')) {
+        if ($request->has('category') && $request->category) {
+            $category= $request->category;
             $datas= $datas->whereHas('category', function($query) use ($category) {
                 $query->where('name', $category);
             });
         }
 
-        if ($request->has('menu')) {
+        if ($request->has('menu') && $request->menu) {
+            $menu= $request->menu;
             $datas= $datas->whereHas('category', function($query) use ($menu) {
                 $query->where('menu', $menu);
             });
@@ -47,7 +47,7 @@ class BlogController extends ApiController
         $datas = $datas->with(['author' => function($query) use ($search) {
             $query->orWhere('name', 'like', "%".$search."%");
         }]);
-        $datas = $datas->orderBy("id", "desc")->paginate($page_size);
+        $datas = $datas->orderBy('id', 'desc')->paginate($page_size);
 
         return response()->json($datas);
     }
@@ -60,6 +60,7 @@ class BlogController extends ApiController
     
     public function store(Request $request) {
         $datas = $request->all();
+        $datas['tags']= explode(',', $datas['tags']);
         $datas['author_id'] = Session::get('user') ? Session::get('user')->id : 1;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
@@ -74,17 +75,16 @@ class BlogController extends ApiController
         $datas['url_title'] = str_replace(" ", "-", strtolower($request->title));
         $datas['url'] = url("/")."/blogs/".$datas['url_title'];
         
-        $upload = upload("/screen/medias/",$request->file('file'),'1');
+        $upload = upload("/screen/medias/", $request->file('file'), '1');
         
         $datas['image_path'] = $upload;
         $datas['image_url'] = upload_dir().$upload;
         
         $blog = Blog::create($datas); 
-        
         $blog->category()->associate($datas['category']);
         $blog->tags()->attach($datas['tags']);
         $blog->save();
-
+        
         if ($blog) {
             return response()->json([ 
                 'message' => 'blog created'
@@ -102,7 +102,7 @@ class BlogController extends ApiController
         
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'fail' => false,
                 'message' => $validator->messages()
@@ -113,7 +113,6 @@ class BlogController extends ApiController
         $datas['url'] = url("/")."/blog/".$datas['url_title'];
 
         $blog = Blog::findOrFail($id);
-        
         $blog->update($datas);
         $blog->category()->associate($datas['category']);
         $blog->tags()->sync($datas['tags']);
@@ -121,12 +120,11 @@ class BlogController extends ApiController
         
         if ($blog) {
             return response()->json([
-                'data' => $blog, 
                 'message' => 'blog updated'
             ]);
         } else {
             return response()->json([
-                "message"=>"cant update blog"
+                'message'=> 'cant update blog'
             ], 400);
         }
     }
@@ -142,7 +140,6 @@ class BlogController extends ApiController
                 $blog->forceDelete();
                 
                 return response()->json([
-                    'data' => $blog,
                     'message' => 'blog deleted'
                 ]);
             }
@@ -152,7 +149,6 @@ class BlogController extends ApiController
         $blog->save();
         
         return response()->json([
-            'data' => $blog,
             'message' => 'blog deleted'
         ]);
     }

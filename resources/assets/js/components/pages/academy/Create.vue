@@ -1,19 +1,18 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">{{ title }}</h2>
+        <h2 class="content-row-title">Create Academy</h2>
         <form 
             class="form-horizontal" 
-            novalidate="" 
             role="form" 
             @submit.prevent="storeData">
             <div class="form-group">
-                <label class="col-md-2 control-label">Title</label>
+                <label class="col-md-2 control-label">Name</label>
                 <div class="col-md-10">
                     <input 
+                        class="form-control"
                         type="text" 
-                        placeholder="Title" 
-                        class="form-control" 
-                        v-model="data.title">
+                        placeholder="Name"  
+                        v-model="data.name">
                 </div>
             </div>
             <div class="form-group">
@@ -27,26 +26,43 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Content</label>
+                <label class="col-md-2 control-label">Description</label>
                 <div class="col-md-10">
                     <vue-editor 
                         useCustomImageHandler 
                         :editorOptions="editorSettings" 
                         @image-added="handleImageAdded" 
-                        v-model="data.content">
+                        v-model="data.desc">
                     </vue-editor>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Categories</label>
+                <label class="col-md-2 control-label">Category</label>
                 <div class="col-md-10">
-                    <v-select 
-                        placeholder="Pick some"
-                        label="name"
-                        track-by="id"
-                        v-model="picked.category" 
-                        :options="options.categories" 
-                        :disabled="disabled" />
+                    <input 
+                        class="form-control"
+                        type="text" 
+                        disabled
+                        v-model="data.category">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Price</label>
+                <div class="col-md-10">
+                    <input 
+                        class="form-control"
+                        type="number"
+                        v-model="data.price">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">SKU</label>
+                <div class="col-md-10">
+                    <input 
+                        class="form-control"
+                        type="text"
+                        placeholder="SKU"
+                        v-model="data.sku">
                 </div>
             </div>
             <div class="form-group">
@@ -69,7 +85,7 @@
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn btn-info" type="submit">Create</button>
                 </div>
-            </div>
+            </div> 
         </form>
     </div>
 </template>
@@ -80,33 +96,27 @@
     import Multiselect from 'vue-multiselect';
 
     Quill.register('modules/imageResize', ImageResize);
-    
+
     export default {
         components: {
-            VueEditor, 
-            Multiselect
+            VueEditor,
+            Multiselect 
         },
-        props: [
-            'title',
-            'category',
-            'menu',
-            'disabled'
-        ],
         data() {
             return {
                 data: {
-                    title: '', 
-                    content: '',
-                    category: 0,  
-                    tags: [], 
+                    name: '',
+                    desc: '',
+                    price: 0,
+                    sku: '',
+                    category: 'Jobhun Academy Online Learning',
+                    tags: [],
                     file: null
                 },
                 options: {
-                    categories: [],
                     tags: []
                 },
                 picked: {
-                    category: 0,
                     tags: []
                 },
                 editorSettings: {
@@ -117,20 +127,6 @@
             }
         },
         mounted() {
-            let stringQuery= '';
-
-            if (this.menu) {
-                stringQuery= `menu=${this.menu}`;
-            }
-
-            if (this.category) {
-                stringQuery+= `&name=${this.category}`;
-            }
-
-            this.$store.dispatch('category/LIST', stringQuery).then(response => {
-                this.options.categories= response;
-                this.picked.category= response[0];
-            });
             this.$store.dispatch('tag/LIST').then(response => {
                 this.options.tags = response;
             });
@@ -160,15 +156,16 @@
                 this.data.file = this.$refs.file.files[0];
             },
             storeData() {
-                this.data.category= this.picked.category.id;
                 this.data.tags = this.picked.tags.map(tag => tag.id);
-                
-                this.$store.dispatch('blog/STORE', this.data).then(response => {
-                    this.data = {
-                        title: '', 
-                        content: '',
-                        category: 0,  
-                        tags: [], 
+
+                this.$store.dispatch('academy/STORE', this.data).then(response => {
+                    this.data= {
+                        name: '',
+                        desc: '',
+                        price: 0,
+                        sku: '',
+                        category: 'Jobhun Academy Online Learning',
+                        tags: [],
                         file: null
                     };
                     this.$refs.file.value = '';

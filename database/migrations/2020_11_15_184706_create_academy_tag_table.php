@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlogTagTable extends Migration
+class CreateAcademyTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateBlogTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_tag', function (Blueprint $table) {
+        Schema::create('academy_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('blog_id')->nullable();
-            $table->unsignedInteger('tag_id')->nullable();
+            $table->unsignedInteger('academy_id');
+            $table->unsignedInteger('tag_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateBlogTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_tag');
+        Schema::dropIfExists('academy_tag');
     }
 }

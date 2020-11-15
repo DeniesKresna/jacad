@@ -17,17 +17,17 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class, 
             RoleUserTableSeeder::class,
             CompaniesTableSeeder::class,
-            JobsTableSeeder::class,
-            SectorsTableSeeder::class,
-            JobSectorTableSeeder::class,
-            AcademiesTableSeeder::class,
-            AskCareersTableSeeder::class,
-            StudentAmbassadorsTableSeeder::class,
             CategoriesTableSeeder::class,
             TagsTableSeeder::class,
             BlogsTableSeeder::class,
             BlogTagTableSeeder::class,
-            LocationsTableSeeder::class
+            LocationsTableSeeder::class,
+            JobsTableSeeder::class,
+            SectorsTableSeeder::class,
+            JobSectorTableSeeder::class,
+            //AcademiesTableSeeder::class,
+            AskCareersTableSeeder::class,
+            StudentAmbassadorsTableSeeder::class
         ]);
     }
 }
