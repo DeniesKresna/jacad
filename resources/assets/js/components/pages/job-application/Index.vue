@@ -43,7 +43,7 @@
                             </tr>
                         </tbody>
                     </table>
-                     <paginate
+                    <paginate
                         :page-count="result.last_page"
                         :click-handler="getResults"
                         :prev-text="'Prev'"

@@ -24,6 +24,7 @@ class CreateAcademiesTable extends Migration
             $table->string('url_name');
             $table->string('image_url');
             $table->string('image_path');
+            $table->integer('batch');
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('updater_id')->nullable();
             $table->softDeletes();

@@ -36,6 +36,7 @@ class AcademyController extends ApiController
 
     public function store(Request $request) {
         $datas= $request->all();
+        $datas['batch']= 1;
         $datas['tags']= explode(',', $datas['tags']);
         $datas['creator_id']= 1;
 

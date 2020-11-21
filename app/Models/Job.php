@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 09 Nov 2020 00:24:17 +0700.
+ * Date: Fri, 20 Nov 2020 20:40:11 +0700.
  */
 
 namespace App\Models;
@@ -13,10 +13,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Job
  * 
  * @property int $id
- * @property int $company_id
  * @property string $position
  * @property string $type
- * @property int $location_id
  * @property string $job_desc
  * @property string $work_time
  * @property string $dress_style
@@ -34,23 +32,26 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $read
  * @property int $verified
  * @property int $first_reader_id
+ * @property \Carbon\Carbon $expired
+ * @property int $location_id
  * @property int $verificator_id
  * @property int $creator_id
- * @property \Carbon\Carbon $expired
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property string $deleted_at
  *
  * @package App\Models
  */
 class Job extends Eloquent
 {
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+
 	protected $casts = [
-		'company_id' => 'int',
-		'location_id' => 'int',
 		'view' => 'int',
 		'read' => 'int',
 		'verified' => 'int',
 		'first_reader_id' => 'int',
+		'location_id' => 'int',
 		'verificator_id' => 'int',
 		'creator_id' => 'int'
 	];
@@ -60,10 +61,8 @@ class Job extends Eloquent
 	];
 
 	protected $fillable = [
-		'company_id',
 		'position',
 		'type',
-		'location_id',
 		'job_desc',
 		'work_time',
 		'dress_style',
@@ -81,9 +80,10 @@ class Job extends Eloquent
 		'read',
 		'verified',
 		'first_reader_id',
+		'expired',
+		'location_id',
 		'verificator_id',
-		'creator_id',
-		'expired'
+		'creator_id'
     ];
     
     public function company() {
@@ -101,7 +101,7 @@ class Job extends Eloquent
     public function applicants() {
         return $this->belongsToMany('App\Models\User', 'job_applications', 'job_id', 'applicant_id');
     }   
-    
+
     public function scopePosition($query, $position) {
         return $query->where('position', 'like', '%'.$position.'%');
     }

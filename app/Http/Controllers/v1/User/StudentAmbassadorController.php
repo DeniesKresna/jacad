@@ -18,10 +18,6 @@ class StudentAmbassadorController extends ApiController {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index() {
-
-    }
-
     public function store(Request $request) {
         $datas= $request->all();
         $datas['status']= 0;

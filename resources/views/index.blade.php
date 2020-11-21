@@ -11,7 +11,12 @@
                 
                 <div class="row">
                     @foreach ($academies as $academy)
-                        @include('components.academy', ['academy' => $academy])
+                        @include('components.academy', [
+                            'academy' => $academy,
+                            'css' => [
+                                'col' => 4
+                            ]
+                        ])
                     @endforeach
                 </div>  
                 

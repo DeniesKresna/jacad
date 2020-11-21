@@ -22,13 +22,14 @@ class JobController extends ApiController {
         $datas = Job::where('id', '>', 0);
         
         if ($request->has('search')) {
-            $datas = $datas->where('position', 'like', "%".$search."%")
-                        ->orWhereHas('company', function($query) use ($search) {
+            $datas = $datas
+                ->where('position', 'like', "%".$search."%")
+                ->orWhereHas('company', function($query) use ($search) {
                 $query->where('name', 'like', '%'.$search.'%');
             });
         }
         
-        $datas = $datas->with('company')->orderBy("id", "desc")->paginate($page_size);
+        $datas = $datas->with('company')->orderBy('id', 'desc')->paginate($page_size);
 
         return response()->json($datas);
     }
@@ -39,47 +40,34 @@ class JobController extends ApiController {
         return response()->json($job);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id) {
         $datas = $request->all();
-        //$session_id = $request->get('auth')->user->id;
-        //$datas["customer_id"] = $session_id;
-        $datas["verificator_id"] = 1;
-        $res = "rejected";
+        $datas['verificator_id'] = 1;
+        
+        $status= 'rejected';
 
-        if($request->verified == "y"){
-            $datas["verified"] = 1;
-            $res = "accepted";
+        if ($request->verify == 'yes'){
+            $datas['verified'] = 1;
+            $status= 'verified';
+        } else {
+            $datas['verified'] = 2;
         }
-        else{
-            $datas["verified"] = 2;
-        }
+
         $job = Job::findOrFail($id);
-        if($job){
-            DB::table("jobs")->where('id',$job->id)->update($datas);
-            return response()->json(['message'=>'job '.$res]);
+        $job->update($datas);
+        $job->save();
+
+        if ($job) {
+            return response()->json(['message' => 'job '.$status]);
+        } else {
+            return response()->json(['message' => 'cant verify job'], 400);
         }
-        else
-            return response()->json(["message"=>"cant verify job"],400);
     }
 
     public function destroy(Request $request, $id){
         $job = Job::findOrFail($id);
         $job->delete();
-        return response()->json(['data'=>$job,'message'=>'post deleted']);
+        
+        return response()->json(['message' => 'job deleted']);
     }
-/*
-    public function index(Request $request) {   
-        $page = $request->page;
-        $page_size = $request->page_size;
-        $search = $request->search;
-        $datas = Job::where('id', '>', 0);
-        
-        if ($request->has('search')) {
-            $datas = $datas->where('position','like',"%".$search."%");
-        }
-
-        $datas = $datas->orderBy('id', 'desc')->paginate($page_size);
-        
-        return response()->json($datas);
-    }*/
 }

@@ -44,7 +44,7 @@
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
                         <router-link :to="'/job'" class="list-group-item">Index</router-link>
-                        <router-link :to="'/job-application'" class="list-group-item">Application</router-link>
+                        <router-link :to="'/job-application'" class="list-group-item">Job Application</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
@@ -53,6 +53,7 @@
                     <div class="collapse list-group-submenu" id="sbserviceac">
                         <router-link :to="'/academy'" class="list-group-item">Index</router-link>
                         <router-link :to="'/academy/create'" class="list-group-item">Create</router-link>
+                        <router-link :to="'/academy-registrant'" class="list-group-item">Academy Registrant</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <!--<a href="#sbservicetp" class="list-group-item" data-toggle="collapse">

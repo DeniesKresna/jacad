@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Job Index</h2>
+        <h2 class="content-row-title">Academy Registrants</h2>
         <div class="row">
             <div class="col-md-5">
                 <input 
@@ -15,27 +15,27 @@
             <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">
                     <table class="table">
-                        <thead>
+                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Company</th>
-                                <th>Position</th>
-                                <th>Status</th>
+                                <th>Academy</th>
+                                <th>Registrant</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr v-bind:key="index"
-                                v-for="(item, index) in result.data">
+                        <tbody 
+                            v-bind:key="index"
+                            v-for="(item, index) in result.data">
+                            <tr>
                                 <td>{{ (index+1) }}</td>
-                                <th>{{ item.company.name }}</th>
-                                <td>{{ item.position }}</td>
-                                <td v-if="item.verified === 1">Verified</td>
-                                <td v-else-if="item.verified === 2">Rejected</td>
-                                <td v-else>Pending</td>
+                                <td>{{ item.academy ? item.academy.name : '' }}</td>
+                                <td>{{ item.name }}</td>
                                 <td>
-                                    <router-link :to="`/job/${item.id}`">
-                                        <span class="fa fa-eye"></span>
+                                    <router-link :to="`/academy-registrant/academy/${item.academy.id}`">
+                                        <span class="fa fa-graduation-cap"></span>
+                                    </router-link>
+                                     <router-link :to="`/academy-registrant/registrant/${item.id}`">
+                                        <span class="fa fa-user"></span>
                                     </router-link>
                                 </td>
                             </tr>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-md-12" v-else>
-                no data yet.
+                <p>no data yet.</p>
             </div>
         </div>
     </div>
@@ -74,10 +74,10 @@
             getResults(page= 1) {
                 let query= `page=${page}&search=${this.search}`;
 
-                this.$store.dispatch('job/INDEX', query).then(response => {
-                    this.result = response;
+                this.$store.dispatch('academy_registrant/INDEX', query).then(response => {                    
+                    this.result= response;
                 });
             }
         }
-    };
+    }
 </script>

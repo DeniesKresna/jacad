@@ -62,13 +62,13 @@
                     <a href="#" title="">Layanan</a>
                     <ul>
                         <li>
-                            <a href="" title="">Jobhun Academy</a>
+                            <a href="{{ url('/academies') }}" title="">Jobhun Academy</a>
                         </li>
                         <li>
                             <a href="" title="">Jobhun Ask Career</a>
                         </li>
                         <li>
-                            <a href="{{ url('jobs') }}" title="">Jobhun Career Hub</a>
+                            <a href="{{ url('/jobs') }}" title="">Jobhun Career Hub</a>
                         </li>
                     </ul>
                 </li>
@@ -76,13 +76,13 @@
                     <a href="#" title="">Program</a>
                     <ul>
                         <li>
-                            <a href="" title="">Jobhun Internship</a>
+                            <a href="{{ url('/blogs/category/jobhun-internship') }}" title="">Jobhun Internship</a>
                         </li>
                         <li>
-                            <a href="" title="">Jobhun Talks</a>
+                            <a href="{{ url('/blogs/category/jobhun-talks') }}" title="">Jobhun Talks</a>
                         </li>
                         <li>
-                            <a href="" title="">Jobhun Visit</a>
+                            <a href="{{ url('/blogs/category/jobhun-visit') }}" title="">Jobhun Visit</a>
                         </li>
                         <li>
                             <a href="{{ url('/student-ambassador') }}" title="">Jobhun Student Ambrassador</a>
@@ -155,12 +155,12 @@
                         <a href="#" title="">Layanan</a>
                         <ul>
                             <li>
-                                <a href="" title="">Jobhun Academy</a></li>
+                                <a href="{{ url('/academies') }}" title="">Jobhun Academy</a></li>
                             <li>
                                 <a href="" title="">Jobhun Ask Career</a>
                             </li>
                             <li>
-                                <a href="{{ url('jobs') }}" title="">Jobhun Career Hub</a>
+                                <a href="{{ url('/jobs') }}" title="">Jobhun Career Hub</a>
                             </li>
                         </ul>
                     </li>
@@ -168,13 +168,13 @@
                         <a href="#" title="">Program</a>
                         <ul>
                             <li>
-                                <a href="" title="">Jobhun Internship</a>
+                                <a href="{{ url('/blogs/category/jobhun-internship') }}" title="">Jobhun Internship</a>
                             </li>
                             <li>
-                                <a href="" title="">Jobhun Talks</a>
+                                <a href="{{ url('/blogs/category/jobhun-talks') }}" title="">Jobhun Talks</a>
                             </li>
                             <li>
-                                <a href="" title="">Jobhun Visit</a>
+                                <a href="{{ url('/blogs/category/jobhun-visit') }}" title="">Jobhun Visit</a>
                             </li>
                             <li>
                                 <a href="{{ url('/student-ambassador') }}" title="">Jobhun Student Ambrassador</a>

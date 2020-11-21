@@ -95,6 +95,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::resource('/jobs', 'v1\Admin\JobController');
     Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
     Route::resource('/academies', 'v1\Admin\AcademyController');
+    Route::resource('/academy-registrants', 'v1\Admin\AcademyRegistrantController');
     Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
     
     //Route::post('/adi/test','v1\TestController@adi');
@@ -103,6 +104,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::resource('/jobs', 'v1\User\JobController');
     Route::resource('/job-applications', 'v1\User\JobApplicationController');
+    Route::resource('/academy-registrants', 'v1\User\AcademyRegistrantController');
     Route::resource('/student-ambassadors', 'v1\User\StudentAmbassadorController');
     
     //Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');

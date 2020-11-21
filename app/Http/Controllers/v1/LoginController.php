@@ -27,15 +27,9 @@ class LoginController extends ApiController {
                 'messages' => $validate->messages()
             ], 422);
         }
-
-        //$datas['password']= password_encrypt($datas['password']);
-        //$user= User::where($datas)->orWhere(['email'=>$datas['username'], 'password'=>$datas['password']])->first();    
-
+        
         if (!Auth::guard('user')->attempt($datas)) {
-            return response()->json([
-                'data' => $datas, 
-                'messages' => 'Wrong username or password'
-            ], 404);
+            return response()->json(['messages' => 'Wrong username or password'], 404);
         }
 
         return response()->json([

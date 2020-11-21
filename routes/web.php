@@ -21,21 +21,27 @@ Route::get('/', 'PageController@home');
 Route::get('/student-ambassador', 'PageController@studentAmbassador');
 
 /*
+| Blogs routes
+*/
+Route::get('/blogs', 'web\BlogController@index');
+Route::get('/blogs/category/{category}', 'web\BlogController@indexCategory');
+Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
+
+/*
 | Jobs routes
 */
-Route::get('job/opening', function() {
+/*Route::get('job/opening', function() {
     return view('pages.job.opening');
-});
+});*/
 Route::get('/jobs', 'web\JobController@index');
 Route::get('/jobs/create', 'web\JobController@create');
 Route::get('/jobs/{id}', 'web\JobController@show');
 
 /*
-| Blogs routes
+| Academies routes
 */
-Route::get('/blogs', 'web\BlogController@index');
-Route::get('/blogs/category/{category}','web\BlogController@indexCategory');
-Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
+Route::get('/academies', 'web\AcademyController@index');
+Route::get('/academies/{url_name}', 'web\AcademyController@show');
 
 /*
 | Login Socialite routes

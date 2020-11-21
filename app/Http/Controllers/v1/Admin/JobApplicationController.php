@@ -21,9 +21,9 @@ class JobApplicationController extends ApiController
             
             if ($job_applications->position($search)->count() > 0) {
                 $job_applications= $job_applications
-                ->has('applicants')
-                ->with(['company', 'applicants'])
-                ->paginate($page_size);
+                    ->has('applicants')
+                    ->with(['company', 'applicants'])
+                    ->paginate($page_size);
 
                 return response()->json($job_applications);
             }
@@ -32,9 +32,9 @@ class JobApplicationController extends ApiController
                 $query->where('companies.name', 'like', '%'.$search.'%');
             })->count() > 0) {
                 $job_applications= $job_applications
-                ->has('applicants')
-                ->with(['company', 'applicants'])
-                ->paginate($page_size);
+                    ->has('applicants')
+                    ->with(['company', 'applicants'])
+                    ->paginate($page_size);
 
                 return response()->json($job_applications);
             }
@@ -43,11 +43,11 @@ class JobApplicationController extends ApiController
                 $query->where('users.name', 'like', '%'.$search.'%');
             })->count() > 0) {
                 $job_applications= $job_applications
-                ->has('applicants')
-                ->with([
-                    'company', 
-                    'applicants' => $callback_search_applicants
-                ])->paginate($page_size);
+                    ->has('applicants')
+                    ->with([
+                        'company', 
+                        'applicants' => $callback_search_applicants
+                    ])->paginate($page_size);
 
                 return response()->json($job_applications);
             }

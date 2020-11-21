@@ -58,7 +58,8 @@
                         <input 
                             class="form-control"
                             type="number"
-                            v-model="data.price">
+                            v-model="data.price"
+                            min="0">
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,6 +70,16 @@
                             type="text"
                             placeholder="SKU"
                             v-model="data.sku">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Batch</label>
+                    <div class="col-md-10">
+                        <input 
+                            class="form-control"
+                            type="number"
+                            v-model="data.batch"
+                            min="0">
                     </div>
                 </div>
                 <div class="form-group">

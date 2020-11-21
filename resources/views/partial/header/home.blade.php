@@ -53,7 +53,9 @@
                             </div>
                         </div>
                         <div class="scroll-to">
-                            <a href="#scroll-here" title=""><i class="la la-arrow-down"></i></a>
+                            <a href="#scroll-here" title="">
+                                <i class="la la-arrow-down"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

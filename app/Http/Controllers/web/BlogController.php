@@ -10,13 +10,8 @@ use App\Models\Category;
 
 class BlogController extends Controller
 {
-    public function index(Request $request) {   
-        if ($request->page_size) {
-            $page_size = $request->page_size;
-        } else {
-            $page_size = 10;
-        }
-        
+    public function index(Request $request) {
+        $page_size = $request->page ? $request->page_size : 10;
         $blogs= Blog::with('author')->orderBy('id', 'desc')->paginate($page_size);
         $recent_blogs= Blog::orderBy('created_at', 'desc')->limit(3)->get();
         $categories = Category::orderBy('name')->get();
@@ -29,12 +24,8 @@ class BlogController extends Controller
     }
 
     public function indexCategory(Request $request, $category) {        
-        if ($request->page_size) {
-            $page_size = $request->page_size;
-        } else {
-            $page_size = 10;
-        }
-
+        $page_size = $request->page ? $request->page_size : 10;
+        $category= ucwords(implode(' ',explode('-', $category)));
         $blogs= Blog::with('author')->whereHas('category', function($query) use ($category) {
             $query->where('name', $category);
         })->orderBy('id', 'desc')->paginate($page_size);

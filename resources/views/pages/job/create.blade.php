@@ -113,7 +113,12 @@
 					 					<div class="col-lg-12">
 					 						<span class="pf-title">Deskripsi Pekerjaan</span>
 					 						<div class="pf-field">
-					 							<textarea class="special_ta" name="job_desc"><p>Deskripsi:</p><p>Pekerjaan yang dilakukan:</p><p>Syarat & Kualifikasi:</p><p>Kemampuan dan Kompetensi:</p></textarea>
+                                                <textarea class="special_ta" name="job_desc">
+                                                    <p>Deskripsi: </p>
+                                                    <p>Pekerjaan yang dilakukan: </p>
+                                                    <p>Syarat & Kualifikasi: </p>
+                                                    <p>Kemampuan dan Kompetensi: </p>
+                                                </textarea>
 					 						</div>
 					 					</div>
 					 					<div class="col-lg-6">
@@ -270,7 +275,7 @@
 		    });
             
             //AJAX FORM SUBMIT   
-		    $("#btnSubmit").click(function(e){
+		    $("#btnSubmit").click(function(e) {
 		        e.preventDefault();
 
 		        var formData = new FormData($('form')[0]);

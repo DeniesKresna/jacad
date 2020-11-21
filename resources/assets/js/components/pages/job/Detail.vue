@@ -21,6 +21,18 @@
                 <b>Facility (optional):</b> {{ data.facility ? data.facility : '-'}}
             </div>
         </div>
+        <div class="row" v-if="data.verified === 0">
+            <div class="col-md-6">
+                <button class="btn btn-default btn-block" @click="verify('yes')">Accept</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-default btn-block" @click="verify('no')">Reject</button>
+            </div>
+        </div>
+        <div class="text-center" v-else>
+            <h3 class="text-success" v-if="data.verified === 1">-- VERIFIED --</h3>
+            <h3 class="text-danger" v-if="data.verified === 2">-- REJECTED --</h3>
+        </div>  
     </div>
 </template>
 
@@ -32,16 +44,22 @@
             }
         },
         mounted() {
-            this.getDetail();
+            this.getData();
         },
         methods: {
-            getDetail() {
+            getData() {
                 this.$store.dispatch('job/SHOW', this.$route.params.id).then(response => {
                     this.data = response;
-
-                    console.log(response);
                 });
-            } 
+            },
+            
+            verify(status) {
+                this.data.verify= status;
+                
+                this.$store.dispatch('job/UPDATE', this.data).then(response => {
+                    this.getData();
+                });
+            }
         }
     }
 </script>

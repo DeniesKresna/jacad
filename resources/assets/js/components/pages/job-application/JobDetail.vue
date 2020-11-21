@@ -32,11 +32,11 @@
             }
         },
         mounted() {
-            this.getResult();
+            this.getData();
         },
         methods: {
-            getResult() {
-                this.$store.dispatch('job_application/SHOW', this.$route.params.id).then(response => {
+            getData() {
+                this.$store.dispatch('job/SHOW', this.$route.params.id).then(response => {
                     this.data= response;
                 });
             }

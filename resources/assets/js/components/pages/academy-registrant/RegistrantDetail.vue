@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content-row">
         <div class="content-row">
             <div class="row">
                 <div class="col-md-12">
@@ -8,11 +8,10 @@
                      <b>Email: </b> {{ data.email }} <br>
                      <b>Phone: </b> {{ data.phone }} <br>
                 </div>
-                <div class="col-md-12" v-if="data.profile">
+                <div class="col-md-12">
                     <h4>Profile</h4>
-                    <b>Description: </b> <p>{{ data.profile.desc }}</p>
-                    <b>Domicile: </b> {{ data.profile.domicile }} <br>
-                    <b>Birth date: </b> {{ data.profile.birth_date }} <br>
+                    <b>Description: </b> <p>{{ data.profession }}</p>
+                    <b>Domicile: </b> {{ data.domicile }} <br>
                 </div>
             </div>
         </div>
@@ -31,8 +30,9 @@
         },
         methods: {
             getData() {
-                this.$store.dispatch('user/SHOW', this.$route.params.id).then(response => {
+                this.$store.dispatch('academy_registrant/SHOW', this.$route.params.id).then(response => {
                     this.data= response;
+                    console.log(response);
                 });
             }
         }

@@ -14,13 +14,13 @@ class JobController extends Controller
 {
     public function index(Request $request) {
         $page_size = $request->page ? $request->page_size : 10;
-        $jobs= Job::where('id', '>', 0);
+        $jobs= Job::where('id', '>', 0)->where('verified', 1);
         $locations= Location::all();
 
         if ($request->has('position')) {
             $jobs= $jobs->where('position', 'like', '%'.$request->position.'%');
         }   
-
+        
         if ($request->has('location_id') && $request->location_id != 'all') {
             $jobs= $jobs->whereHas('location', function($query) use ($request) {
                 $query->where('id', $request->location_id);

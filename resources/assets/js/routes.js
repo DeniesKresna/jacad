@@ -7,6 +7,7 @@ import { visit } from './routes/visit';
 import { job } from './routes/job';
 import { job_application } from './routes/job-application';
 import { academy } from './routes/academy';
+import { academy_registrant } from './routes/academy-registrant';
 import { student_ambassador } from './routes/student-ambassador';
 
 export const routes = [
@@ -19,6 +20,7 @@ export const routes = [
     ...job,
     ...job_application,
     ...academy,
+    ...academy_registrant,
     ...student_ambassador
 ];
 

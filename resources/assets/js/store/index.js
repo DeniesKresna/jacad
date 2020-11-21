@@ -13,6 +13,7 @@ import blog from './modules/blog';
 import job from './modules/job';
 import job_application from './modules/job-application';
 import academy from './modules/academy';
+import academy_registrant from './modules/academy-registrant';
 import student_ambassador from './modules/student-ambassador';
 
 Vue.use(Vuex);
@@ -30,6 +31,7 @@ export default new Vuex.Store({
         job,
         job_application,
         academy,
+        academy_registrant,
         student_ambassador
     }
 });

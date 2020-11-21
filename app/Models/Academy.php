@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 16 Nov 2020 00:58:44 +0700.
+ * Date: Sat, 21 Nov 2020 01:53:07 +0700.
  */
 
 namespace App\Models;
@@ -22,6 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $url_name
  * @property string $image_url
  * @property string $image_path
+ * @property int $batch
  * @property int $creator_id
  * @property int $updater_id
  * @property string $deleted_at
@@ -36,6 +37,7 @@ class Academy extends Eloquent
 
 	protected $casts = [
 		'price' => 'int',
+		'batch' => 'int',
 		'creator_id' => 'int',
 		'updater_id' => 'int'
 	];
@@ -50,6 +52,7 @@ class Academy extends Eloquent
 		'url_name',
 		'image_url',
 		'image_path',
+		'batch',
 		'creator_id',
 		'updater_id'
     ];

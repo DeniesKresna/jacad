@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner-header">
-                        <h3>Blog @isset($ctg) {{$ctg}} @endisset</h3>
+                        <h3>Blog @isset($ctg) {{ $ctg }} @endisset</h3>
                     </div>
                 </div>
             </div>

@@ -31,6 +31,22 @@ const job= {
                     resolve(response.data);
                 });
             });
+        },
+
+        UPDATE({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.put('/admin/jobs/' + payload.id, qs.stringify(payload)).then(response=>{
+                    resolve(response.data)
+                });
+            })
+        },
+        
+        DESTROY({ commit }, payload){
+            return new Promise((resolve, reject) => {
+                axios.delete('/admin/jobs/' + payload).then(response => {
+                    resolve(response.data)
+                });
+            })
         }
     }
 };

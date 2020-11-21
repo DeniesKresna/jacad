@@ -23,14 +23,14 @@ const job_application= {
             });
         },
         
-        SHOW({ comit }, payload) {
+        /*SHOW({ comit }, payload) {
             return new Promise((resolve, reject) => {
                 axios.get('/admin/jobs/' + payload)
                      .then(response => {
                     resolve(response.data);
                 });
             });
-        }
+        }*/
     }
 };
 

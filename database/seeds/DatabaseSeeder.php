@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AcademyRegistrant;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,7 +26,9 @@ class DatabaseSeeder extends Seeder
             JobsTableSeeder::class,
             SectorsTableSeeder::class,
             JobSectorTableSeeder::class,
-            //AcademiesTableSeeder::class,
+            AcademiesTableSeeder::class,
+            AcademyTagTableSeeder::class,
+            AcademyRegistrantsTableSeeder::class,
             AskCareersTableSeeder::class,
             StudentAmbassadorsTableSeeder::class
         ]);

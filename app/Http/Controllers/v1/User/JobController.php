@@ -74,17 +74,10 @@ class JobController extends ApiController {
                 Notification::route('mail', $company->email)
                             ->notify(new NotifyJob());
                 
-                return response()->json([
-                    'data' => [
-                        'job' => $job,
-                    ],
-                    'message' => 'job created'
-                ]);
+                return response()->json(['message' => 'job created']);
             }
         } else {
-            return response()->json([
-                'message' => 'cant create job'
-            ], 400);
+            return response()->json(['message' => 'cant create job'], 400);
         }
     }
 
