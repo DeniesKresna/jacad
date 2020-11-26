@@ -22,14 +22,15 @@ try {
 /** AXIOS BASE URL **/
 const axios_baseURL= {
     master: 'http://localhost:280/jacad/public/api/v1/',
-    jonathan: 'http://localhost/magang/jacad/public/api/v1'
+    jonathan: 'http://localhost/magang/jacad/public/api/v1',
+	deniesServer: 'http://103.214.113.153/api/v1'
 }
 /** AXIOS BASE URL **/
 
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL= axios_baseURL.jonathan;
+window.axios.defaults.baseURL= "http://103.214.113.153/api/v1";
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
