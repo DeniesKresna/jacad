@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Academy Edit</h2>
+        <h2 class="content-row-title">Edit Academy</h2>
         <div class="row">
             <form
                 class="form-horizontal" 
@@ -27,7 +27,7 @@
                                 type="file" 
                                 id="file" 
                                 ref="file" 
-                                 @change="handleFileUpload()">
+                                @change="handleFileUpload()">
                         </span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             useCustomImageHandler 
                             :editorOptions="editorSettings" 
                             @image-added="handleImageAdded" 
-                            v-model="data.desc">
+                            v-model="data.description">
                         </vue-editor>
                     </div>
                 </div>
@@ -60,16 +60,6 @@
                             type="number"
                             v-model="data.price"
                             min="0">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">SKU</label>
-                    <div class="col-md-10">
-                        <input 
-                            class="form-control"
-                            type="text"
-                            placeholder="SKU"
-                            v-model="data.sku">
                     </div>
                 </div>
                 <div class="form-group">

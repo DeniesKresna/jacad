@@ -12,11 +12,9 @@ class RolesTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-    
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => 'super_admin',
                 'display_name' => 'Admin Page',
@@ -29,11 +27,8 @@ class RolesTableSeeder extends Seeder
                 'description' => 'Customer',
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Role::create($seed);
         }
     }

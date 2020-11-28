@@ -11,17 +11,14 @@ class AcademiesTableSeeder extends Seeder
      *
      * @return void
      */
-
-    private $seeds;
-
-    public function __construct()
+    
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => 'Content Writer',
-                'desc' => 'Ini Content Writer',
+                'description' => 'Ini Content Writer',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-1',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => 'http://localhost/magang/jacad/public/academies/content-writer',
                 'url_name' => 'content-writer',
@@ -33,9 +30,8 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Copy Writer',
-                'desc' => 'Ini Copy Writer',
+                'description' => 'Ini Copy Writer',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-2',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => 'http://localhost/magang/jacad/public/academies/copy-writer',
                 'url_name' => 'copy-writer',
@@ -47,10 +43,9 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Social Media Specialist',
-                'desc' => 'Ini Social Media Specialist',
+                'description' => 'Ini Social Media Specialist',
                 'category' => 'Jobhun Academy Online Learning',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-3',
                 'url' => 'http://localhost/magang/jacad/public/academies/social-media-specialist',
                 'url_name' => 'social-media-specialist',
                 'image_url' => 'https://jobhun.id/wp-content/uploads/2020/03/WhatsApp-Image-2020-09-08-at-20.21.02-325x380.jpeg',
@@ -61,10 +56,9 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Digital Marketer',
-                'desc' => 'Ini Digital Marker',
+                'description' => 'Ini Digital Marker',
                 'category' => 'Jobhun Academy Online Learning',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-4',
                 'url' => 'http://localhost/magang/jacad/public/academies/digital-marketer',
                 'url_name' => 'digital-marketer',
                 'image_url' => 'https://jobhun.id/wp-content/uploads/2020/03/WhatsApp-Image-2020-09-08-at-20.21.02-325x380.jpeg',
@@ -75,10 +69,9 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Web App Development',
-                'desc' => 'Ini Web App Development',
+                'description' => 'Ini Web App Development',
                 'category' => 'Jobhun Academy Online Learning',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-5',
                 'url' => 'http://localhost/magang/jacad/public/academies/web-app-development',
                 'url_name' => 'web-app-development',
                 'image_url' => 'https://jobhun.id/wp-content/uploads/2020/03/WhatsApp-Image-2020-09-08-at-20.21.02-325x380.jpeg',
@@ -89,10 +82,9 @@ class AcademiesTableSeeder extends Seeder
             
             [
                 'name' => 'Graphic Designer',
-                'desc' => 'Ini Graphic Designer',
+                'description' => 'Ini Graphic Designer',
                 'category' => 'Jobhun Academy Online Learning',
                 'price' => 700000,
-                'sku' => '9758-1-1-1-1-1-2-1-1-6',
                 'url' => 'http://localhost/magang/jacad/public/academies/graphic-designer',
                 'url_name' => 'graphic-designer',
                 'image_url' => 'https://jobhun.id/wp-content/uploads/2020/03/WhatsApp-Image-2020-09-08-at-20.21.02-325x380.jpeg',
@@ -101,11 +93,8 @@ class AcademiesTableSeeder extends Seeder
                 'creator_id' => 1,
             ]
         ];
-    }   
-    
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+
+        foreach ($seeds as $key => $seed) {
             Academy::create($seed);
         }
     }

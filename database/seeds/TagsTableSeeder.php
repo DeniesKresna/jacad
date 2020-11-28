@@ -12,11 +12,9 @@ class TagsTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => 'Tag 1',
                 'creator_id' => 1
@@ -32,11 +30,8 @@ class TagsTableSeeder extends Seeder
                 'creator_id' => 1
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Tag::create($seed);
         }
     }

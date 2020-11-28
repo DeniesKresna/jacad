@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Job Index</h2>
+        <h2 class="content-row-title">Index Job</h2>
         <div class="row">
             <div class="col-md-5">
                 <input 
@@ -34,6 +34,9 @@
                                 <td v-else-if="item.verified === 2">Rejected</td>
                                 <td v-else>Pending</td>
                                 <td>
+                                    <router-link :to="`/job/edit/${item.id}`">
+                                        <span class="fa fa-pencil"></span>
+                                    </router-link>
                                     <router-link :to="`/job/${item.id}`">
                                         <span class="fa fa-eye"></span>
                                     </router-link>

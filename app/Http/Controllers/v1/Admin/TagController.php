@@ -13,7 +13,6 @@ use Validator;
 
 class TagController extends ApiController
 {
-
     /**
      * Show the application dashboard.
      *

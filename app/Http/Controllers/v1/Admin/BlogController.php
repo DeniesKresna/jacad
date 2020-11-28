@@ -56,7 +56,7 @@ class BlogController extends ApiController
         return response()->json(
             Blog::findOrFail($id)->load(['category', 'tags'])
         );
-    }
+    }   
     
     public function store(Request $request) {
         $datas = $request->all();
@@ -98,6 +98,7 @@ class BlogController extends ApiController
     
     public function update(Request $request, $id) {
         $datas = $request->all();
+        $datas['tags']= explode(',', $datas['tags']);
         $datas['author_id'] = 1;
         
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
@@ -110,7 +111,14 @@ class BlogController extends ApiController
         }
 
         $datas['url_title'] = str_replace(" ", "-", strtolower($datas['title']));
-        $datas['url'] = url("/")."/blog/".$datas['url_title'];
+        $datas['url'] = url("/")."/blogs/".$datas['url_title'];
+
+        if ($request->hasFile('file')) {
+            $upload = upload("/screen/medias/", $request->file('file'), '1');
+        
+            $datas['image_path'] = $upload;
+            $datas['image_url'] = upload_dir().$upload;
+        }
 
         $blog = Blog::findOrFail($id);
         $blog->update($datas);
@@ -128,7 +136,7 @@ class BlogController extends ApiController
             ], 400);
         }
     }
-
+    
     public function destroy(Request $request, $id) {
         $blog = Blog::findOrFail($id);
         

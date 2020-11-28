@@ -7,13 +7,18 @@ import { mutations } from './mutations';
 import { getters } from './getters'; 
 
 import user from './modules/user';
+import mentor from './modules/mentor';
 import tag from './modules/tag';
 import category from './modules/category';
+import sector from './modules/sector';
+import location from './modules/location';
 import blog from './modules/blog';
-import job from './modules/job';
-import job_application from './modules/job-application';
 import academy from './modules/academy';
 import academy_registrant from './modules/academy-registrant';
+import ask_career from './modules/ask-career';
+import mentoring from './modules/mentoring';
+import job from './modules/job';
+import job_application from './modules/job-application';
 import student_ambassador from './modules/student-ambassador';
 
 Vue.use(Vuex);
@@ -25,13 +30,18 @@ export default new Vuex.Store({
   	getters,
     modules: {
         user,
+        mentor,
         tag,
         category,
+        sector,
+        location,
         blog,
-        job,
-        job_application,
         academy,
         academy_registrant,
+        ask_career,
+        mentoring,
+        job,
+        job_application,
         student_ambassador
     }
 });

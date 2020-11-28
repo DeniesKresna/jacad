@@ -9,6 +9,11 @@ use App\Models\User;
 
 class UserController extends ApiController
 {
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($id) {
         $user= User::with('profile')->findOrFail($id);
 

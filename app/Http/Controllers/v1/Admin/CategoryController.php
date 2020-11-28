@@ -9,6 +9,12 @@ use App\Models\Category;
 
 class CategoryController extends ApiController
 {
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    
     public function list(Request $request) {
         $datas= Category::where('id', '>', 0);
         

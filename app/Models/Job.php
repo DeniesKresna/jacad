@@ -91,7 +91,7 @@ class Job extends Eloquent
     }
     
     public function location() {
-        return $this->hasOne('App\Models\Location', 'id', 'location_id');
+        return $this->belongsTo('App\Models\Location');
     }
 
     public function sectors() {

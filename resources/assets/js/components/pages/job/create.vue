@@ -72,7 +72,7 @@
                     <span class="pf-title">Lokasi</span>
                     <div class="pf-field">
                         <select data-placeholder="Please Select Specialism" class="chosen" v-model="location_id">
-                            <option v-for="location in locations" :value="locations.id">{{location.name}}</option>
+                            <!--<option v-for="location in locations" :value="locations.id">{{location.name}}</option>-->
                         </select>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
 <script>
     export default {
         data() {
-            this.data: {
+            this.data= {
                 company:{}
             }
         },

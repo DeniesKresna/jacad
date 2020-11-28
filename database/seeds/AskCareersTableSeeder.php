@@ -12,46 +12,46 @@ class AskCareersTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
-    {
-        $this->seeds= [   
+    public function run()
+    {   
+        $seeds= [   
             [
-                'name' => 'A',
-                'price' => 700000
+                'name' => 'Mentor Copywriting',
+                'schedule' => '<p>Jadwal dan waktu yang tersedia untuk mentoring: Senin-Jumat pukul 18.30-20.00 WIB, Sabtu-Minggu pukul 10.00-12.00 WIB</p>',
+                'price' => 700000,
+                'mentor_id' => 1
             ],
 
             [
-                'name' => 'B',
-                'price' => 700000
+                'name' => 'Mentor SEO Specialist',
+                'schedule' => '<p>Jadwal dan waktu yang tersedia untuk mentoring: Senin-Jumat pukul 18.30-20.00 WIB, Sabtu-Minggu pukul 10.00-12.00 WIB</p>',
+                'price' => 700000,
+                'mentor_id' => 2
             ],
 
             [
-                'name' => 'C',
-                'price' => 700000
+                'name' => 'Mentor Public Speaking & Voice Over',
+                'schedule' => '<p>Jadwal dan waktu yang tersedia untuk mentoring: Senin-Jumat pukul 18.30-20.00 WIB, Sabtu-Minggu pukul 10.00-12.00 WIB</p>',
+                'price' => 700000,
+                'mentor_id' => 3
             ],
 
             [
-                'name' => 'D',
-                'price' => 700000
+                'name' => 'Mentor Software Development',
+                'schedule' => '<p>Jadwal dan waktu yang tersedia untuk mentoring: Senin-Jumat pukul 18.30-20.00 WIB, Sabtu-Minggu pukul 10.00-12.00 WIB</p>',
+                'price' => 700000,
+                'mentor_id' => 4
             ],
             
             [
-                'name' => 'E',
-                'price' => 700000
-            ],
-
-            [
-                'name' => 'F',
-                'price' => 700000
+                'name' => 'Mentor Marketing Communication',
+                'schedule' => '<p>Jadwal dan waktu yang tersedia untuk mentoring: Senin-Jumat pukul 18.30-20.00 WIB, Sabtu-Minggu pukul 10.00-12.00 WIB</p>',
+                'price' => 700000,
+                'mentor_id' => 5
             ]
         ];
-    }
 
-    public function run()
-    {   
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             AskCareer::create($seed);
         }
     }

@@ -16,8 +16,13 @@ class CreateAskCareersTable extends Migration
         Schema::create('ask_careers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('schedule');
             $table->integer('price');
+            $table->unsignedInteger('mentor_id');
+            $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('updater_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

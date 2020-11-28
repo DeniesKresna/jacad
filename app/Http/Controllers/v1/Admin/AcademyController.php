@@ -10,7 +10,12 @@ use App\Models\Academy;
 use Validator;
 
 class AcademyController extends ApiController
-{
+{   
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request) {
         $page_size = $request->page_size;
         $datas= Academy::where('id', '>', 0);
@@ -75,6 +80,7 @@ class AcademyController extends ApiController
 
     public function update(Request $request, $id) {
         $datas= $request->all();
+        $datas['tags']= explode(',', $datas['tags']);
         $datas['updater_id'] = 1;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
@@ -88,6 +94,13 @@ class AcademyController extends ApiController
 
         $datas['url_name'] = str_replace(" ", "-", strtolower($request->name));
         $datas['url'] = url("/")."/academies/".$datas['url_name'];
+
+        if ($request->hasFile('file')) {
+            $upload = upload("/screen/medias/", $request->file('file'), '1');
+
+            $datas['image_path'] = $upload;
+            $datas['image_url'] = upload_dir().$upload;
+        }
 
         $academy = Academy::findOrFail($id);
         $academy->update($datas);

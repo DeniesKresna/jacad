@@ -23,7 +23,7 @@
                             
                             <!-- FORM -->
 					 		<div class="profile-form-edit">
-					 			<form id="jobForm" {{-- action="{{ url('api/v1/user/jobs') }}" method="POST" --}} enctype="multipart/form-data">
+					 			<form id="jobForm" enctype="multipart/form-data">
 					 				<div class="row">
 					 					<div class="col-lg-12">
 					 						<span class="pf-title">Nama Perusahaan</span>
@@ -91,7 +91,7 @@
 					 					<div class="col-lg-6">
 					 						<span class="pf-title">Bidang Pekerjaan</span>
 					 						<div class="pf-field">
-					 							<select data-placeholder="Bisa pilih lebih dari satu" class="chosen" name="sector_ids" multiple>
+					 							<select data-placeholder="Bisa pilih lebih dari satu" class="chosen" name="sectors" multiple>
                                                     @foreach ($sectors as $sector)
                                                         <option value="{{ $sector->id }}">{{ $sector->name }}</option>
                                                     @endforeach
@@ -124,7 +124,7 @@
 					 					<div class="col-lg-6">
 					 						<span class="pf-title">Lokasi Pekerjaan</span>
 					 						<div class="pf-field">
-					 							<select data-placeholder="Pilih salah satu" class="chosen" name="location_id">
+					 							<select data-placeholder="Pilih salah satu" class="chosen" name="location">
 													@foreach ($locations as $location)
                                                         <option value="{{ $location->id }}">{{ $location->name }}</option>
                                                     @endforeach
@@ -186,10 +186,10 @@
 					 						</div>
 					 					</div>
 					 					{{--
-					 					<div class="col-lg-12">
-					 						{!! NoCaptcha::renderJs() !!}
-                    						{!! NoCaptcha::display() !!}
-										</div>
+                                            <div class="col-lg-12">
+                                                {!! NoCaptcha::renderJs() !!}
+                                                {!! NoCaptcha::display() !!}
+                                            </div>
 										--}}
 					 					<div class="col-lg-12">
 					 						<button type="submit" id="btnSubmit">Simpan</button>
@@ -281,7 +281,7 @@
 		        var formData = new FormData($('form')[0]);
 
 		        formData.set('logo', $("#logo").prop('files')[0]);
-                formData.set('sector_ids', $('.chosen').val());
+                formData.set('sectors', JSON.stringify($('.chosen').val()));
                 
 		        for (var pair of formData.entries()) {
 		        	let iptDom = document.getElementsByName(pair[0])[0];
@@ -302,26 +302,26 @@
 
                         swal({ 
                             title: 'Create success!', 
-                            text: "", 
-                            icon: "success" 
+                            text: 'job created', 
+                            icon: 'success' 
                         });
 		            },
                     error: function(error) {
                         $('body').loading('stop');
                         
-		           	    if (error.status === 422){
+		           	    if (error.status === 422) {
 		           		    let msg = "";
                             
 		           		    for (let prop in error.responseJSON.message){
 		           			    let iptDom = document.getElementsByName(prop)[0];
-		           			    iptDom.style.backgroundColor = "yellow";
+		           			    iptDom.style.backgroundColor = 'yellow';
 		           			    //msg = msg + error.responseJSON.message[prop][0] + "\n";
 		           		    }
                             
                             swal({ 
                                 title: 'Validation Error', 
-                                text: "check the yellow background inputs", 
-                                icon: "error" 
+                                text: 'check the yellow background inputs', 
+                                icon: 'error' 
                             });
                         }
 		            }

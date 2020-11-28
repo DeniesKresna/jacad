@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Featured Image</label>
+                    <label class="col-md-2 control-label">Featured Image</label>
                     <div class="col-md-10">
                         <span v-if="data.image_url">
                             <img :src="data.image_url" width="300">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Content</label>
+                    <label class="col-md-2 control-label">Content</label>
                     <div class="col-md-10">
                         <vue-editor 
                             useCustomImageHandler 
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Categories</label>
+                    <label class="col-md-2 control-label">Categories</label>
                     <div class="col-md-10">
                         <v-select 
                             placeholder="Pick some"
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Tags</label>
+                    <label class="col-md-2 control-label">Tags</label>
                     <div class="col-md-10">
                         <multiselect 
                             placeholder="Pick some" 

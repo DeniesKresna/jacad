@@ -36,7 +36,7 @@
 
 @section('extrajs')
     <script>
-         $.ajaxSetup({
+        $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
@@ -46,7 +46,7 @@
             e.preventDefault();
 
             $('body').loading();
-
+            
             let formData= new FormData($('#form-academy-registration')[0]);
             formData.append('batch', '{{ $academy->batch }}');
             formData.append('academy_id', '{{ $academy->id }}');
@@ -63,7 +63,7 @@
 
                     swal({ 
                         title: 'Pendaftaran berhasil!', 
-                        text: response.message  , 
+                        text: response.message, 
                         icon: "success" 
                     });
                 },

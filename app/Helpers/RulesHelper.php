@@ -4,8 +4,18 @@ if (!function_exists('rules_lists')) {
         $path = explode('\\', $controller);
         $controller = array_pop($path);
 
-        //================================Category=======================
-        if ($controller == "TagController") {
+        //Mentor
+        if ($controller == 'MentorController') {
+            if ($method == 'store' || $method == 'update') {
+                return [
+                    'name' => 'required|max:199',
+                    'description' => 'required'
+                ];
+            }
+        }
+
+        //Tag
+        else if ($controller == 'TagController') {
             if ($method=="store") {
                 return [
                     'name' => 'required|max:199'
@@ -18,7 +28,7 @@ if (!function_exists('rules_lists')) {
             }
         }
         
-        //================================Blog=================================
+        //Blog
         else if ($controller == "BlogController") {
             if ($method == "store") {
                 return [
@@ -34,7 +44,7 @@ if (!function_exists('rules_lists')) {
             }
         }
 
-        //================================Media=================================
+        //Media
         else if ($controller == "MediaController") {
             if ($method == "store") {
                 return [
@@ -43,7 +53,7 @@ if (!function_exists('rules_lists')) {
             }
         }
 
-        //================================Location =================================
+        //Location
         else if ($controller == "LocationController") {
             if ($method == "store") {
                 return [
@@ -55,22 +65,64 @@ if (!function_exists('rules_lists')) {
                 ];
             }
         }
+        
+        //Academy
+        else if ($controller == 'AcademyController') {
+            if ($method == 'store' || $method == 'update') {
+                return [
+                    'name' => 'required|max:199',
+                    'desc' => 'required',
+                    'price' => 'required',
+                ];
+            }
+        }
+        
+        //Ask Career
+        else if ($controller == 'AskCareerController') {
+            if ($method == 'store' || $method == 'update') {
+                return [
+                    'name' => 'required|max:199',
+                    'schedule' => 'required',
+                    'price' => 'required'
+                ];
+            }
+        }
+        
+        //Mentoring 
+        else if ($controller == 'MentoringController') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required|max:199',
+                    'email' => 'required|max:199',
+                    'phone' => 'required',
+                    'domicile' => 'required|max:199',
+                    'description' => 'required',
+                    'spesific_topic' => 'required',
+                    'types_topic' => 'required',
+                    'date' => 'required',
+                    'time' => 'required',
+                    'duration' => 'required',
+                    'jobhun_info' => 'required'
+                ];
+            }   
+        }
 
-        //================================Job=================================
+        //Job
         else if ($controller == "JobController") {
-            if ($method == "store") {
+            if ($method == "store" || $method == 'update') {
                 return [
                     'name' => 'required|max:199',
                     'tagline' => 'required|max:199',
+                    'information' => 'required',
                     'address' => 'required|max:199',
                     'site_url' => 'required|max:199',
                     'phone' => 'required|max:199',
                     'email' => 'required|max:199',
                     'position' => 'required|max:199',
                     'type' => 'required|max:199',
-                    'sector_ids' => 'required',
-                    'location_id' => 'required',
-                    'job_desc' => 'required|max:199',
+                    'sectors' => 'required',
+                    'location' => 'required',
+                    'job_desc' => 'required',
                     'work_time' => 'required|max:199',
                     'dress_style' => 'required|max:199',
                     'language' => 'required|max:199',
@@ -84,26 +136,7 @@ if (!function_exists('rules_lists')) {
             }
         }
 
-        //================================Academy=================================
-        else if ($controller == 'AcademyController') {
-            if ($method == 'store') {
-                return [
-                    'name' => 'required|max:199',
-                    'desc' => 'required',
-                    'price' => 'required',
-                    'sku' => 'required'
-                ];
-            } else if ($method == 'update') {
-                /*return [
-                    'name' => 'required|max:199',
-                    'desc' => 'required',
-                    'price' => 'required',
-                    'sku' => 'required'
-                ];*/
-            }
-        }
-
-        //================================Student Ambassador=================================
+        //Student Ambassador
         else if ($controller == 'StudentAmbassadorController') {
             if ($method == 'store') {
                 return [
@@ -121,8 +154,18 @@ if (!function_exists('rules_lists')) {
                 ];
             }
         }
-        
-        //========================Register============================================
+
+        //Login
+        else if ($controller == 'LoginController') {
+            if ($method == 'index') {
+                return [
+                    'username' => 'required|string|max:200',
+                    'password' => 'required|string|min:6|max:100'
+                ];
+            }
+        }
+
+        //Register
         else if ($controller == 'RegisterController') {
             if ($method == 'store') {
                 return [
@@ -135,18 +178,8 @@ if (!function_exists('rules_lists')) {
                 ];
             }
         }
-
-        //========================Register============================================
-        else if ($controller == 'LoginController') {
-            if ($method == 'index') {
-                return [
-                    'username' => 'required|string|max:200',
-                    'password' => 'required|string|min:6|max:100'
-                ];
-            }
-        }
         
-        //========================Global============================================
+        //Global
         else if ($controller == "Global"){
             if ($method == "any"){
                 return [

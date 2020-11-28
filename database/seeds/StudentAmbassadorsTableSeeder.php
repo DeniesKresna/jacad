@@ -11,12 +11,10 @@ class StudentAmbassadorsTableSeeder extends Seeder
      *
      * @return void
      */
-
-    private $seeds;
-
-    public function __construct()
+    
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'email' => 'jsa1@mail.com',
                 'name' => 'Student 1',
@@ -92,11 +90,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'status' => 1
             ]
         ];
-    }
-    
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seeds) {
+
+        foreach ($seeds as $key => $seeds) {
             StudentAmbassador::create($seeds);
         }
     }

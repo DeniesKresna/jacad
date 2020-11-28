@@ -35,10 +35,53 @@ const job= {
 
         UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put('/admin/jobs/' + payload.id, qs.stringify(payload)).then(response=>{
-                    resolve(response.data)
+                let formData = new FormData();
+
+                //COMPANY
+                formData.append('company', JSON.stringify({
+                    id: payload.company.id,
+                    name: payload.company.name,
+                    tagline: payload.company.tagline,
+                    information: payload.company.information,
+                    address: payload.company.address,
+                    site_url: payload.company.site_url,
+                    email: payload.company.email,
+                    phone: payload.company.phone,
+                    employee_amount: payload.company.employee_amount
+                }));
+
+                //FILE
+                formData.append('company_logo', payload.file);
+
+                //VERIFY
+                if (payload.verify) formData.append('verify', payload.verify);
+
+                //JOB
+                formData.append('job', JSON.stringify({
+                    position: payload.position,
+                    sectors: payload.sectors,
+                    type: payload.type,
+                    job_desc: payload.job_desc,
+                    location: payload.location,
+                    work_time: payload.work_time,
+                    dress_style: payload.dress_style,
+                    language: payload.language,
+                    facility: payload.facility,
+                    salary: payload.salary,
+                    how_to_send: payload.how_to_send,
+                    expired: payload.expired,
+                    process_time: payload.process_time,
+                    jobhun_info: payload.jobhun_info
+                }));
+                
+                axios.post('/admin/jobs/update/' + payload.id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                    resolve(response.data);
                 });
-            })
+            });
         },
         
         DESTROY({ commit }, payload){

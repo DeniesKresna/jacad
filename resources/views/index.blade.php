@@ -44,10 +44,15 @@
                 <div class="heading">
                     <h2>Temukan mentor yang sesuai dengan bidang kariermu di sini!</h2>
                 </div>
-
+                
                 <div class="row">
                     @foreach ($ask_careers as $ask_career)
-                        @include('components.ask-career', $ask_career)
+                        @include('components.ask-career', [
+                            'ask_career' => $ask_career,
+                            'css' => [
+                                'col' => 'col-4'
+                            ]
+                        ])
                     @endforeach
                 </div>
 

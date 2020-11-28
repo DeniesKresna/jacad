@@ -9,6 +9,12 @@ use App\Models\Job;
 
 class JobApplicationController extends ApiController
 {
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    
     public function index(Request $request) {
         $page_size = $request->page_size;
         $job_applications= Job::where('id', '>', 0);

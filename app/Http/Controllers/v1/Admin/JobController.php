@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Job;
+use App\Models\Company;
+
+use Validator;
 
 class JobController extends ApiController {
     /**
@@ -33,34 +35,69 @@ class JobController extends ApiController {
 
         return response()->json($datas);
     }
-
+    
     public function show($id) {
-        $job= Job::with(['company', 'location'])->findOrFail($id);
+        $job= Job::with(['company', 'sectors', 'location'])->findOrFail($id);
 
         return response()->json($job);
     }
 
     public function update(Request $request, $id) {
         $datas = $request->all();
-        $datas['verificator_id'] = 1;
-        
-        $status= 'rejected';
-
-        if ($request->verify == 'yes'){
-            $datas['verified'] = 1;
-            $status= 'verified';
-        } else {
-            $datas['verified'] = 2;
-        }
+        $datas['company']= json_decode($request->company, true);
+        $datas['job']= json_decode($request->job, true);
 
         $job = Job::findOrFail($id);
-        $job->update($datas);
+
+        if ($request->has('verify') && $request->verify) {
+            $datas['job']['verificator_id'] = 1;
+            $status= 'rejected';
+
+            if ($request->verify == 'yes') {
+                $datas['verified'] = 1;
+                $status= 'verified';
+            } else {
+                $datas['verified'] = 2;
+            }
+
+            $job->verified= $datas['verified'];
+            $job->save();   
+            
+            if ($job) {
+                return response()->json(['message' => 'job '.$status]);
+            } else {
+                return response()->json(['message' => 'cant verify job'], 400);
+            }
+
+            return response()->json($job);
+        }
+
+        $validator = Validator::make(array_merge($datas['company'], $datas['job']), rules_lists(__CLASS__, __FUNCTION__));
+        
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 422);
+        }
+
+        if ($request->hasFile('company_logo')) {
+            $upload = upload('/screen/medias/logos/', $request->file('company_logo'), '1');
+        
+            $datas['company']['logo_path'] = $upload;
+            $datas['company']['logo_url'] = upload_dir().$upload;
+        }
+
+        $company= Company::findOrFail($datas['company']['id']);
+        $company->update($datas['company']);
+        $company->save();
+
+        $job->update($datas['job']);
+        $job->sectors()->sync($datas['job']['sectors']);
+        $job->location()->associate($datas['job']['location']);
         $job->save();
 
-        if ($job) {
-            return response()->json(['message' => 'job '.$status]);
+        if ($job && $company) {
+            return response()->json(['message' => 'job updated']);
         } else {
-            return response()->json(['message' => 'cant verify job'], 400);
+            return response()->json(['message' => 'cant update job'], 400);
         }
     }
 

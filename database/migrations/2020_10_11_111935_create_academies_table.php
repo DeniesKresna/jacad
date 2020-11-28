@@ -16,9 +16,8 @@ class CreateAcademiesTable extends Migration
         Schema::create('academies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('desc');
+            $table->text('description');
             $table->integer('price');
-            $table->string('sku');
             $table->string('category');
             $table->string('url');
             $table->string('url_name');
@@ -27,8 +26,8 @@ class CreateAcademiesTable extends Migration
             $table->integer('batch');
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('updater_id')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
     

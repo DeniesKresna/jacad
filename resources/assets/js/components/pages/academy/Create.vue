@@ -32,7 +32,7 @@
                         useCustomImageHandler 
                         :editorOptions="editorSettings" 
                         @image-added="handleImageAdded" 
-                        v-model="data.desc">
+                        v-model="data.description">
                     </vue-editor>
                 </div>
             </div>
@@ -53,16 +53,6 @@
                         class="form-control"
                         type="number"
                         v-model="data.price">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">SKU</label>
-                <div class="col-md-10">
-                    <input 
-                        class="form-control"
-                        type="text"
-                        placeholder="SKU"
-                        v-model="data.sku">
                 </div>
             </div>
             <div class="form-group">
@@ -106,9 +96,8 @@
             return {
                 data: {
                     name: '',
-                    desc: '',
+                    description: '',
                     price: 0,
-                    sku: '',
                     category: 'Jobhun Academy Online Learning',
                     tags: [],
                     file: null
@@ -163,7 +152,6 @@
                         name: '',
                         desc: '',
                         price: 0,
-                        sku: '',
                         category: 'Jobhun Academy Online Learning',
                         tags: [],
                         file: null

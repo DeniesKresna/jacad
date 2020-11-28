@@ -12,25 +12,20 @@ class ProfilesTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-    
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'user_id' => 4,
-                'desc' => 'dummy_text',
+                'description' => 'dummy_text',
                 'domicile' => 'Surabaya',
                 'birth_date' => date("Y-m-d H:i:s"),
                 'facebook_url' => 'facebook.com/user-profile/dummy',
                 'linkedIn_url' => 'linkedIn.com/user-profile/dummy'
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Profile::create($seed);
         }
     }

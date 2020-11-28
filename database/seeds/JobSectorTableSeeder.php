@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
-use App\Models\JobSector;
+use Illuminate\Support\Facades\DB;
 
 class JobSectorTableSeeder extends Seeder
 {
@@ -12,11 +11,9 @@ class JobSectorTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
-    {
-        $this->seeds= [
+    public function run()
+    {   
+        $seeds= [
             [
                 'job_id' => 1,
                 'sector_id' => 1
@@ -132,12 +129,9 @@ class JobSectorTableSeeder extends Seeder
                 'sector_id' => 3
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
-            JobSector::create($seed);
+        foreach ($seeds as $key => $seed) {
+            DB::table('job_sector')->insert($seed);
         }
     }
 }

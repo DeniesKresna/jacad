@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Create</h2>
+        <h2 class="content-row-title">Create Tag</h2>
         <form 
             novalidate="" 
             role="form" 

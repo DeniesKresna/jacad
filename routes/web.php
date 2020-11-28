@@ -28,6 +28,18 @@ Route::get('/blogs/category/{category}', 'web\BlogController@indexCategory');
 Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
 
 /*
+| Academies routes
+*/
+Route::get('/academies', 'web\AcademyController@index');
+Route::get('/academies/{url_name}', 'web\AcademyController@show');
+
+/*
+| Ask Careers routes
+*/
+Route::get('/ask-careers', 'web\AskCareerController@index');
+Route::get('/mentors/{url_name}', 'web\AskCareerController@show');
+
+/*
 | Jobs routes
 */
 /*Route::get('job/opening', function() {
@@ -36,12 +48,6 @@ Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
 Route::get('/jobs', 'web\JobController@index');
 Route::get('/jobs/create', 'web\JobController@create');
 Route::get('/jobs/{id}', 'web\JobController@show');
-
-/*
-| Academies routes
-*/
-Route::get('/academies', 'web\AcademyController@index');
-Route::get('/academies/{url_name}', 'web\AcademyController@show');
 
 /*
 | Login Socialite routes

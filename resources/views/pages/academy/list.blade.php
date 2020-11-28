@@ -25,7 +25,7 @@
                     <ul>
                         <li class="prev">
                             <a href="">
-                                <i class="la la-long-arrow-left"></i> Prev
+                                <i class="la la-long-arrow-left"></i> Sebelumnya
                             </a>
                         </li>
                         <li>
@@ -45,12 +45,11 @@
                         </li>
                         <li class="next">
                             <a href="">
-                                Next <i class="la la-long-arrow-right"></i>
+                                Selanjutnya <i class="la la-long-arrow-right"></i>
                             </a>
                         </li>
                     </ul>
                 </div>
-                {{-- PAGINATION --}}
             </div>
         </div>
     </section>

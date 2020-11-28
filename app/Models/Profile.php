@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 08 Nov 2020 21:09:14 +0700.
+ * Date: Tue, 24 Nov 2020 21:11:23 +0700.
  */
 
 namespace App\Models;
@@ -14,11 +14,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $user_id
- * @property string $string
+ * @property string $description
  * @property string $domicile
- * @property \Carbon\Carbon $date_of_birth
+ * @property \Carbon\Carbon $birth_date
  * @property string $facebook_url
- * @property string $linkedin_url
+ * @property string $linkedIn_url
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -31,15 +31,15 @@ class Profile extends Eloquent
 	];
 
 	protected $dates = [
-		'date_of_birth'
+		'birth_date'
 	];
 
 	protected $fillable = [
 		'user_id',
-		'string',
+		'description',
 		'domicile',
-		'date_of_birth',
+		'birth_date',
 		'facebook_url',
-		'linkedin_url'
+		'linkedIn_url'
 	];
 }

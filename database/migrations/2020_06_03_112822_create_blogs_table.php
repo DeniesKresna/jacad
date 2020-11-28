@@ -23,8 +23,8 @@ class CreateBlogsTable extends Migration
             $table->string('image_path');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('author_id')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

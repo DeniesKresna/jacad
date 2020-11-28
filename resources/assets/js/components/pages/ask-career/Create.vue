@@ -1,0 +1,98 @@
+<template>
+    <div class="content-row">
+        <h2 class="content-row-title">Create Ask Career</h2>
+        <form 
+            class="form-horizontal"
+            role="form"
+            @submit.prevent="storeData">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Name</label>
+                <div class="col-md-10">
+                    <input 
+                        type="text" 
+                        placeholder="Name" 
+                        class="form-control" 
+                        v-model="data.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Schedule</label>
+                <div class="col-md-10">
+                    <vue-editor v-model="data.schedule"></vue-editor>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Price</label>
+                <div class="col-md-10">
+                    <input 
+                        type="number"
+                        min="0" 
+                        placeholder="Price" 
+                        class="form-control" 
+                        v-model="data.price">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Mentor</label>
+                <div class="col-md-10">
+                    <v-select 
+                        placeholder="Pick some"
+                        label="name"
+                        track-by="id"
+                        v-model="picked.mentor" 
+                        :options="options.mentors" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-info" type="submit">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script> 
+    import { VueEditor } from 'vue2-editor';
+
+    export default {
+        components: {
+            VueEditor, 
+        },
+        data() {
+            return {
+                data: {
+                   name: '',
+                   schedule: '',
+                   price: 0,
+                   mentor: 0
+                },
+                options: {
+                    mentors: []
+                },
+                picked: {
+                    mentor: 0
+                }
+            }
+        },
+        mounted() {
+            this.$store.dispatch('mentor/LIST').then(response => {
+                this.options.mentors= response;
+            });
+        },
+        methods: {
+            storeData() {
+                this.data.mentor= this.picked.mentor.id;
+
+                this.$store.dispatch('ask_career/STORE', this.data).then(response => {
+                    this.data= {
+                        name: '',
+                        schedule: '',
+                        price: 0,
+                        mentor: 0
+                    };
+                });
+            }
+        }
+    }
+</script>

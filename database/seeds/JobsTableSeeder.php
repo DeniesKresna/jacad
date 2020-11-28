@@ -12,11 +12,9 @@ class JobsTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
-    {
-        $this->seeds= [
+    public function run()
+    {   
+        $seeds= [
             [
                 'position' => 'Web Programmer',
                 'type' => 'Full Time',
@@ -179,11 +177,8 @@ class JobsTableSeeder extends Seeder
                 'creator_id' => 1,
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Job::create($seed);
         }
     }

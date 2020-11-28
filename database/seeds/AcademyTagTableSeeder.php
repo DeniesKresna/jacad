@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
-use App\Models\AcademyTag;
+use Illuminate\Support\Facades\DB;
 
 class AcademyTagTableSeeder extends Seeder
 {
@@ -11,12 +10,10 @@ class AcademyTagTableSeeder extends Seeder
      *
      * @return void
      */
-
-    private $seeds;
-
-    public function __construct()
+    
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'tag_id' => 1,
                 'academy_id' => 1
@@ -107,12 +104,9 @@ class AcademyTagTableSeeder extends Seeder
                 'academy_id' => 6
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
-            AcademyTag::create($seed);
+        foreach ($seeds as $key => $seed) {
+            DB::table('academy_tag')->insert($seed);
         }
     }
 }

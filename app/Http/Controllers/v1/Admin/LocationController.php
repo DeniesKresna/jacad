@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers\v1\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+
 use App\Http\Controllers\ApiController;
 use App\Models\Location;
 use App\Models\AdsCampaignLocation;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+
 use Validator;
 
 class LocationController extends ApiController
 {
-
     /**
-     * Accessing Location Data.
+     * Show the application dashboard.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request){
+    public function list() {
+        return response()->json(Location::orderBy('name')->get());    
+    }
+    
+    /*public function index(Request $request){
         $page = !empty($request->page)?$request->page:1;
         $page_size = !empty($request->page_size)?$request->page_size:10;
         $datas = Location::where('id','>',0);
@@ -76,5 +81,5 @@ class LocationController extends ApiController
     		return self::success_responses($location);
     	else
             return self::error_responses("Unkown error");
-    }
+    }*/
 }

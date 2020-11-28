@@ -4,6 +4,11 @@
             <div class="col-md-12">
                 <h4>ID. #{{ data.id }}</h4>
                 <b>Position: </b> {{ data.position }} <br>
+                <b>Sectors: </b>
+                <span v-bind:key="index"
+                     v-for="(item, index) in data.sectors">
+                    {{ item.name }}, 
+                </span> <br>
                 <b>Type: </b> {{ data.type }}
             </div>
             <div class="col-md-12">
@@ -50,14 +55,19 @@
             getData() {
                 this.$store.dispatch('job/SHOW', this.$route.params.id).then(response => {
                     this.data = response;
+
+                    console.log(response);
                 });
             },
             
             verify(status) {
+                this.data.id= this.$route.params.id;
                 this.data.verify= status;
                 
                 this.$store.dispatch('job/UPDATE', this.data).then(response => {
                     this.getData();
+
+                    console.log(response);
                 });
             }
         }

@@ -12,11 +12,9 @@ class LocationsTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => 'Jakarta',
                 'creator_id' => 1
@@ -42,11 +40,8 @@ class LocationsTableSeeder extends Seeder
                 'creator_id' => 1
             ],
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Location::create($seed);
         }
     }

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class MediaController extends ApiController
 {
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request){
         //$session_id = $request->get('auth')->user->id;
         $session_id=1;

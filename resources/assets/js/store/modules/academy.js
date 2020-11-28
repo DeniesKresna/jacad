@@ -38,7 +38,6 @@ const academy= {
                 formData.append('name', payload.name);
                 formData.append('desc', payload.desc);
                 formData.append('price', payload.price);
-                formData.append('sku', payload.sku);
                 formData.append('category', payload.category);
                 formData.append('tags', payload.tags);
                 formData.append('file', payload.file);
@@ -52,13 +51,26 @@ const academy= {
                 });
             });
         },
-
-        UPDATE({ commit }, payload) {   
+        
+        UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put('/admin/academies/' + payload.id, qs.stringify(payload)).then(response => {
-                    resolve(response.data)
+                let formData = new FormData();  
+                
+                formData.append('name', payload.name);
+                formData.append('desc', payload.desc);
+                formData.append('price', payload.price);
+                formData.append('category', payload.category);
+                formData.append('tags', payload.tags);
+                formData.append('file', payload.file);
+                
+                axios.post('/admin/academies/update/' + payload.id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                    resolve(response.data);
                 });
-            })
+            });
         },
         
         DESTROY({ commit }, payload){

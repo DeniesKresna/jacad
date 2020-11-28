@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
-use App\Models\RoleUser;
+use Illuminate\Support\Facades\DB;
 
 class RoleUserTableSeeder extends Seeder
 {
@@ -12,32 +11,32 @@ class RoleUserTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds= [
-        [
-            'user_id' => 1,
-            'role_id' =>1,
-        ],
-
-        [
-            'user_id' => 2,
-            'role_id' => 2,
-        ],
-
-        [
-            'user_id' => 3,
-            'role_id' => 2,
-        ],
-        
-        [
-            'user_id' => 4,
-            'role_id' => 2,
-        ]
-    ];
-
     public function run()
     {
-        foreach ($this->seeds as $key => $seed) {
-            RoleUser::create($seed);
+        $seeds= [
+            [
+                'user_id' => 1,
+                'role_id' =>1,
+            ],
+    
+            [
+                'user_id' => 2,
+                'role_id' => 2,
+            ],
+    
+            [
+                'user_id' => 3,
+                'role_id' => 2,
+            ],
+            
+            [
+                'user_id' => 4,
+                'role_id' => 2,
+            ]
+        ];
+
+        foreach ($seeds as $key => $seed) {
+            DB::table('role_user')->insert($seed);
         }
     }
 }

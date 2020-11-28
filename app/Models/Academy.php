@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 21 Nov 2020 01:53:07 +0700.
+ * Date: Wed, 25 Nov 2020 19:48:11 +0700.
  */
 
 namespace App\Models;
@@ -14,9 +14,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $name
- * @property string $desc
+ * @property string $description
  * @property int $price
- * @property string $sku
  * @property string $category
  * @property string $url
  * @property string $url_name
@@ -25,9 +24,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $batch
  * @property int $creator_id
  * @property int $updater_id
- * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property string $deleted_at
  *
  * @package App\Models
  */
@@ -44,9 +43,8 @@ class Academy extends Eloquent
 
 	protected $fillable = [
 		'name',
-		'desc',
+		'description',
 		'price',
-		'sku',
 		'category',
 		'url',
 		'url_name',
@@ -60,7 +58,7 @@ class Academy extends Eloquent
     public function creator() {
         return $this->belongsTo('App\Models\User', 'creator_id');
     }
-
+    
     public function tags() {
         return $this->belongsToMany('App\Models\Tag');
     }

@@ -27,6 +27,7 @@ class CreateCompaniesTable extends Migration
             $table->string('employee_amount')->nullable();
             $table->unsignedInteger('updater_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

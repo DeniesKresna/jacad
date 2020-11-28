@@ -12,11 +12,10 @@ class AcademyRegistrantsTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
 
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => 'Pendaftar 1',
                 'email' => 'pendaftar1@mail.com', 
@@ -53,11 +52,8 @@ class AcademyRegistrantsTableSeeder extends Seeder
                 'creator_id' => 1
             ],
         ];
-    }   
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             AcademyRegistrant::create($seed);
         }
     }

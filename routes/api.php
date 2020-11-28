@@ -85,29 +85,49 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],func
 //======================================no Middleware=================================================
 
 Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
+    //LIST
+    Route::get('/mentors/list', 'v1\Admin\MentorController@list');
     Route::get('/categories/list','v1\Admin\CategoryController@list');
     Route::get('/tags/list','v1\Admin\TagController@list');
-    Route::post('/medias','v1\Admin\MediaController@store');
+    Route::get('/sectors/list', 'v1\Admin\SectorController@list');
+    Route::get('/locations/list', 'v1\Admin\LocationController@list');
     
+    //UPDATE
+    Route::post('/mentors/update/{id}', 'v1\Admin\MentorController@update');
+    Route::post('/blogs/update/{id}', 'v1\Admin\BlogController@update');
+    Route::post('/academies/update/{id}', 'v1\Admin\AcademyController@update');
+    Route::post('/ask-careers/update/{id}', 'v1\Admin\AskCareerController@update');
+    Route::post('/mentoring/update/{id}', 'v1\Admin\MentoringController@update');
+    Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
+
+    //MEDIAS
+    Route::post('/medias','v1\Admin\MediaController@store');
+
+    //RESOURCES
     Route::resource('/users', 'v1\Admin\UserController');
+    Route::resource('/mentors', 'v1\Admin\MentorController');
     Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/blogs','v1\Admin\BlogController');
-    Route::resource('/jobs', 'v1\Admin\JobController');
-    Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
     Route::resource('/academies', 'v1\Admin\AcademyController');
     Route::resource('/academy-registrants', 'v1\Admin\AcademyRegistrantController');
+    Route::resource('/ask-careers', 'v1\Admin\AskCareerController');
+    Route::resource('/mentoring', 'v1\Admin\MentoringController');
+    Route::resource('/jobs', 'v1\Admin\JobController');
+    Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
     Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
-    
+
     //Route::post('/adi/test','v1\TestController@adi');
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
+    Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
+
+    //RESOURCES
+    Route::resource('/academy-registrants', 'v1\User\AcademyRegistrantController');
+    Route::resource('/mentoring', 'v1\User\MentoringController');
     Route::resource('/jobs', 'v1\User\JobController');
     Route::resource('/job-applications', 'v1\User\JobApplicationController');
-    Route::resource('/academy-registrants', 'v1\User\AcademyRegistrantController');
     Route::resource('/student-ambassadors', 'v1\User\StudentAmbassadorController');
-    
-    //Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
 });
 
 

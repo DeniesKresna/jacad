@@ -12,11 +12,9 @@ class BlogsTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-    
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'title' => 'Jobhun Internship 1',
                 'image_url' => 'http://localhost/magang/jacad/public/gallery/screen/medias/1604927261_1.jpg',
@@ -103,13 +101,10 @@ class BlogsTableSeeder extends Seeder
                 'content' => '<p>Testing Blog Artikel 2</p',
                 'category_id' => 4,
                 'author_id' => 1
-            ],
+            ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Blog::create($seed);
         }
     }

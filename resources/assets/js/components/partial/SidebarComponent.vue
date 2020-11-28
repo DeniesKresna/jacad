@@ -14,6 +14,30 @@
                 </router-link>
             </li>
             <li>
+                <a href="#sbusers" class="list-group-item " data-toggle="collapse">
+                    <i class="glyphicon glyphicon-user"></i> Users  
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+                <div class="collapse" id="sbusers">
+                    <a href="#sbadmin" class="list-group-item" data-toggle="collapse">
+                        Admin <span class="glyphicon glyphicon-admin"></span>
+                    </a>
+                    <a href="#sbcustomer" class="list-group-item" data-toggle="collapse">
+                        Customer <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse list-group-submenu" id="sbcustomer">
+                        <router-link :to="'/customer'" class="list-group-item">Index</router-link>
+                    </div>
+                    <a href="#sbmentor" class="list-group-item" data-toggle="collapse">
+                        Mentor <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse list-group-submenu" id="sbmentor">
+                        <router-link :to="'/mentor'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/mentor/create'" class="list-group-item">Create</router-link>
+                    </div>
+                </div>
+            </li>
+            <li>
                 <a href="#sbpost" class="list-group-item " data-toggle="collapse">
                     <i class="glyphicon glyphicon-edit"></i> Blogs 
                     <span class="glyphicon glyphicon-chevron-right"></span>
@@ -39,6 +63,24 @@
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
                 <div class="collapse" id="sbservice">
+                    <a href="#sbserviceacd" class="list-group-item" data-toggle="collapse">
+                        Jobhun Academy <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse list-group-submenu" id="sbserviceacd">
+                        <router-link :to="'/academy'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/academy/create'" class="list-group-item">Create</router-link>
+                        <router-link :to="'/academy-registrant'" class="list-group-item">Academy Registrant</router-link>
+                        <router-link :to="''" class="list-group-item">Report</router-link>
+                    </div>
+                    <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
+                        Jobhun Ask Career <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse list-group-submenu" id="sbserviceac">
+                        <router-link :to="'/ask-career'" class="list-group-item">Index</router-link>
+                        <router-link :to="'/ask-career/create'" class="list-group-item">Create</router-link>
+                        <router-link :to="'/mentoring'" class="list-group-item">Mentoring</router-link>
+                        <router-link :to="''" class="list-group-item">Report</router-link>
+                    </div>
                     <a href="#sbservicech" class="list-group-item" data-toggle="collapse">
                         Jobhun Career Hub <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
@@ -47,23 +89,6 @@
                         <router-link :to="'/job-application'" class="list-group-item">Job Application</router-link>
                         <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
-                    <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
-                        Jobhun Academy <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse list-group-submenu" id="sbserviceac">
-                        <router-link :to="'/academy'" class="list-group-item">Index</router-link>
-                        <router-link :to="'/academy/create'" class="list-group-item">Create</router-link>
-                        <router-link :to="'/academy-registrant'" class="list-group-item">Academy Registrant</router-link>
-                        <router-link :to="''" class="list-group-item">Report</router-link>
-                    </div>
-                    <!--<a href="#sbservicetp" class="list-group-item" data-toggle="collapse">
-                        Jobhun Talent Pool <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse list-group-submenu" id="sbservicetp">
-                        <a href="#" class="list-group-item">Index</a>
-                        <a href="#" class="list-group-item">Create</a>
-                        <a href="#" class="list-group-item">Report</a>
-                    </div>-->
                 </div>
             </li>
             <li>
@@ -105,13 +130,3 @@
         </ul>
     </div>
 </template>
-
-<script>
-    export default {
-        data() {
-            return {
-                
-            }
-        }
-    }
-</script>

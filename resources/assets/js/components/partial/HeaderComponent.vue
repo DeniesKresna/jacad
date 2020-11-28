@@ -25,7 +25,7 @@
                             <li class="dropdown-header">Setting</li>
                             <li>
                                 <a href="#">Change Profile</a>
-                                </li>
+                            </li>
                             <li class="divider"></li>
                             <li class="active">
                                 <a href="#">Change Password</a>
@@ -41,13 +41,3 @@
         </div>
     </nav>
 </template>
-
-<script>
-    export default {
-        data() {
-            return {
-
-            }
-        }
-    }
-</script>

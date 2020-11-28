@@ -12,11 +12,9 @@ class CategoriesTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
-    {
-        $this->seeds= [
+    public function run()
+    {      
+        $seeds= [
             [ 
                 'name' => 'Jobhun Internship',
                 'menu' => 'Program' 
@@ -62,11 +60,8 @@ class CategoriesTableSeeder extends Seeder
                 'menu' => 'Blog'
             ]
         ];
-    }
 
-    public function run()
-    {   
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Category::create($seed);
         }
     }

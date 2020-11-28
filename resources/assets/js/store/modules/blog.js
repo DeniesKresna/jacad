@@ -30,7 +30,7 @@ const blog = {
                 });
             });
         },
-
+        
         STORE({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 let formData = new FormData();
@@ -53,10 +53,22 @@ const blog = {
 
         UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put('/admin/blogs/' + payload.id, qs.stringify(payload)).then(response=>{
-                    resolve(response.data)
+                let formData = new FormData();
+                
+                formData.append('title', payload.title);
+                formData.append('content', payload.content);
+                formData.append('category', payload.category);
+                formData.append('tags', payload.tags);
+                formData.append('file', payload.file);
+                
+                axios.post('/admin/blogs/update/' + payload.id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(response => {
+                    resolve(response.data);
                 });
-            })
+            });
         },
         
         DESTROY({ commit }, payload){

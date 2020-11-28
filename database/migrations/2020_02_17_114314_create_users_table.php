@@ -24,11 +24,10 @@ class CreateUsersTable extends Migration
             $table->smallInteger('active');
             $table->timestamp('prev_login');
             $table->timestamp('last_login');
-            //$table->string('type',30)->default('superuser');
             $table->timestamp('dt_start');
             $table->timestamp('dt_end');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

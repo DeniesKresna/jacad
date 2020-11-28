@@ -1,6 +1,6 @@
 <template>
     <div class="content-row">
-        <h2 class="content-row-title">Index</h2>
+        <h2 class="content-row-title">Index Tag</h2>
         <div class="row">
             <div class="col-md-5">
                 <input

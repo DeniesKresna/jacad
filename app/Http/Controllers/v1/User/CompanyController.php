@@ -10,7 +10,6 @@ use Validator;
 
 class CompanyController extends ApiController
 {
-
     /**
      * Show the application dashboard.
      *

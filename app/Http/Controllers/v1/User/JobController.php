@@ -4,7 +4,6 @@ namespace App\Http\Controllers\v1\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\ApiController;
 use App\Notifications\Job as NotifyJob;
@@ -20,7 +19,7 @@ class JobController extends ApiController {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request) {
+    /*public function index(Request $request) {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
@@ -37,19 +36,19 @@ class JobController extends ApiController {
         $datas = $datas->orderBy("id","desc")->paginate($page_size);
         
         return response()->json($datas);
-    }
+    }*/
 
-    public function show($id) {
+    /*public function show($id) {
         return response()->json(
             Post::findOrFail($id)->load(['categories'])
         );
-    }
+    }*/
     
     public function store(Request $request) {
         $datas = $request->all();
-        $datas['sector_ids']= explode(',', $datas['sector_ids']);
+        $datas['sectors']= json_decode($request->sectors);
         $datas['creator_id'] = 1; 
-        
+
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validator->fails()) {
@@ -61,27 +60,27 @@ class JobController extends ApiController {
         
         $upload = upload('/screen/medias/logos/', $request->file('logo'), '1');
         
-        $datas['image_path'] = $upload;
-        $datas['image_url'] = upload_dir().$upload;
+        $datas['logo_path'] = $upload;
+        $datas['logo_url'] = upload_dir().$upload;
 
         $company = Company::updateOrCreate(['name' => trim($datas['name'])], $datas);
+        
+        $job = Job::create($datas);
+        $job->sectors()->attach($datas['sectors']);
+        $job->location()->associate($datas['location']);
+        $job->save();
 
-        if ($company) {
-            $job = Job::create($datas)->load('company');
-            $job->sectors()->attach($datas['sector_ids']);
-
-            if ($job) {
-                Notification::route('mail', $company->email)
-                            ->notify(new NotifyJob());
-                
-                return response()->json(['message' => 'job created']);
-            }
+        if ($job && $company) {
+            Notification::route('mail', $company->email)
+                        ->notify(new NotifyJob());
+            
+            return response()->json(['message' => 'job created']);
         } else {
             return response()->json(['message' => 'cant create job'], 400);
         }
     }
 
-    public function update(Request $request, $id) {
+    /*public function update(Request $request, $id) {
         $datas = $request->all();
         //$session_id = $request->get('auth')->user->id;
         //$datas["customer_id"] = $session_id;
@@ -130,6 +129,6 @@ class JobController extends ApiController {
             'data' => $post,
             'message' => 'post deleted'
         ]);
-    }
+    }*/
 }
 

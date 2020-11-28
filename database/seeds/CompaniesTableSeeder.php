@@ -12,11 +12,9 @@ class CompaniesTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+        $seeds= [
             [
                 'name' => "Sindikat Kreasi Digital 1",
                 'tagline' => "Memenuhi mimpi dengan karya digital",
@@ -65,11 +63,8 @@ class CompaniesTableSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s")
             ]
         ]; 
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Company::create($seed);
         }
     }

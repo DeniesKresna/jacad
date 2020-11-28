@@ -13,11 +13,10 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
 
-    private $seeds;
-
-    public function __construct()
+    public function run()
     {
-        $this->seeds= [
+
+        $seeds= [
             [
                 'name' => "Admnistrator",
                 'email' => "barbar.smartit@gmail.com",
@@ -55,11 +54,8 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s")
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             User::create($seed);
         }
     }

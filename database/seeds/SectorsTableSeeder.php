@@ -11,12 +11,9 @@ class SectorsTableSeeder extends Seeder
      *
      * @return void
      */
-
-    private $seeds;
-
-    public function __construct()
-    {
-        $this->seeds= [
+    public function run()
+    {   
+        $seeds= [
             [
                 'name' => 'Designer',
                 'creator_id' => 1
@@ -42,11 +39,8 @@ class SectorsTableSeeder extends Seeder
                 'creator_id' => 1
             ]
         ];
-    }
 
-    public function run()
-    {
-        foreach ($this->seeds as $key => $seed) {
+        foreach ($seeds as $key => $seed) {
             Sector::create($seed);
         }
     }
