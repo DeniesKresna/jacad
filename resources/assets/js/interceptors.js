@@ -58,6 +58,7 @@ export default function setup() {
                     }
 
                     span.innerHTML= msg+"</ul>";
+                    
                     Vue.$swal({
                         title: "Error Validation", 
                         content: span, 

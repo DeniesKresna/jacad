@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 27 Nov 2020 00:42:25 +0700.
+ * Date: Tue, 01 Dec 2020 13:24:01 +0700.
  */
 
 namespace App\Models;
@@ -15,6 +15,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property string $linkedIn_url
  * @property string $url_name
  * @property string $url
  * @property string $image_url
@@ -35,10 +36,11 @@ class Mentor extends Eloquent
 		'creator_id' => 'int',
 		'updater_id' => 'int'
 	];
-
+    
 	protected $fillable = [
 		'name',
 		'description',
+		'linkedIn_url',
 		'url_name',
 		'url',
 		'image_url',

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\v1\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 
 use App\Http\Controllers\ApiController;
 use App\Notifications\Job as NotifyJob;
 use App\Models\Company;
 use App\Models\Job;
-
-use Validator;
 
 class JobController extends ApiController {
 
@@ -47,21 +46,41 @@ class JobController extends ApiController {
     public function store(Request $request) {
         $datas = $request->all();
         $datas['sectors']= json_decode($request->sectors);
-        $datas['creator_id'] = 1; 
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama perusahaan harus diisi',
+            'tagline.required' => 'Kolom tagline perusahaan harus diisi',
+            'information.required' => 'Kolom informasi perusahaan harus diisi',
+            'address.required' => 'Kolom alamat perusahaan harus diisi',
+            'phone.required' => 'Kolom nomor telepon perusahaan harus diisi',
+            'site_url.required' => 'Kolom website perusahaan harus diisi',
+            'email.required' => 'Kolom email perusahaan harus diisi',
+            'position.required' => 'Kolom posisi pekerjaan harus diisi',
+            'type.required' => 'Kolom jenis pekerjaan harus diisi',
+            'sectors.required' => 'Kolom sektor pekerjaan harus diisi',
+            'location.required' => 'Kolom lokasi pekerjaan harus diisi',
+            'job_desc.required' => 'Kolom deskripsi pekerjaan harus diisi',
+            'work_time.required' => 'Kolom waktu bekerja harus diisi',
+            'dress_style.required' => 'Kolom gaya berpakaian harus diisi',
+            'language.required' => 'Kolom bahasa yang digunakan harus diisi',
+            'facility.required' => 'Kolom tunjangan fasilitas harus diisi',
+            'salary.required' => 'Kolom besar gaji harus diisi',
+            'how_to_send.required' => 'Kolom cara mengirim harus diisi',
+            'expired.required' => 'Kolom batas waktu melamar harus diisi',
+            'process_time.required' => 'Kolom proses rekrut harus diisi',
+            'jobhun_info.required' => 'Kolom info jobhun harus diisi'
+        ]);
         
         if ($validator->fails()) {
-            return response()->json([
-                'fail' => false, 
-                'message' => $validator->messages(),
-            ], 422);
+            return response()->json(['fields' => $validator->messages()], 422);
         }
         
-        $upload = upload('/screen/medias/logos/', $request->file('logo'), '1');
+        if ($request->hasFile('logo')) {
+            $upload = upload('/screen/medias/logos/', $request->file('logo'), '1');
         
-        $datas['logo_path'] = $upload;
-        $datas['logo_url'] = upload_dir().$upload;
+            $datas['logo_path'] = $upload;
+            $datas['logo_url'] = upload_dir().$upload;
+        }
 
         $company = Company::updateOrCreate(['name' => trim($datas['name'])], $datas);
         
@@ -70,13 +89,18 @@ class JobController extends ApiController {
         $job->location()->associate($datas['location']);
         $job->save();
 
-        if ($job && $company) {
-            Notification::route('mail', $company->email)
-                        ->notify(new NotifyJob());
+        if ($company && $job) {
+            $response= null;
             
-            return response()->json(['message' => 'job created']);
-        } else {
-            return response()->json(['message' => 'cant create job'], 400);
+            try {
+                Notification::route('mail', $company->email)->notify(new NotifyJob());
+
+                $response= response()->json(['message' => 'Berhasil menyimpan!']);
+            } catch (\Throwable $th) {
+                $response= response()->json(['message' => 'Terjadi kendala, silahkan menghubungi Customer Service'], 400);
+            }
+
+            return $response;
         }
     }
 

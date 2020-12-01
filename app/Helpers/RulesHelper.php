@@ -6,7 +6,14 @@ if (!function_exists('rules_lists')) {
 
         //Mentor
         if ($controller == 'MentorController') {
-            if ($method == 'store' || $method == 'update') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required|max:199',
+                    'description' => 'required',
+                    'linkedIn_url' => 'required',
+                    'file' => 'image'
+                ];
+            } else if ($method == 'update') {
                 return [
                     'name' => 'required|max:199',
                     'description' => 'required'
@@ -16,12 +23,7 @@ if (!function_exists('rules_lists')) {
 
         //Tag
         else if ($controller == 'TagController') {
-            if ($method=="store") {
-                return [
-                    'name' => 'required|max:199'
-                ];
-            }
-            else {
+            if ($method == 'store') {
                 return [
                     'name' => 'required|max:199'
                 ];
@@ -29,17 +31,21 @@ if (!function_exists('rules_lists')) {
         }
         
         //Blog
-        else if ($controller == "BlogController") {
-            if ($method == "store") {
+        else if ($controller == 'BlogController') {
+            if ($method == 'store') {
                 return [
                     'title' => 'required|max:199',
                     'content' => 'required',
-                    'file' => 'required'
+                    'category' => 'required',
+                    'tags' => 'required',
+                    'file' => 'image'
                 ];
-            } else {
+            } else if ($method == 'update') {
                 return [
                     'title' => 'required|max:199',
-                    'content' => 'required'
+                    'content' => 'required',
+                    'category' => 'required',
+                    'tags' => 'required'
                 ];
             }
         }
@@ -77,13 +83,28 @@ if (!function_exists('rules_lists')) {
             }
         }
         
+        //Academy Registration
+        else if ($controller == 'AcademyRegistrantController') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required',
+                    'email' => 'required',
+                    'phone' => 'required',
+                    'description' => 'required',
+                    'domicile' => 'required',
+                    'jobhun_info' => 'required'
+                ];
+            }
+        } 
+        
         //Ask Career
         else if ($controller == 'AskCareerController') {
             if ($method == 'store' || $method == 'update') {
                 return [
                     'name' => 'required|max:199',
                     'schedule' => 'required',
-                    'price' => 'required'
+                    'price' => 'required',
+                    'mentor' => 'required'
                 ];
             }
         }
@@ -129,9 +150,9 @@ if (!function_exists('rules_lists')) {
                     'facility' => 'required|max:199',
                     'salary' => 'required|max:199',
                     'how_to_send' => 'required|max:199',
+                    'expired' => 'required|max:199',
                     'process_time' => 'required|max:199',
                     'jobhun_info' => 'required|max:199',
-                    'expired' => 'required|max:199'
                 ];
             }
         }
@@ -149,8 +170,8 @@ if (!function_exists('rules_lists')) {
                     'major' => 'required|max:199',
                     'phone' => 'required|max:199',
                     'line_id' => 'required|max:199',
-                    'ig_link' => 'required|max:199',
-                    'linkedin_link' => 'required|max:199'
+                    'ig_url' => 'required|max:199',
+                    'linkedIn_url' => 'required|max:199'
                 ];
             }
         }

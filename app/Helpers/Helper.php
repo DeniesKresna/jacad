@@ -151,7 +151,9 @@ function password_encrypt($password){
 /**
  * @return string
  */
-function print_flashdata(){
+use Illuminate\Support\Facades\Session;
+
+function print_flashdata() {
     if (Session::has('danger'))
         return "<div class=\"alert alert-danger\">".Session::get('danger')."</div>";
     elseif (Session::has('warning'))

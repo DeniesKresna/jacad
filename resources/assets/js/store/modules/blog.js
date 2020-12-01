@@ -38,7 +38,7 @@ const blog = {
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
                 formData.append('category', payload.category);
-                formData.append('tags', payload.tags);
+                formData.append('tags', JSON.stringify(payload.tags));
                 formData.append('file', payload.file);
                 
                 axios.post('/admin/blogs', formData, {
@@ -50,7 +50,7 @@ const blog = {
                 });
             });
         },
-
+        
         UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 let formData = new FormData();
@@ -58,7 +58,7 @@ const blog = {
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
                 formData.append('category', payload.category);
-                formData.append('tags', payload.tags);
+                formData.append('tags', JSON.stringify(payload.tags));
                 formData.append('file', payload.file);
                 
                 axios.post('/admin/blogs/update/' + payload.id, formData, {

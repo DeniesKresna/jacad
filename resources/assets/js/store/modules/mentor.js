@@ -44,6 +44,7 @@ const mentor= {
                 
                 formData.append('name', payload.name);
                 formData.append('description', payload.description);
+                formData.append('linkedIn_url', payload.linkedIn_url);
                 formData.append('file', payload.file);
                 
                 axios.post('/admin/mentors', formData, {
@@ -62,8 +63,9 @@ const mentor= {
                 
                 formData.append('name', payload.name);
                 formData.append('description', payload.description);
+                formData.append('linkedIn_url', payload.linkedIn_url);
                 formData.append('file', payload.file);
-                
+
                 axios.post(`/admin/mentors/update/${payload.id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'

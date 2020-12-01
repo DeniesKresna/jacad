@@ -99,6 +99,16 @@ class User extends Authenticatable
 	public function roles() {
 		return $this->belongsToMany('App\Models\Role');
     }
+
+    public function hasRole($role_name) {
+        foreach ($this->roles()->get() as $key => $role) {
+            if ($role == $role_name) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     public function profile() {
         return $this->hasOne('App\Models\Profile', 'user_id', 'id');

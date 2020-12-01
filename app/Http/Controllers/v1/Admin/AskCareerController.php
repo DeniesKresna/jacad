@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\AskCareer;
-
-use Validator;
 
 class AskCareerController extends ApiController
 {
@@ -42,7 +41,12 @@ class AskCareerController extends ApiController
         $datas= $request->all();
         $datas['creator_id']= 1;
         
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama harus diisi',
+            'schedule.required' => 'Kolom jadwal harus diisi',
+            'price.required' => 'Kolom harga harus diisi',
+            'mentor.required' => 'Kolom mentor harus diisi'
+        ]);
         
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
@@ -53,17 +57,22 @@ class AskCareerController extends ApiController
         $ask_career->save();
 
         if ($ask_career) {  
-            return response()->json(['message' => 'ask career created']);
+            return response()->json(['message' => 'Berhasil menyimpan ask career!']);
         } else {
-            return response()->json(['message' => 'cant create ask career']);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi']);
         }
     }
-
+    
     public function update(Request $request, $id) {
         $datas= $request->all();
         $datas['updater_id']= 1;    
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama harus diisi',
+            'schedule.required' => 'Kolom jadwal harus diisi',
+            'price.required' => 'Kolom harga harus diisi',
+            'mentor.required' => 'Kolom mentor harus diisi'
+        ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
@@ -75,9 +84,9 @@ class AskCareerController extends ApiController
         $ask_career->save();
 
         if ($ask_career) {  
-            return response()->json(['message' => 'ask career updated']);
+            return response()->json(['message' => 'Berhasil menyimpan perubahan']);
         } else {
-            return response()->json(['message' => 'cant update ask career']);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi']);
         }
     }
 
@@ -88,13 +97,13 @@ class AskCareerController extends ApiController
             if (filter_var(request()->hard, FILTER_VALIDATE_BOOLEAN)) {
                 $ask_career->forceDelete();
                 
-                return response()->json(['message' => 'blog deleted']);
+                return response()->json(['message' => 'Berhasil terhapus!']);
             }
         }
         
         $ask_career->delete();
         $ask_career->save();
 
-        return response()->json(['message' => 'blog deleted']);
+        return response()->json(['message' => 'Berhasil terhapus!']);
     }
 }

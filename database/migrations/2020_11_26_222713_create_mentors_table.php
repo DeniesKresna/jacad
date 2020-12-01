@@ -17,6 +17,7 @@ class CreateMentorsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->string('linkedIn_url');
             $table->string('url_name');
             $table->string('url');
             $table->string('image_url');
@@ -27,7 +28,7 @@ class CreateMentorsTable extends Migration
             $table->softDeletes();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

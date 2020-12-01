@@ -4,11 +4,10 @@ namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Blog;
-
-use Validator;
 
 class BlogController extends ApiController
 {
@@ -60,16 +59,19 @@ class BlogController extends ApiController
     
     public function store(Request $request) {
         $datas = $request->all();
-        $datas['tags']= explode(',', $datas['tags']);
-        $datas['author_id'] = Session::get('user') ? Session::get('user')->id : 1;
+        $datas['tags']= json_decode($request->tags);
+        $datas['author_id'] = 1;
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'title.required' => 'Kolom judul harus diisi',
+            'content.required' => 'Kolom konten harus diisi',
+            'category.required' => 'Kolom kategori harus diisi',
+            'tags.required' => 'Kolom tag harus diisi',
+            'file.image' => 'Kolom gambar harus harus bertipe "image"'
+        ]);
         
         if ($validator->fails()) {
-            return response()->json([
-                'fail' => false, 
-                'message' => $validator->messages()
-            ], 422);
+            return response()->json(['message' => $validator->messages()], 422);
         }
         
         $datas['url_title'] = str_replace(" ", "-", strtolower($request->title));
@@ -86,30 +88,28 @@ class BlogController extends ApiController
         $blog->save();
         
         if ($blog) {
-            return response()->json([ 
-                'message' => 'blog created'
-            ]);
+            return response()->json(['message' => 'Berhasil menyimpan blog!']);
         } else {
-            return response()->json([
-                "message" => "cant create blog"
-            ], 400);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }
     }
     
     public function update(Request $request, $id) {
         $datas = $request->all();
-        $datas['tags']= explode(',', $datas['tags']);
+        $datas['tags']= json_decode($request->tags);
         $datas['author_id'] = 1;
-        
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'title.required' => 'Kolom judul harus diisi',
+            'content.required' => 'Kolom konten harus diisi',
+            'category.required' => 'Kolom kategori harus diisi',
+            'tags.required' => 'Kolom tag harus diisi'
+        ]);
         
         if ($validator->fails()) {
-            return response()->json([
-                'fail' => false,
-                'message' => $validator->messages()
-            ], 422);
+            return response()->json(['message' => $validator->messages()], 422);
         }
-
+        
         $datas['url_title'] = str_replace(" ", "-", strtolower($datas['title']));
         $datas['url'] = url("/")."/blogs/".$datas['url_title'];
 
@@ -127,13 +127,10 @@ class BlogController extends ApiController
         $blog->save();
         
         if ($blog) {
-            return response()->json([
-                'message' => 'blog updated'
+            return response()->json(['message' => 'Berhasil menyimpan perubahan!'
             ]);
         } else {
-            return response()->json([
-                'message'=> 'cant update blog'
-            ], 400);
+            return response()->json(['message'=> 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }
     }
     
@@ -147,18 +144,14 @@ class BlogController extends ApiController
                 $blog->tags()->detach();
                 $blog->forceDelete();
                 
-                return response()->json([
-                    'message' => 'blog deleted'
-                ]);
+                return response()->json(['message' => 'Berasil terhapus!']);
             }
         }
         
         $blog->delete();
         $blog->save();
         
-        return response()->json([
-            'message' => 'blog deleted'
-        ]);
+        return response()->json(['message' => 'Berasil terhapus!']);
     }
 }
 

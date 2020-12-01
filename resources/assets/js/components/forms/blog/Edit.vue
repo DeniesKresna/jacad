@@ -11,7 +11,6 @@
                     <div class="col-md-10">
                         <input 
                             type="text" 
-                            required="" 
                             placeholder="Title" 
                             class="form-control" 
                             v-model="data.title">

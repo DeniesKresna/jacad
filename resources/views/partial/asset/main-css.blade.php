@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{{ asset('/css/whatsapp-button.css') }}">
 
 <style>
-    .error {
-        background: #f8fc0f;
+    .error-field {
+        background: #F8FC0F !important;
     }
 </style>

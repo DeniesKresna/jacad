@@ -25,8 +25,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'major' => 'Informatika',
                 'phone' => '123',
                 'line_id' => 'line/jsa',
-                'ig_link' => 'ig/jsa',
-                'linkedIn_link' => 'linkend-in/jsa1',
+                'ig_url' => 'ig/jsa',
+                'linkedIn_url' => 'linkend-in/jsa1',
                 'status' => 1
             ],
 
@@ -40,8 +40,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'major' => 'Informatika',
                 'phone' => '123',
                 'line_id' => 'line/jsa',
-                'ig_link' => 'ig/jsa',
-                'linkedIn_link' => 'linkend-in/jsa2',
+                'ig_url' => 'ig/jsa',
+                'linkedIn_url' => 'linkend-in/jsa2',
                 'status' => 0
             ],
 
@@ -55,8 +55,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'major' => 'Informatika',
                 'phone' => '123',
                 'line_id' => 'line/jsa',
-                'ig_link' => 'ig/jsa',
-                'linkedIn_link' => 'linkend-in/jsa3',
+                'ig_url' => 'ig/jsa',
+                'linkedIn_url' => 'linkend-in/jsa3',
                 'status' => 1
             ],
 
@@ -70,8 +70,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'major' => 'Informatika',
                 'phone' => '123',
                 'line_id' => 'line/jsa',
-                'ig_link' => 'ig/jsa',
-                'linkedIn_link' => 'linkend-in/jsa4',
+                'ig_url' => 'ig/jsa',
+                'linkedIn_url' => 'linkend-in/jsa4',
                 'status' => 0
             ],
 
@@ -85,8 +85,8 @@ class StudentAmbassadorsTableSeeder extends Seeder
                 'major' => 'Informatika',
                 'phone' => '123',
                 'line_id' => 'line/jsa',
-                'ig_link' => 'ig/jsa',
-                'linkedIn_link' => 'linkend-in/jsa5',
+                'ig_url' => 'ig/jsa',
+                'linkedIn_url' => 'linkend-in/jsa5',
                 'status' => 1
             ]
         ];

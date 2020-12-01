@@ -24,7 +24,7 @@
                     <div class="col-lg-12">
                         <div class="col-lg-12 d-flex">
                             <div class="ml-auto">
-                                <a class="bbutton" href="" title="">
+                                <a class="bbutton" href="{{ url('/academies') }}" title="">
                                     Lihat Kelas Lain
                                     <i class="la la-long-arrow-right"></i>
                                 </a>
@@ -50,7 +50,8 @@
                         @include('components.ask-career', [
                             'ask_career' => $ask_career,
                             'css' => [
-                                'col' => 'col-4'
+                                'col' => 'col-4',
+                                'py' => 'py-2'
                             ]
                         ])
                     @endforeach
@@ -60,7 +61,7 @@
                     <div class="col-lg-12">
                         <div class="col-lg-12 d-flex">
                             <div class="ml-auto">
-                                <a class="bbutton" href="" title="">
+                                <a class="bbutton" href="{{ url('/ask-careers') }}" title="">
                                     Lihat Mentor Lain
                                     <i class="la la-long-arrow-right"></i>
                                 </a>
@@ -131,7 +132,7 @@
                     <div class="col-lg-12">
                         <div class="col-lg-12 d-flex">
                             <div class="ml-auto">
-                                <a class="bbutton" href="" title="">
+                                <a class="bbutton" href="{{ url('/jobs') }}" title="">
                                     Lihat loker <i class="la la-long-arrow-right"></i>
                                 </a>
                             </div>

@@ -52,7 +52,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <p>Belum ada mentor</p>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 });
             },
             destroyData(mentor) {
-                if (confirm(`Are you sure delete mentor : ${mentor.name} ?`)) {
+                if (confirm(`Apakah anda yakin ingin menghapus mentor : ${mentor.name} ?`)) {
                     this.$store.dispatch('mentor/DESTROY', mentor.id).then(response => {
                         this.getResults(this.result.current_page);
                     });

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Job;
 use App\Models\Company;
-
-use Validator;
 
 class JobController extends ApiController {
     /**
@@ -51,11 +50,11 @@ class JobController extends ApiController {
 
         if ($request->has('verify') && $request->verify) {
             $datas['job']['verificator_id'] = 1;
-            $status= 'rejected';
+            $status= 'ditolak';
 
             if ($request->verify == 'yes') {
                 $datas['verified'] = 1;
-                $status= 'verified';
+                $status= 'diterima';
             } else {
                 $datas['verified'] = 2;
             }
@@ -64,15 +63,37 @@ class JobController extends ApiController {
             $job->save();   
             
             if ($job) {
-                return response()->json(['message' => 'job '.$status]);
+                return response()->json(['message' => 'Lowongan '.$status]);
             } else {
-                return response()->json(['message' => 'cant verify job'], 400);
+                return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
             }
 
             return response()->json($job);
         }
 
-        $validator = Validator::make(array_merge($datas['company'], $datas['job']), rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make(array_merge($datas['company'], $datas['job']), rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama perusahaan harus diisi',
+            'tagline.required' => 'Kolom tagline perusahaan harus diisi',
+            'information.required' => 'Kolom informasi perusahaan harus diisi',
+            'address.required' => 'Kolom alamat perusahaan harus diisi',
+            'phone.required' => 'Kolom nomor telepon perusahaan harus diisi',
+            'site_url.required' => 'Kolom website perusahaan harus diisi',
+            'email.required' => 'Kolom email perusahaan harus diisi',
+            'position.required' => 'Kolom posisi pekerjaan harus diisi',
+            'type.required' => 'Kolom jenis pekerjaan harus diisi',
+            'sectors.required' => 'Kolom sektor pekerjaan harus diisi',
+            'location.required' => 'Kolom lokasi pekerjaan harus diisi',
+            'job_desc.required' => 'Kolom deskripsi pekerjaan harus diisi',
+            'work_time.required' => 'Kolom waktu bekerja harus diisi',
+            'dress_style.required' => 'Kolom gaya berpakaian harus diisi',
+            'language.required' => 'Kolom bahasa yang digunakan harus diisi',
+            'facility.required' => 'Kolom tunjangan fasilitas harus diisi',
+            'salary.required' => 'Kolom besar gaji harus diisi',
+            'how_to_send.required' => 'Kolom cara mengirim harus diisi',
+            'expired.required' => 'Kolom batas waktu melamar harus diisi',
+            'process_time.required' => 'Kolom proses rekrut harus diisi',
+            'jobhun_info.required' => 'Kolom info jobhun harus diisi'
+        ]);
         
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
@@ -95,16 +116,17 @@ class JobController extends ApiController {
         $job->save();
 
         if ($job && $company) {
-            return response()->json(['message' => 'job updated']);
+            return response()->json(['message' => 'Berhasil menyimpan perubahan!']);
         } else {
-            return response()->json(['message' => 'cant update job'], 400);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }
     }
 
     public function destroy(Request $request, $id){
         $job = Job::findOrFail($id);
+        $job->sectors()->detach();
         $job->delete();
         
-        return response()->json(['message' => 'job deleted']);
+        return response()->json(['message' => 'Berhasil terhapus!']);
     }
 }

@@ -51,7 +51,7 @@
             formData.append('batch', '{{ $academy->batch }}');
             formData.append('academy_id', '{{ $academy->id }}');
 
-            $.ajax({
+            $.ajax({    
                 url: `{{ url('/api/v1/user/academy-registrants') }}`,
                 type: 'POST',
                 processData: false,
@@ -62,21 +62,35 @@
                     $('body').loading('stop');
 
                     swal({ 
-                        title: 'Pendaftaran berhasil!', 
-                        text: response.message, 
-                        icon: "success" 
+                        title: response.message, 
+                        icon: 'success'
                     });
                 },
                 error: function(error) {
                     $('body').loading('stop');
 
-                    if (error.status === 400) {
-                        swal({ 
-                            title: 'Pendaftaran gagal!', 
-                            text: error.responseJSON, 
-                            icon: "error" 
-                        });
+                    let message= '';
+
+                    switch(error.status) {
+                        case 400:
+                            message= error.responseJSON.message;
+                            break;
+                        case 422:
+                            for (field in error.responseJSON.message) {
+                                $(`[name=${field}]`).addClass('error-field');
+
+                                for (error_message of error.responseJSON.message[field]) {
+                                    message+= `${error_message}\n`;
+                                }
+                            }
+                            break;
                     }
+
+                    swal({ 
+                        title: 'Gagal registrasi!', 
+                        text: message,
+                        icon: 'error'
+                    });
                 }   
             });
         });

@@ -16,8 +16,8 @@ class ProfilesTableSeeder extends Seeder
     {
         $seeds= [
             [
-                'user_id' => 4,
-                'description' => 'dummy_text',
+                'user_id' => 5,
+                'description' => 'Saya bekerja di STTS sebagai mahasiswa',
                 'domicile' => 'Surabaya',
                 'birth_date' => date("Y-m-d H:i:s"),
                 'facebook_url' => 'facebook.com/user-profile/dummy',

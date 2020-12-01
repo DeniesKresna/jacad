@@ -18,7 +18,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12" v-if="result.data.length > 0">
+            <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -53,7 +53,7 @@
 
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <p>Belum ada tag</p>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
             },
 
             destroyData(tag) {
-                if (confirm(`Are you sure want to delete this ${tag.name} tag?`)) {
+                if (confirm(`Anda yakin ingin menghapus tag : ${tag.name} ?`)) {
                     this.$store.dispatch('tag/DESTROY', tag.id).then(response => {
                         this.getResults(this.result.current_page);
                     });;

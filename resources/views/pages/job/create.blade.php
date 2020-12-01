@@ -23,7 +23,7 @@
                             
                             <!-- FORM -->
 					 		<div class="profile-form-edit">
-					 			<form id="jobForm" enctype="multipart/form-data">
+					 			<form id="job-form" enctype="multipart/form-data">
 					 				<div class="row">
 					 					<div class="col-lg-12">
 					 						<span class="pf-title">Nama Perusahaan</span>
@@ -192,7 +192,7 @@
                                             </div>
 										--}}
 					 					<div class="col-lg-12">
-					 						<button type="submit" id="btnSubmit">Simpan</button>
+					 						<button type="submit">Simpan</button>
 					 					</div>
 					 				</div>
 					 			</form>
@@ -211,7 +211,7 @@
 	<script src="{{ asset('datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
     
 	<script>
-		$( document ).ready(function() {
+		$(document).ready(function() {
 		    $(".special_ta").jqte();
 		    $(".datepicker").datepicker({
 			      format: 'yyyy-mm-dd',
@@ -227,44 +227,46 @@
 
             //LOGO COMPANY
 		    $("#logo").change(function(e) {
-		    	var reader = new FileReader();
+		    	let reader = new FileReader();
 			    reader.onload = function (e) {
 			        document.getElementById("logo-img").src = e.target.result;
 			    };
 			    reader.readAsDataURL(this.files[0]);
 		    });
 
+            let company;
+
             //AJAX GET DATA COMPANY - AUTO INPUT
 		    $("#company_name").focusout(function(){
 		    	if ($("#company_name").val().length > 2){
 		    		$('body').loading();
-		    		$.ajax({
+		    		
+                    $.ajax({
 			            type:'GET',
 			            url: "{{url('/')}}" + '/api/v1/user/companies/name/' + $("#company_name").val(),
 			            dataType: 'JSON',
 			            success: function(data) {
-                            var company = data.company;
                             $('body').loading('stop');
-                            $('#jobForm input, #jobForm select').each(
-                                function(index){  
-                                    let input = $(this);
-                                    for (let prop in company){
-                                        if (input.attr('name') == prop) {
-                                            input.val(company[prop]);
-                                        }
+                            
+                            company = data.company;
+                            
+                            $('#job-form input, #job-form select').each(function(index) {  
+                                let input = $(this);
+                                    
+                                for (let prop in company) {
+                                    if (input.attr('name') === prop) {
+                                        input.val(company[prop]);
                                     }
                                 }
-                            );
-                            $('#jobForm textarea').each(
-                                function(index){  
-                                    let input = $(this);
-                                    for (let prop in company){
-                                        if(input.attr('name') == prop){
-                                            input.html(company[prop]);
-                                        }
+                            });
+                            $('#job-form textarea').each(function(index) {  
+                                let input = $(this);
+                                for (let prop in company) {
+                                    if (input.attr('name') === prop) {
+                                        input.html(company[prop]);
                                     }
                                 }
-                            );
+                            });
                             $('#logo-img').attr('src', company.logo_url);
                         },
 			            error: function(error) {
@@ -275,58 +277,65 @@
 		    });
             
             //AJAX FORM SUBMIT   
-		    $("#btnSubmit").click(function(e) {
-		        e.preventDefault();
+		    $('#job-form').on('submit', function(e) {
+                e.preventDefault();
+                $('body').loading();
 
-		        var formData = new FormData($('form')[0]);
+                let formData = new FormData($('form')[0]);
 
 		        formData.set('logo', $("#logo").prop('files')[0]);
                 formData.set('sectors', JSON.stringify($('.chosen').val()));
-                
-		        for (var pair of formData.entries()) {
-		        	let iptDom = document.getElementsByName(pair[0])[0];
-		           	iptDom.style.backgroundColor = "white";
-				}
 
-                $('body').loading();
+                if (company) formData.append('creator_id', company.id);
 
-		        $.ajax({
-		            type: 'POST',
-		            url: "{{url('/')}}" + '/api/v1/user/jobs',
+                for (field of formData.entries()) {
+                    $(`#job-form [name=${field[0]}]`).removeClass('error-field');
+                }
+
+                $.ajax({
+                    type: 'POST',
+		            url: '{{ url("/api/v1/user/jobs") }}',
 		            data: formData,
 		            dataType: 'JSON',
     			    processData: false,
     			    contentType: false,
-		            success: function(response) {
+                    success: function(response) {
                         $('body').loading('stop');
-
+                        
                         swal({ 
-                            title: 'Create success!', 
-                            text: 'job created', 
+                            title:  response.message,
                             icon: 'success' 
                         });
 		            },
                     error: function(error) {
+                        console.log(error);
                         $('body').loading('stop');
-                        
-		           	    if (error.status === 422) {
-		           		    let msg = "";
-                            
-		           		    for (let prop in error.responseJSON.message){
-		           			    let iptDom = document.getElementsByName(prop)[0];
-		           			    iptDom.style.backgroundColor = 'yellow';
-		           			    //msg = msg + error.responseJSON.message[prop][0] + "\n";
-		           		    }
-                            
-                            swal({ 
-                                title: 'Validation Error', 
-                                text: 'check the yellow background inputs', 
-                                icon: 'error' 
-                            });
+
+                        let message= '';
+
+                        switch(error.status) {
+                            case 400:
+                                message= error.responseJSON.message;
+                                break;
+                            case 422:
+                                for (field in error.responseJSON.fields) {
+                                    $(`#job-form [name=${field}]`).addClass('error-field');
+
+                                    for (error_message of error.responseJSON.fields[field]) {
+                                        message+= `${error_message}\n`
+                                    }
+                                }
+                                break;
                         }
-		            }
-		        });
-			});
+
+                        swal({ 
+                            title: 'Gagal menyimpan!', 
+                            text: message, 
+                            icon: 'error' 
+                        });
+                    }
+                })
+            });
 		});
 	</script>
 @endsection

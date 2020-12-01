@@ -33,7 +33,7 @@
                             <div class="col-12">
                                 <span class="pf-title">Profesimu saat ini</span>
                                 <div class="pf-field">
-                                    <textarea class="special_ta" name="profession">{{ Auth::user()->profile->desc }}</textarea>
+                                    <textarea class="special_ta" name="description">{{ Auth::user()->profile->description }}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">

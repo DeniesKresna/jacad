@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |---------------------------------------------------------------------------
 | Initial URL = domainName/public/api/v1/
 */
-Route::group(['prefix' => 'v1/user'],function () {
+Route::group(['prefix' => 'v1/user'], function () {
     Route::post('/auth/login', 'v1\User\Auth\LoginController@index');
     Route::post('/auth/register', 'v1\User\Auth\RegisterController@index');
     Route::post('/auth/logout', 'v1\User\Auth\LogoutController@index');
@@ -130,11 +130,10 @@ Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::resource('/student-ambassadors', 'v1\User\StudentAmbassadorController');
 });
 
-
 /* API LOGIN & REGISTER JONATHAN*/
 Route::group(['prefix' => 'v1', 'middleware' => []], function() {
     Route::post('/register', 'v1\RegisterController@store');
-    Route::get('/register-token/{token}', 'v1\RegisterController@checkToken');
+    Route::get('/register-token/{token}', 'v1\RegisterController@check_token');
     
     Route::post('/login', 'v1\LoginController@index');
 });

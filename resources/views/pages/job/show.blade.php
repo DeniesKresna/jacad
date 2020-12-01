@@ -36,8 +36,8 @@
                             <!-- JOB DETAILS -->
 				 			<div class="job-details">
                                 <h3>Job Description</h3>
-                                {!! $job->job_desc !!}
-				 				<!--<p>Company is a 2016 Iowa City-born start-up that develops consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</p>
+                                {{-- {!! $job->job_desc !!} --}}
+				 				<p>Company is a 2016 Iowa City-born start-up that develops consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</p>
 				 				<p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien</p>
 				 				<h3>Required Knowledge, Skills, and Abilities</h3>
 				 				<ul>
@@ -58,7 +58,7 @@
 				 					<li>Must be able to work under pressure and meet deadlines while maintaining a positive attitude and providing exemplary customer service</li>
 				 					<li>Ability to work independently and to carry out assignments to completion within parameters of instructions given, prescribed routines, and standard accepted practices</li>
 				 				</ul>
-                            </div>-->
+                            </div>
                             <!-- JOB DETAILS -->
                             
                             <div class="share-bar">
@@ -169,20 +169,18 @@
                         
                         swal({ 
                             title: 'Pengajuan berhasil!', 
-                            text: response, 
-                            icon: "success" 
+                            text: response.message, 
+                            icon: 'success'
                         });
                     },
                     error: function(error) {
                         $('body').loading('stop');
 
-                        if (error.status === 403) {
-                            swal({ 
-                                title: 'Pengajuan gagal!', 
-                                text: error.responseJSON, 
-                                icon: "error" 
-                            });
-                        }
+                        swal({ 
+                            title: 'Pengajuan gagal!', 
+                            text: error.responseJSON.message, 
+                            icon: 'error' 
+                        });
                     }   
                 });
             });

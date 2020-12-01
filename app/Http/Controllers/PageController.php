@@ -15,8 +15,8 @@ class PageController extends Controller
     public function home() {
         $academies= Academy::limit(6)->get();
         $ask_careers= AskCareer::limit(6)->get();
-        //$career_hubs= Job::limit(6)->get();
-        $career_hubs= [1, 2, 3, 4, 5, 6];
+        $career_hubs= Job::limit(6)->get();
+        //$career_hubs= [1, 2, 3, 4, 5, 6];
 
         //IF LOCATION SEMENTARA
         /*foreach ($career_hubs as $key => $career_hub) { 

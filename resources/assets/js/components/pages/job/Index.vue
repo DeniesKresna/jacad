@@ -35,7 +35,7 @@
                                 <td v-else>Pending</td>
                                 <td>
                                     <router-link :to="`/job/edit/${item.id}`">
-                                        <span class="fa fa-pencil"></span>
+                                        <span class="fa fa-pencil-square-o"></span>
                                     </router-link>
                                     <router-link :to="`/job/${item.id}`">
                                         <span class="fa fa-eye"></span>
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="col-md-12" v-else>
-                no data yet.
+                <p>Belum ada lowongan</p>
             </div>
         </div>
     </div>

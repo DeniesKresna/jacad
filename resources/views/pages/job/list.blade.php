@@ -93,27 +93,9 @@
                             <div class="row">
                                 {{-- JOB ITEM -> FOR DISINI --}}
                                 @foreach ($jobs as $job)
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="job-grid border">
-                                            <div class="job-title-sec">
-                                                <div class="c-logo"> 
-                                                    <img src="http://placehold.it/235x115" alt=""/> 
-                                                </div>
-                                                <h3>
-                                                    <a href="#" title="">{{ $job->position }}</a>
-                                                </h3>
-                                                <span>{{ $job->company->name }}</span>
-                                                <span class="fav-job">
-                                                    <i class="la la-heart-o"></i>
-                                                </span>
-                                            </div>
-                                            <span class="job-lctn">{{ $job->location->name }}</span>
-                                            <a href="{{ url('/jobs/'.$job->id) }}" title="">APPLY NOW</a>
-                                        </div>
-                                    </div>
+                                    @include('components.career-hub', ['career_hub' => $job ])
                                 @endforeach
                                 {{-- JOB ITEM -> FOR DISINI --}}
-                                
                             </div>
                         </div>
                         {{-- LIST JOB --}}
@@ -123,7 +105,7 @@
 							<ul>
 								<li class="prev">
                                     <a href="">
-                                        <i class="la la-long-arrow-left"></i> Prev
+                                        <i class="la la-long-arrow-left"></i> Sebelumnya
                                     </a>
                                 </li>
 								<li>
@@ -143,7 +125,7 @@
                                 </li>
 								<li class="next">
                                     <a href="">
-                                        Next <i class="la la-long-arrow-right"></i>
+                                        Selanjutnya <i class="la la-long-arrow-right"></i>
                                     </a>
                                 </li>
 							</ul>

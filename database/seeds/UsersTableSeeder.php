@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
@@ -15,14 +14,13 @@ class UsersTableSeeder extends Seeder
 
     public function run()
     {
-
         $seeds= [
             [
-                'name' => "Admnistrator",
+                'name' => "Administrator",
                 'email' => "barbar.smartit@gmail.com",
                 'phone' =>" 08157006008",
                 'username' => "barbar",
-                'password' => Hash::make('barbar123!!!'),
+                'password' => password_encrypt('barbar123!!!'),
             ],
 
             [
@@ -30,28 +28,35 @@ class UsersTableSeeder extends Seeder
                 'email' => "denies@smart-it.co.id",
                 'phone' => "08157006008",
                 'username' => "barbar",
-                'password' => Hash::make('denies123!!!'),
+                'password' => password_encrypt('denies123!!!'),
                 'active' => 1
             ],
-    
+            
             [
                 'name' => "Septian",
                 'email' => "septiano@smart-it.co.id",
                 'phone' => "08157006008",
                 'username' => "septiano",
-                'password' => Hash::make('12345678'),
+                'password' => password_encrypt('12345678'),
                 'active' => 1
             ],
-    
+            
             [
-                'name' => 'Jonathan Gani',
+                'name' => 'Admin Jonathan',
                 'email' => 'jonathangani279@gmail.com',
                 'phone' => '08157006008',
-                'username' => 'syndic2',
-                'password' => password_encrypt("asdasd"),
-                'active' => 1,
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
+                'username' => 'jonsu1',
+                'password' => password_encrypt('jonsu1'),
+                'active' => 1
+            ],
+
+            [
+                'name' => 'Customer Jonathan',
+                'email' => 'jonathangani279@gmail.com',
+                'phone' => '08157006008',
+                'username' => 'jonsu2',
+                'password' => password_encrypt('jonsu2'),
+                'active' => 1
             ]
         ];
 

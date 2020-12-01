@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://lawangagung.com/development'),
+    'url' => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------

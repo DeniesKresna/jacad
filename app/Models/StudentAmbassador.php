@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 10 Nov 2020 14:12:53 +0700.
+ * Date: Mon, 30 Nov 2020 14:43:21 +0700.
  */
 
 namespace App\Models;
@@ -22,8 +22,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $major
  * @property string $phone
  * @property string $line_id
- * @property string $ig_link
- * @property string $linkedIn_link
+ * @property string $ig_url
+ * @property string $linkedIn_url
  * @property int $status
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -47,8 +47,8 @@ class StudentAmbassador extends Eloquent
 		'major',
 		'phone',
 		'line_id',
-		'ig_link',
-		'linkedIn_link',
+		'ig_url',
+		'linkedIn_url',
 		'status'
 	];
 }
