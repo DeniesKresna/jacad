@@ -56,21 +56,35 @@
                     $('body').loading('stop');
 
                     swal({ 
-                        title: 'Create success!', 
-                        text: 'mentoring created', 
+                        title: response.message,
                         icon: 'success' 
                     });
                 },
                 error: function (error) {
                     $('body').loading('stop');
 
-                    if (error.status === 422) {
-                        swal({ 
-                            title: 'Validation Error', 
-                            text: '', 
-                            icon: 'error' 
-                        });
+                    let message= '';
+
+                    switch(error.status) {
+                        case 400:
+                            message= error.responseJSON.message;
+                            break;
+                        case 422:
+                            for (field in error.responseJSON.fields) {
+                                $(`[name=${field}]`).addClass('error-field');
+                                
+                                for (error_message of error.responseJSON.fields[field]) {
+                                    message+= `${error_message}\n`
+                                }
+                            }
+                            break;
                     }
+
+                    swal({ 
+                        title: 'Gagal daftar!', 
+                        text: message, 
+                        icon: 'error' 
+                    });
                 }
             });
         });

@@ -16,7 +16,7 @@
                 </router-link>
             </div>
         </div>
-
+        
         <div class="row">
             <div class="col-md-12" v-if="result.data.length">
                 <div class="table-responsive">
@@ -36,7 +36,7 @@
                                 <td>{{ item.mentor.name }}</td>
                                 <td>
                                     <router-link :to="`/ask-career/${item.id}`">
-                                        <span class="fa fa-pencil"></span>
+                                        <span class="fa fa-pencil-square-o"></span>
                                     </router-link>
                                     <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
@@ -56,7 +56,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <p>Belum ada ask career</p>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
             },
 
             destroyData(ask_career) {
-                if (confirm(`Are you sure want to delete tag : ${ask_career.name} ?`)) {
+                if (confirm(`Apakah anda yakin ingin menghapus ask career : ${ask_career.name} ?`)) {
                     this.$store.dispatch('ask_career/DESTROY', ask_career.id).then(response => {
                         this.getResults(this.result.current_page);
                     });;

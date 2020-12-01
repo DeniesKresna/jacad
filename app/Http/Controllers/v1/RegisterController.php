@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 
 use App\Http\Controllers\ApiController;
@@ -10,8 +11,6 @@ use App\Notifications\Register;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\PasswordReset;
-
-use Validator;
 
 class RegisterController extends ApiController {
 
@@ -23,46 +22,49 @@ class RegisterController extends ApiController {
     public function store(Request $request) {
         $datas= $request->all();
 
-        $validate= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama harus diisi',
+            'username.required' => 'Kolom nama pengguna harus diisi',
+            'password.required' => 'Kolom kata sandi harus diisi',
+            'password_confirmation.required' => 'Kolom konfirmasi kata sandi harus diisi',
+            'email.required' => 'Kolom email harus diisi',
+            'phone.required' => 'Kolom nomor handhpone harus diisi'
+        ]);
 
-        if ($validate->fails()) {
-            return response()->json([
-                'data' => $datas, 
-                'messages' => $validate->messages()
-            ], 422);
+        if ($validator->fails()) {
+            return response()->json(['fields' => $validator->messages()], 422);
         }
 
         $datas['password']= password_encrypt($datas['password']);
         $datas['active']= 0;
         
         $newUser= User::create($datas);
-
         $newUser->attachRole(Role::where('name', 'customer')->first());
         $newUser->save();
 
-        $token= $this->generateToken($datas['username']);
+        $token= $this->generate_token($datas['username']);
+
         $registerToken= PasswordReset::create([
             'email' => $datas['email'],
             'token' => $token
         ]);
-
         $registerToken->save();
         
         if ($newUser && $registerToken) {
             Notification::route('mail', $newUser->email)
                         ->notify(new Register($token));
             
-            return response()->json([
-                'newUser' => $newUser
-            ], 200);
+            return response()->json(['messages' => 'Berhasil daftar! Cek email anda untuk verifikasi akun']);
+        } else {
+            return response()->json(['messages' => 'Terjadi kendala, silahkan hubungi Customer Service kami'], 400);
         }
     }
 
-    private function generateToken($username) { 
+    private function generate_token($username) { 
         return md5(uniqid($username, true));
     }
     
-    public function checkToken($token) {
+    public function check_token($token) {
         $userToken= PasswordReset::where('token', $token)->first();
 
         if (!$userToken) {
@@ -73,17 +75,11 @@ class RegisterController extends ApiController {
 
         $user= User::where('email', $userToken->email)->first();
         $user->active= 1;
-        
         $user->save();
         
         echo '<script>';
         echo    'window.location.href= "'.url('/').'";';
         echo    'alert("Succes verified!");';
-        /*echo    'swal({';
-        echo        'title: "Verification success!", ';
-        echo        'text: "Your account has been succesfully verified",';
-        echo        'icon: "success"';
-        echo    '});';*/
         echo '</script>';
     }
 }

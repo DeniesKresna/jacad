@@ -29,12 +29,17 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description</label>
                     <div class="col-md-10">
-                        <vue-editor 
-                            useCustomImageHandler 
-                            :editorOptions="editorSettings" 
-                            @image-added="handleImageAdded" 
-                            v-model="data.description">
-                        </vue-editor>
+                        <vue-editor v-model="data.description" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">LinkedIn Profile</label>
+                    <div class="col-md-10">
+                        <input 
+                            type="text" 
+                            placeholder="LinkedIn Profile" 
+                            class="form-control" 
+                            v-model="data.linkedIn_url">
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,11 +53,8 @@
 </template>
 
 <script>
-    import { VueEditor, Quill } from 'vue2-editor';
-    import ImageResize from '../../../plugins/quill-fix-error/image-resize.min.js';
+    import { VueEditor } from 'vue2-editor';
     import Multiselect from 'vue-multiselect';
-    
-    Quill.register('modules/imageResize', ImageResize);
 
     export default {
         components: {
@@ -63,37 +65,13 @@
             return {
                 data: {
                     name: '',
-                    description: '',
+                    description: '<p>Profesi:</p><p>Asal Perusahaan:</p><p>Bidang yang dikuasai:</p<p>Materi yang akan diajar dalam bentuk:</p><p>Latar belakang pendidikan:</p><p>Pengalaman:</p>',
+                    linkedIn_url: '',
                     file: null
-                },
-                editorSettings: {
-                    modules: {
-                        imageResize: {}
-                    }
                 }
             }
         },
         methods: {
-            handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-                // An example of using FormData
-                // NOTE: Your key could be different such as:
-                // formData.append('file', file)
-                
-                let formData = new FormData();
-
-                formData.append("image", file);
-                
-                axios({
-                    url: `${this.$store.getters.urls.host.jonathan}/${this.$store.getters.urls.api}/admin/medias`,
-                    method: 'POST',
-                    data: formData
-                }).then(result => {
-                    let url = result.data.url; // Get url from response
-
-                    Editor.insertEmbed(cursorLocation, 'image', url);
-                    resetUploader();
-                });
-            },
             handleFileUpload() {
                 this.data.file = this.$refs.file.files[0];
             },
@@ -102,6 +80,7 @@
                     this.data=  {
                         name: '',
                         description: '',
+                        linkedIn_url: '',
                         file: null
                     }
                     this.$refs.file.value = '';

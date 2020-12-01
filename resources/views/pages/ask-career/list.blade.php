@@ -13,17 +13,20 @@
                 </div>
                 @if (count($ask_careers) > 0)
                     <div class="row">
-                        @foreach ($ask_careers as $ask_career)
-                            <a href="{{ $ask_career->mentor->url }}">
-                                @include('components.ask-career', [
-                                    'ask_career' => $ask_career,
-                                    'css' => [
-                                        'col' => 'col-12',
-                                        'my' => 'my-2'
-                                    ]
-                                ])
-                            </a>
-                        @endforeach
+                        <div class="col-lg-9">
+                            @foreach ($ask_careers as $ask_career)
+                                <a href="{{ $ask_career->mentor->url }}">
+                                    @include('components.ask-career', [
+                                        'ask_career' => $ask_career,
+                                        'schedule' => $ask_career->schedule,
+                                        'css' => [
+                                            'col' => 'col-12',
+                                            'py' => 'py-2'
+                                        ]
+                                    ])
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
 

@@ -19,9 +19,9 @@
         @if (!Auth::check())
             <!-- Btn Extras -->
             <div class="btn-extars">
-                <a href="{{ url('jobs/create') }}" title="" class="post-job-btn">
+                {{-- <a href="{{ url('jobs/create') }}" title="" class="post-job-btn">
                     <i class="la la-plus"></i> Post Jobs
-                </a>
+                </a> --}}
                 
                 <ul class="account-btns">
                     <li class="signup-popup">
@@ -65,7 +65,7 @@
                             <a href="{{ url('/academies') }}" title="">Jobhun Academy</a>
                         </li>
                         <li>
-                            <a href="" title="">Jobhun Ask Career</a>
+                            <a href="{{ url('/ask-careers') }}" title="">Jobhun Ask Career</a>
                         </li>
                         <li>
                             <a href="{{ url('/jobs') }}" title="">Jobhun Career Hub</a>
@@ -157,7 +157,7 @@
                             <li>
                                 <a href="{{ url('/academies') }}" title="">Jobhun Academy</a></li>
                             <li>
-                                <a href="" title="">Jobhun Ask Career</a>
+                                <a href="{{ url('/ask-careers') }}" title="">Jobhun Ask Career</a>
                             </li>
                             <li>
                                 <a href="{{ url('/jobs') }}" title="">Jobhun Career Hub</a>

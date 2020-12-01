@@ -57,7 +57,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <p>Belum ada blog</p>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 });
             },
             destroyData(blog) {
-                if (confirm("Are you sure delete blog : "+blog.title + "?")) {
+                if (confirm(`Apakah anda yakin ingin menghapus blog : ${blog.title} ?`)) {
                     this.$store.dispatch('blog/DESTROY', blog.id).then(response => {
                         this.getResults(this.result.current_page);
                     });

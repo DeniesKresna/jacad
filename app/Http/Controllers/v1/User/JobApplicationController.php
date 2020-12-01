@@ -11,15 +11,21 @@ class JobApplicationController extends Controller
 {
     public function store(Request $request) {
         $job_application= Job::where('id', $request->id)->whereHas('applicants', function($query) {
-            $query->where('users.id', 4);
+            $query->where('users.id', auth()->user()->id);
         })->first();
 
         if ($job_application) {
-            return response()->json('Lowongan ini sudah/sedang diajukan', 403);
+            return response()->json(['message' => 'Lowongan ini sudah/sedang diajukan'], 403);
         }
 
-        Job::findOrFail($request->id)->applicants()->attach(4);
+        $job_application= Job::findOrFail($request->id);
+        $job_application->applicants()->attach(auth()->user()->id);
+        $job_application->save();
 
-        return response()->json('Terima kasih sudah melamar >.<');
+        if ($job_application) {
+            return response()->json(['message' => 'Terima kasih sudah melamar >.<']);
+        } else {
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi Customer Service'], 400);
+        }
     }
 }

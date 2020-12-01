@@ -2057,7 +2057,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2171,7 +2170,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
-//
 //
 //
 //
@@ -3347,7 +3345,7 @@ __webpack_require__.r(__webpack_exports__);
     destroyData: function destroyData(ask_career) {
       var _this2 = this;
 
-      if (confirm("Are you sure want to delete tag : ".concat(ask_career.name, " ?"))) {
+      if (confirm("Apakah anda yakin ingin menghapus ask career : ".concat(ask_career.name, " ?"))) {
         this.$store.dispatch('ask_career/DESTROY', ask_career.id).then(function (response) {
           _this2.getResults(_this2.result.current_page);
         });
@@ -4289,10 +4287,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../plugins/quill-fix-error/image-resize.min.js */ "./resources/assets/js/plugins/quill-fix-error/image-resize.min.js");
-/* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4344,45 +4345,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-
-vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize', _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_0__["VueEditor"],
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
       data: {
         name: '',
-        description: '',
+        description: '<p>Profesi:</p><p>Asal Perusahaan:</p><p>Bidang yang dikuasai:</p<p>Materi yang akan diajar dalam bentuk:</p><p>Latar belakang pendidikan:</p><p>Pengalaman:</p>',
+        linkedIn_url: '',
         file: null
-      },
-      editorSettings: {
-        modules: {
-          imageResize: {}
-        }
       }
     };
   },
   methods: {
-    handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-      // An example of using FormData
-      // NOTE: Your key could be different such as:
-      // formData.append('file', file)
-      var formData = new FormData();
-      formData.append("image", file);
-      axios({
-        url: "".concat(this.$store.getters.urls.host.jonathan, "/").concat(this.$store.getters.urls.api, "/admin/medias"),
-        method: 'POST',
-        data: formData
-      }).then(function (result) {
-        var url = result.data.url; // Get url from response
-
-        Editor.insertEmbed(cursorLocation, 'image', url);
-        resetUploader();
-      });
-    },
     handleFileUpload: function handleFileUpload() {
       this.data.file = this.$refs.file.files[0];
     },
@@ -4393,6 +4371,7 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
         _this.data = {
           name: '',
           description: '',
+          linkedIn_url: '',
           file: null
         };
         _this.$refs.file.value = '';
@@ -4413,10 +4392,13 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
-/* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../plugins/quill-fix-error/image-resize.min.js */ "./resources/assets/js/plugins/quill-fix-error/image-resize.min.js");
-/* harmony import */ var _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4471,21 +4453,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-
-vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize', _plugins_quill_fix_error_image_resize_min_js__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_0__["VueEditor"],
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
-      data: {},
-      editorSettings: {
-        modules: {
-          imageResize: {}
-        }
-      }
+      data: {}
     };
   },
   mounted: function mounted() {
@@ -4497,23 +4472,6 @@ vue2_editor__WEBPACK_IMPORTED_MODULE_0__["Quill"].register('modules/imageResize'
 
       this.$store.dispatch('mentor/SHOW', this.$route.params.id).then(function (response) {
         _this.data = response;
-      });
-    },
-    handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
-      // An example of using FormData
-      // NOTE: Your key could be different such as:
-      // formData.append('file', file)
-      var formData = new FormData();
-      formData.append("image", file);
-      axios({
-        url: "".concat(this.$store.getters.urls.host.jonathan, "/").concat(this.$store.getters.urls.api, "/admin/medias"),
-        method: 'POST',
-        data: formData
-      }).then(function (result) {
-        var url = result.data.url; // Get url from response
-
-        Editor.insertEmbed(cursorLocation, 'image', url);
-        resetUploader();
       });
     },
     handleFileUpload: function handleFileUpload() {
@@ -4627,7 +4585,7 @@ __webpack_require__.r(__webpack_exports__);
     destroyData: function destroyData(mentor) {
       var _this2 = this;
 
-      if (confirm("Are you sure delete mentor : ".concat(mentor.name, " ?"))) {
+      if (confirm("Apakah anda yakin ingin menghapus mentor : ".concat(mentor.name, " ?"))) {
         this.$store.dispatch('mentor/DESTROY', mentor.id).then(function (response) {
           _this2.getResults(_this2.result.current_page);
         });
@@ -5067,7 +5025,7 @@ __webpack_require__.r(__webpack_exports__);
     destroyData: function destroyData(tag) {
       var _this2 = this;
 
-      if (confirm("Are you sure want to delete this ".concat(tag.name, " tag?"))) {
+      if (confirm("Anda yakin ingin menghapus tag : ".concat(tag.name, " ?"))) {
         this.$store.dispatch('tag/DESTROY', tag.id).then(function (response) {
           _this2.getResults(_this2.result.current_page);
         });
@@ -5345,7 +5303,7 @@ __webpack_require__.r(__webpack_exports__);
     destroyData: function destroyData(blog) {
       var _this2 = this;
 
-      if (confirm("Are you sure delete blog : " + blog.title + "?")) {
+      if (confirm("Apakah anda yakin ingin menghapus blog : ".concat(blog.title, " ?"))) {
         this.$store.dispatch('blog/DESTROY', blog.id).then(function (response) {
           _this2.getResults(_this2.result.current_page);
         });
@@ -51635,7 +51593,7 @@ var render = function() {
       "form",
       {
         staticClass: "form-horizontal",
-        attrs: { novalidate: "", role: "form" },
+        attrs: { role: "form" },
         on: {
           submit: function($event) {
             $event.preventDefault()
@@ -51859,7 +51817,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", required: "", placeholder: "Title" },
+                attrs: { type: "text", placeholder: "Title" },
                 domProps: { value: _vm.data.title },
                 on: {
                   input: function($event) {
@@ -52961,7 +52919,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("p", [_vm._v("no data yet")])
+      _c("p", [_vm._v("Belum ada academy")])
     ])
   }
 ]
@@ -53412,7 +53370,11 @@ var render = function() {
                             _c(
                               "router-link",
                               { attrs: { to: "/ask-career/" + item.id } },
-                              [_c("span", { staticClass: "fa fa-pencil" })]
+                              [
+                                _c("span", {
+                                  staticClass: "fa fa-pencil-square-o"
+                                })
+                              ]
                             ),
                             _vm._v(" "),
                             _c(
@@ -53474,7 +53436,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("p", [_vm._v("no data yet")])
+      _c("p", [_vm._v("Belum ada ask career")])
     ])
   }
 ]
@@ -55026,7 +54988,11 @@ var render = function() {
                             _c(
                               "router-link",
                               { attrs: { to: "/job/edit/" + item.id } },
-                              [_c("span", { staticClass: "fa fa-pencil" })]
+                              [
+                                _c("span", {
+                                  staticClass: "fa fa-pencil-square-o"
+                                })
+                              ]
                             ),
                             _vm._v(" "),
                             _c(
@@ -55057,7 +55023,7 @@ var render = function() {
             )
           ])
         : _c("div", { staticClass: "col-md-12" }, [
-            _vm._v("\n            no data yet.\n        ")
+            _c("p", [_vm._v("Belum ada lowongan")])
           ])
     ])
   ])
@@ -55178,11 +55144,6 @@ var render = function() {
               { staticClass: "col-md-10" },
               [
                 _c("vue-editor", {
-                  attrs: {
-                    useCustomImageHandler: "",
-                    editorOptions: _vm.editorSettings
-                  },
-                  on: { "image-added": _vm.handleImageAdded },
                   model: {
                     value: _vm.data.description,
                     callback: function($$v) {
@@ -55194,6 +55155,36 @@ var render = function() {
               ],
               1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "col-md-2 control-label" }, [
+              _vm._v("LinkedIn Profile")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.linkedIn_url,
+                    expression: "data.linkedIn_url"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "LinkedIn Profile" },
+                domProps: { value: _vm.data.linkedIn_url },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.data, "linkedIn_url", $event.target.value)
+                  }
+                }
+              })
+            ])
           ]),
           _vm._v(" "),
           _vm._m(0)
@@ -55322,11 +55313,6 @@ var render = function() {
               { staticClass: "col-md-10" },
               [
                 _c("vue-editor", {
-                  attrs: {
-                    useCustomImageHandler: "",
-                    editorOptions: _vm.editorSettings
-                  },
-                  on: { "image-added": _vm.handleImageAdded },
                   model: {
                     value: _vm.data.description,
                     callback: function($$v) {
@@ -55338,6 +55324,36 @@ var render = function() {
               ],
               1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "col-md-2 control-label" }, [
+              _vm._v("LinkedIn Profile")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.data.linkedIn_url,
+                    expression: "data.linkedIn_url"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "LinkedIn Profile" },
+                domProps: { value: _vm.data.linkedIn_url },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.data, "linkedIn_url", $event.target.value)
+                  }
+                }
+              })
+            ])
           ]),
           _vm._v(" "),
           _vm._m(0)
@@ -55356,7 +55372,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-info", attrs: { type: "submit" } },
-          [_vm._v("Create")]
+          [_vm._v("Edit")]
         )
       ])
     ])
@@ -55526,7 +55542,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("p", [_vm._v("no data yet")])
+      _c("p", [_vm._v("Belum ada mentor")])
     ])
   }
 ]
@@ -56076,7 +56092,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _vm.result.data.length > 0
+      _vm.result.data.length
         ? _c("div", { staticClass: "col-md-12" }, [
             _c(
               "div",
@@ -56151,7 +56167,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("p", [_vm._v("no data yet")])
+      _c("p", [_vm._v("Belum ada tag")])
     ])
   }
 ]
@@ -57368,7 +57384,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("p", [_vm._v("no data yet")])
+      _c("p", [_vm._v("Belum ada blog")])
     ])
   }
 ]
@@ -90349,7 +90365,7 @@ var blog = {
         formData.append('title', payload.title);
         formData.append('content', payload.content);
         formData.append('category', payload.category);
-        formData.append('tags', payload.tags);
+        formData.append('tags', JSON.stringify(payload.tags));
         formData.append('file', payload.file);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/blogs', formData, {
           headers: {
@@ -90367,7 +90383,7 @@ var blog = {
         formData.append('title', payload.title);
         formData.append('content', payload.content);
         formData.append('category', payload.category);
-        formData.append('tags', payload.tags);
+        formData.append('tags', JSON.stringify(payload.tags));
         formData.append('file', payload.file);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/blogs/update/' + payload.id, formData, {
           headers: {
@@ -90672,6 +90688,7 @@ var mentor = {
         var formData = new FormData();
         formData.append('name', payload.name);
         formData.append('description', payload.description);
+        formData.append('linkedIn_url', payload.linkedIn_url);
         formData.append('file', payload.file);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/admin/mentors', formData, {
           headers: {
@@ -90688,6 +90705,7 @@ var mentor = {
         var formData = new FormData();
         formData.append('name', payload.name);
         formData.append('description', payload.description);
+        formData.append('linkedIn_url', payload.linkedIn_url);
         formData.append('file', payload.file);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/admin/mentors/update/".concat(payload.id), formData, {
           headers: {

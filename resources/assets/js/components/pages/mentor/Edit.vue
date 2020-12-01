@@ -32,17 +32,22 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description</label>
                     <div class="col-md-10">
-                        <vue-editor 
-                            useCustomImageHandler 
-                            :editorOptions="editorSettings" 
-                            @image-added="handleImageAdded" 
-                            v-model="data.description">
-                        </vue-editor>
+                        <vue-editor v-model="data.description" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">LinkedIn Profile</label>
+                    <div class="col-md-10">
+                        <input 
+                            type="text" 
+                            placeholder="LinkedIn Profile" 
+                            class="form-control" 
+                            v-model="data.linkedIn_url">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-info" type="submit">Create</button>
+                        <button class="btn btn-info" type="submit">Edit</button>
                     </div>
                 </div>
             </form>
@@ -51,11 +56,8 @@
 </template>
 
 <script>
-    import { VueEditor, Quill } from 'vue2-editor';
-    import ImageResize from '../../../plugins/quill-fix-error/image-resize.min.js';
+    import { VueEditor } from 'vue2-editor';
     import Multiselect from 'vue-multiselect';
-    
-    Quill.register('modules/imageResize', ImageResize);
 
     export default {
         components: {
@@ -64,12 +66,7 @@
         },
         data() {
             return {
-                data: {},
-                editorSettings: {
-                    modules: {
-                        imageResize: {}
-                    }
-                }
+                data: {}
             }
         },
         mounted() {
@@ -79,26 +76,6 @@
             getData() {
                 this.$store.dispatch('mentor/SHOW', this.$route.params.id).then(response => {
                     this.data= response;
-                });
-            },
-            handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-                // An example of using FormData
-                // NOTE: Your key could be different such as:
-                // formData.append('file', file)
-                
-                let formData = new FormData();
-
-                formData.append("image", file);
-                
-                axios({
-                    url: `${this.$store.getters.urls.host.jonathan}/${this.$store.getters.urls.api}/admin/medias`,
-                    method: 'POST',
-                    data: formData
-                }).then(result => {
-                    let url = result.data.url; // Get url from response
-
-                    Editor.insertEmbed(cursorLocation, 'image', url);
-                    resetUploader();
                 });
             },
             handleFileUpload() {

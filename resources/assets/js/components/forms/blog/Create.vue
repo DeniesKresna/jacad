@@ -3,7 +3,6 @@
         <h2 class="content-row-title">{{ title }}</h2>
         <form 
             class="form-horizontal" 
-            novalidate="" 
             role="form" 
             @submit.prevent="storeData">
             <div class="form-group">

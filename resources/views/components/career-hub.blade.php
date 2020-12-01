@@ -1,22 +1,18 @@
-<div class="col-lg-4">
-    <div class="job-grid border p-4">
-        <div class="d-flex">
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+    <div class="job-grid border">
+        <div class="job-title-sec">
             <div class="c-logo"> 
-                <img src="https://jobhun.id/wp-content/uploads/2020/09/0-1-150x150.png" alt="" /> 
+                <img src="http://placehold.it/235x115" alt=""/> 
             </div>
-            <div class="job-title-sec ml-3"> 
-                <h5>
-                    {{-- <b>{{ $career_hub->position }}</b>--> --}}
-                </h5>
-                <span>@Dummy.com</span>
-            </div>
-        </div>  
-        <div class="mt-2">
-            {{-- <div class="text-center">{{ $career_hub->location }}, Indonesia</div> --}}
-            <div class="text-center">Surabaya, Indonesia</div>
-            <div class="float-right">
-                <a href="#" class="bbutton">Lihat detail</a>
-            </div>     
+            <h3>
+                <a href="#" title="">{{ $career_hub->position }}</a>
+            </h3>
+            <span>{{ $career_hub->company->name }}</span>
+            <span class="fav-job">
+                <i class="la la-heart-o"></i>
+            </span>
         </div>
+        <span class="job-lctn">{{ $career_hub->location->name }}</span>
+        <a href="{{ url('/jobs/'.$career_hub->id) }}" title="">APPLY NOW</a>
     </div>
 </div>

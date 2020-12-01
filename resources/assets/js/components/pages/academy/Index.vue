@@ -57,7 +57,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <p>Belum ada academy</p>
                 </div>
             </div>
         </div>

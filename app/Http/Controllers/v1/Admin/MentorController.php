@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Mentor;
-
-use Validator;
 
 class MentorController extends ApiController
 {
@@ -42,7 +41,12 @@ class MentorController extends ApiController
         $datas= $request->all();
         $datas['creator_id']= 1;
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama harus diisi',
+            'description.required' => 'Kolom deskripsi harus diisi',
+            'linkedIn_url.required' => 'Kolom link profil LinkedIn harus diisi',
+            'file.image' => 'Kolom gambar harus bertipe "image"'
+        ]);
         
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
@@ -60,9 +64,9 @@ class MentorController extends ApiController
         $mentor->save();
 
         if ($mentor) {
-            return response()->json(['message' => 'mentor created']);
+            return response()->json(['message' => 'Berhasil menyimpan mentor!']);
         } else {
-            return response()->json(['message' => 'cant create mentor'], 400);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }
     }
 
@@ -70,7 +74,11 @@ class MentorController extends ApiController
         $datas= $request->all();
         $datas['updater_id']= 1;
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Kolom nama harus diisi',
+            'description.required' => 'Kolom deskripsi harus diisi',
+            'linkedIn_url.required' => 'Kolom link profil LinkedIn harus diisi'
+        ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
@@ -91,9 +99,9 @@ class MentorController extends ApiController
         $mentor->save();
 
         if ($mentor) {
-            return response()->json(['message' => 'mentor updated']);
+            return response()->json(['message' => 'Berhasil menyimpan perubahan!']);
         } else {
-            return response()->json(['message' => 'cant update mentor'], 400);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }
     }
 
@@ -106,13 +114,13 @@ class MentorController extends ApiController
                 
                 $mentor->forceDelete();
                 
-                return response()->json(['message' => 'mentor deleted']);
+                return response()->json(['message' => 'Berhasil terhapus!']);
             }
         }
 
         $mentor->delete();
         $mentor->save();
 
-        return response()->json(['message' => 'mentor deleted']);
+        return response()->json(['message' => 'Berhasil terhapus!']);
     }
 }

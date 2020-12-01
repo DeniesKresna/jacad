@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Blog;
 use App\Models\Tag;
-
-use Validator;
 
 class TagController extends ApiController
 {
@@ -18,8 +17,7 @@ class TagController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
@@ -38,34 +36,26 @@ class TagController extends ApiController
         return response()->json($datas);
     }
 
-    public function list(Request $request){
+    public function list(Request $request) {
         return response()->json(Tag::orderBy('name')->get());
     }
 
     public function store(Request $request) {
-        $req = $request->all();
-        //$session_id = $request->get('auth')->user->id;
-        $session_id = Session::get('user') ? Session::get('user')->id : 1;
-        $req["creator_id"] = $session_id;
-        $validator = Validator::make($req, rules_lists(__CLASS__, __FUNCTION__));
+        $datas = $request->all();
+        $datas["creator_id"] = 1;
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
+            'name.required' => 'Nama tag harus diisi'
+        ]);
         
         if ($validator->fails()) 
-            return response()->json([
-                'fail' => false, 
-                'message' => $validator->messages()
-            ], 422);
+            return response()->json(['message' => $validator->messages()], 422);
         
-        $tag = Tag::create($req);
+        $tag = Tag::create($datas);
         
         if ($tag) {
-            return response()->json([
-                'data' => $tag, 
-                'message' => 'category created'
-            ]);
+            return response()->json(['message' => 'Berhasil menyimpan tag!']);
         } else {
-            return response()->json([
-                "message" => "cant create category"
-            ], 400);
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }   
     }
 
@@ -79,10 +69,7 @@ class TagController extends ApiController
 
         $tag->delete();
 
-        return response()->json([
-            'deleted' => $tag,
-            'message' =>  'tag deleted'
-        ]);
+        return response()->json(['message' =>  'Berhasil terhapus!']);
     }
 }
 

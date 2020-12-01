@@ -12,7 +12,7 @@
 			<span>Employer</span>
         </div> --}}
         
-		<form id="formLogin" {{-- action="{{ url('/').'/api/v1/login' }}" method="POST" --}}>
+		<form id="login-form" {{-- action="{{ url('/').'/api/v1/login' }}" method="POST" --}}>
 			<div class="cfield">
 				<input type="text" placeholder="Nama pengguna" name="username"/>
 				<i class="la la-user"></i>
@@ -25,7 +25,7 @@
 				<input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
 			</p>
 			<a href="#" title="">Lupa kata sandi</a>
-			<button type="submit" id="btnLogin">Masuk</button>
+			<button type="submit">Masuk</button>
         </form>
         
 		<!--<div class="extra-login">
@@ -56,7 +56,7 @@
 			<span>Employer</span>
 		</div> --}}
         
-        <form id="formRegister" {{-- action="{{ url('/').'/api/v1/register' }}" method="POST" --}}>
+        <form id="register-form">
             <div class="cfield">
 				<input type="text" placeholder="Nama lengkap" name="name"/>
 				<i class="la la-name"></i>
@@ -89,7 +89,7 @@
 				<input type="text" placeholder="Nomor handphone" name="phone"/>
 				<i class="la la-phone"></i>
 			</div>
-			<button type="submit" id="btnRegister">Daftar</button>
+			<button type="submit">Daftar</button>
         </form>
         
 		<!--<div class="extra-login">
@@ -108,131 +108,133 @@
 <!-- SIGNUP POPUP -->
 
 <script>
-    //LOGIN
-    $('#btnLogin').click(function(e) {
-        e.preventDefault();
+    $(document).ready(function() {
+        //LOGIN
+        $('#login-form').on('submit', function(e) {
+            e.preventDefault();
+            $('body').loading();
 
-        let formData= new FormData($('#formLogin')[0]);
+            let formData= new FormData($('#login-form')[0]);
 
-        $('body').loading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            for (field of formData.entries()) {
+                $(`#login-form input[name=${field[0]}]`).removeClass('error-field');
             }
-        });
 
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('/') }}" + '/api/v1/login',
-            data: formData,
-            dataType: 'JSON',
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                swal({ 
-                    title: 'Login success!', 
-                    text: '', 
-                    icon: "success" 
-                });
-
-                $('body').loading('stop');
-
-                return window.location.href= BASE_URL;
-                
-                //BUAT SESSION USER SEMENTARA
-                /*$.ajax({
-                    type: 'POST',
-                    url: "{{ url('/') }}" + '/session-user',
-                    data: response1.user,
-                    dataType: 'JSON',
-                    success: function(response2) {
-                        swal({ 
-                            title: 'Login success!', 
-                            text: '', 
-                            icon: "success" 
-                        });
-
-                        $('body').loading('stop');
-
-                        return window.location.href= BASE_URL;
-                    }
-                });*/
-            },
-            error: function(error) {
-                console.log(error);
-
-                let msg= '';
-                
-                if (error.status == 422) {
-                    //ERROR MESSAGE SEMENTARA
-                    Object.keys(error.responseJSON.messages)
-                          .forEach(key => msg+= error.responseJSON.messages[key][0]+'\n');
-                } else if (error.status == 404) {
-                    msg= error.responseJSON.messages;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-                
-                swal({ 
-                    title: 'Login failed!', 
-                    text: msg, 
-                    icon: "error" 
-                });
-
-                $('body').loading('stop');
-            } 
-        });
-    });
-
-    //REGISTER
-    $('#btnRegister').click(function(e) {
-        e.preventDefault();
-        
-        let formData = new FormData($('#formRegister')[0]);
-        
-        $('body').loading();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('/') }}" + '/api/v1/register',
-            data: formData,
-            dataType: 'JSON',
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log(response);
-                
-                $('body').loading('stop');
-
-                swal({ 
-                    title: 'Verify your account!', 
-                    text: 'Check your e-mail to verify your account', 
-                    icon: "info" 
-                });
-            },
-            error: function(error) {
-
-                if (error.status === 422) {
-                    let msg= '';
-
-                    //ERROR MESSAGE SEMENTARA
-                    Object.keys(error.responseJSON.messages)
-                          .forEach(key => msg+= error.responseJSON.messages[key][0]+'\n');
-
+            });
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("/api/v1/login") }}',
+                data: formData,
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('body').loading('stop');
                     swal({ 
-                        title: 'Registration failed!', 
-                        text: msg, 
-                        icon: "error" 
+                        title: response.messages, 
+                        icon: 'success' 
                     });
 
+                    window.location.href= response.redirect_to;
+                },
+                error: function(error) {
                     $('body').loading('stop');
-                }
+
+                    let messages= '';
+                    
+                    switch(error.status) {
+                        case 404:
+                            messages= error.responseJSON.messages;
+                            break;
+                        case 422:
+                            for (field in error.responseJSON.fields) {
+                                $(`#login-form input[name=${field}]`).addClass('error-field');
+
+                                for (message of error.responseJSON.fields[field]) {
+                                    messages+= `${message}\n`
+                                }
+                            }
+                            break;
+                    }
+                    
+                    swal({ 
+                        title: 'Gagal masuk!', 
+                        text: messages, 
+                        icon: "error" 
+                    });
+                } 
+            });
+        });
+
+        //REGISTER
+        $('#register-form').on('submit', function(e) {
+            e.preventDefault();
+            $('body').loading();
+            $('#register-form button').prop('disabled', true);
+
+            let formData = new FormData($('#register-form')[0]);
+
+            for (input of formData.entries()) {
+                $(`#register-form input[name=${input[0]}]`).removeClass('error-field');
             }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("/api/v1/register") }}',
+                data: formData,
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('body').loading('stop');
+                    $('#register-form button').prop('disabled', false);
+
+                    for (field of formData.entries()) {
+                        $(`#register-form input[name=${field[0]}]`).val('');
+                    }
+
+                    swal({ 
+                        title: response.messages,  
+                        icon: 'info' 
+                    });
+                },
+                error: function(error) {
+                    $('body').loading('stop');
+                    $('#register-form button').prop('disabled', false);
+
+                    let messages= '';
+
+                    switch(error.status) {
+                        case 400:
+                            messages= error.responseJSON.messages;
+                        case 422:
+                            for (field in error.responseJSON.fields) {
+                                $(`#register-form input[name=${field}]`).addClass('error-field');
+                                
+                                for (message of error.responseJSON.fields[field]) {
+                                    messages+= `${message}\n`
+                                }
+                            }
+                            break;
+                    }
+
+                    swal({ 
+                        title: 'Gagal daftar!', 
+                        text: messages, 
+                        icon: 'error'
+                    });
+                }
+            });
         });
     });
 </script>  
