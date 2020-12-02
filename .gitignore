@@ -1,6 +1,7 @@
 /storage
 /node_modules
 /public/css/app.css
+/public/gallery/screen
 /public/js/app.js
 /public/js/app.js.LICENSE.txt
 /public/hot
