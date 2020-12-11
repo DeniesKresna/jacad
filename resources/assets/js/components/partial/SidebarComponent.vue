@@ -67,27 +67,34 @@
                         Jobhun Academy <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbserviceacd">
+                        <router-link :to="'/academy/opening'" class="list-group-item">Opening</router-link>
                         <router-link :to="'/academy'" class="list-group-item">Index</router-link>
                         <router-link :to="'/academy/create'" class="list-group-item">Create</router-link>
-                        <router-link :to="'/academy-registrant'" class="list-group-item">Academy Registrant</router-link>
-                        <router-link :to="''" class="list-group-item">Report</router-link>
+                        <a href="#sbacdperiod" class="list-group-item " data-toggle="collapse">
+                            Academy Period <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                        <div class="collapse list-group-submenu" id="sbacdperiod">
+                            <router-link :to="'/academy-period'" class="list-group-item">Index</router-link>
+                            <router-link :to="'/academy-period/create'" class="list-group-item">Create</router-link>
+                            <router-link :to="'/academy-period/customer'" class="list-group-item">Customers</router-link>
+                        </div>
                     </div>
                     <a href="#sbserviceac" class="list-group-item" data-toggle="collapse">
                         Jobhun Ask Career <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbserviceac">
+                        <router-link :to="'/ask-career/opening'" class="list-group-item">Opening</router-link>
                         <router-link :to="'/ask-career'" class="list-group-item">Index</router-link>
                         <router-link :to="'/ask-career/create'" class="list-group-item">Create</router-link>
                         <router-link :to="'/mentoring'" class="list-group-item">Mentoring</router-link>
-                        <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                     <a href="#sbservicech" class="list-group-item" data-toggle="collapse">
                         Jobhun Career Hub <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbservicech">
+                        <router-link :to="'/job/opening'" class="list-group-item">Opening</router-link>
                         <router-link :to="'/job'" class="list-group-item">Index</router-link>
                         <router-link :to="'/job-application'" class="list-group-item">Job Application</router-link>
-                        <router-link :to="''" class="list-group-item">Report</router-link>
                     </div>
                 </div>
             </li>
@@ -118,12 +125,12 @@
                         <router-link :to="'/visit'" class="list-group-item">Index</router-link>
                         <router-link :to="'/visit/create'" class="list-group-item">Create</router-link>
                     </div>
-                     <a href="#sbprogramsa" class="list-group-item" data-toggle="collapse">
+                    <a href="#sbprogramsa" class="list-group-item" data-toggle="collapse">
                         Jobhun Student Ambassador <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse list-group-submenu" id="sbprogramsa">
-                        <router-link :to="'/student-ambassador'" class="list-group-item">Index</router-link>
-                        <router-link :to="''" class="list-group-item">Report</router-link>
+                        <router-link :to="'/student-ambassador/opening'" class="list-group-item">Opening</router-link>
+                        <router-link :to="'/student-ambassador'" class="list-group-item">Index</router-link>f
                     </div>
                 </div>
             </li>

@@ -47,15 +47,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Price</label>
-                <div class="col-md-10">
-                    <input 
-                        class="form-control"
-                        type="number"
-                        v-model="data.price">
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-md-2 control-label">Tags</label>
                 <div class="col-md-10">
                     <multiselect 
@@ -97,7 +88,6 @@
                 data: {
                     name: '',
                     description: '',
-                    price: 0,
                     category: 'Jobhun Academy Online Learning',
                     tags: [],
                     file: null

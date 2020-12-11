@@ -28,7 +28,9 @@ class MentorController extends ApiController
     }
 
     public function list() {
-        return response()->json(Mentor::orderBy('name')->get());
+        $mentors= Mentor::orderBy('name')->get();
+
+        return response()->json($mentors);
     }
 
     public function show($id) {

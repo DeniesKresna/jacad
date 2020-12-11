@@ -42,7 +42,7 @@
 
             let formData= new FormData($('#form-mentoring-registration')[0]);
 
-            formData.set('types_topic', JSON.stringify($('.chosen').val()));
+            formData.set('mentoring_types', JSON.stringify($('.chosen').val()));
             formData.append('ask_career_id', '{{ $ask_career->id }}');
             
             $.ajax({
@@ -53,6 +53,8 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    console.log(response);
+
                     $('body').loading('stop');
 
                     swal({ 
@@ -61,6 +63,8 @@
                     });
                 },
                 error: function (error) {
+                    console.log(error);
+                    
                     $('body').loading('stop');
 
                     let message= '';

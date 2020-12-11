@@ -13,7 +13,9 @@ class PageController extends Controller
     }
 
     public function home() {
-        $academies= Academy::limit(6)->get();
+        $academies= Academy::whereHas('periods', function($query) {
+            $query->where('active', 1);
+        })->limit(6)->get();
         $ask_careers= AskCareer::limit(6)->get();
         $career_hubs= Job::limit(6)->get();
         //$career_hubs= [1, 2, 3, 4, 5, 6];

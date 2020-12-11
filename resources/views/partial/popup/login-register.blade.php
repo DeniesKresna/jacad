@@ -125,9 +125,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            
             $.ajax({
                 type: 'POST',
-                url: '{{ url("/api/v1/login") }}',
+                url: '{{ url("/login") }}',
                 data: formData,
                 dataType: 'JSON',
                 processData: false,

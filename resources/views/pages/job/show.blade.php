@@ -165,6 +165,8 @@
                     type: 'POST',
                     data: { id : `{{ $job->id }}` },
                     success: function(response) {
+                        console.log(response);
+                        
                         $('body').loading('stop');
                         
                         swal({ 

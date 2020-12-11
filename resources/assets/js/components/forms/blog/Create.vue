@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label">Categories</label>
+                <label class="col-md-2 control-label">Category</label>
                 <div class="col-md-10">
                     <v-select 
                         placeholder="Pick some"
@@ -105,7 +105,7 @@
                     tags: []
                 },
                 picked: {
-                    category: 0,
+                    category: null,
                     tags: []
                 },
                 editorSettings: {

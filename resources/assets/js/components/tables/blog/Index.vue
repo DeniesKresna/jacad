@@ -57,7 +57,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada blog</p>
+                    <p>Belum ada Blog</p>
                 </div>
             </div>
         </div>

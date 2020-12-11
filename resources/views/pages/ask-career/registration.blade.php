@@ -43,11 +43,11 @@
                     <div class="col-lg-6">
                         <span class="pf-title">Jenis pembahasan apa yang ingin kamu dapatkan dari mentor?</span>
                         <div class="pf-field">
-                            <select data-placeholder="Bisa pilih lebih dari satu" class="chosen" name="types_topic" multiple>
-                                <option>Teori</option>
-                                <option>Study case</option>
-                                <option>Karier</option>
-                                <option>Tools</option>
+                            <select data-placeholder="Bisa pilih lebih dari satu" class="chosen" name="mentoring_types" multiple>
+                                <option value="teori">Teori</option>
+                                <option value="study_case">Study case</option>
+                                <option value="karier">Karier</option>
+                                <option value="tools">Tools</option>
                            </select>
                         </div>
                     </div>

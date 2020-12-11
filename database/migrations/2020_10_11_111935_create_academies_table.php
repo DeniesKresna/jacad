@@ -17,13 +17,11 @@ class CreateAcademiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->integer('price');
             $table->string('category');
             $table->string('url');
             $table->string('url_name');
             $table->string('image_url');
             $table->string('image_path');
-            $table->integer('batch');
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('updater_id')->nullable();
             $table->timestamps();

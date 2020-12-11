@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Mentoring;
+use App\Models\MentoringType;
 
 class MentoringController extends ApiController
 {
@@ -17,7 +18,8 @@ class MentoringController extends ApiController
      */
     public function store(Request $request) {
         $datas= $request->all();    
-        $datas['creator_id']= auth()->user()->id;
+        $datas['mentoring_types']= json_decode($request->mentoring_types);
+        $datas['customer_id']= auth()->user()->id;
 
         $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
             'name.required' => 'Kolom nama harus diisi',
@@ -26,7 +28,7 @@ class MentoringController extends ApiController
             'domicile.required' => 'Kolom domisili tempat tinggal harus diisi',
             'description.required' => 'Kolom profresi harus diisi',
             'spesific_topic.required' => 'Kolom spesifik topik harus diisi',
-            'types_topic.required' => 'Kolom jenis topik pembahasan harus diisi',
+            'mentoring_types.required' => 'Kolom jenis topik pembahasan harus diisi',
             'date.required' => 'Kolom tanggal mentoring harus diisi',
             'time.required' => 'Kolom waktu mentoring harus diisi',
             'duration.required' => 'Kolom durasi mentoring harus diisi',
@@ -36,11 +38,20 @@ class MentoringController extends ApiController
         if ($validator->fails()) {
             return response()->json(['fields' => $validator->messages()], 422);
         }
-        
-        $mentoring= Mentoring::create($datas);
-        $mentoring->creator()->update($datas);
-        $mentoring->save();
 
+        $datas['mentoring_types']=  array_map(function($type) {
+            return new MentoringType(['name' => $type]);
+        }, json_decode($request->mentoring_types));
+
+        $mentoring= Mentoring::create($datas);
+        $mentoring->mentoring_types()->saveMany($datas['mentoring_types']);
+        $mentoring->customer()->update($datas);
+        $mentoring->customer->profile()->update([
+            'description' => $datas['description'],
+            'domicile' => $datas['domicile'],
+        ]);
+        $mentoring->save();
+        
         if ($mentoring) {
             return response()->json(['message' => 'Berhasil daftar!']);
         } else {

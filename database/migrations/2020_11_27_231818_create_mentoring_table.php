@@ -21,12 +21,12 @@ class CreateMentoringTable extends Migration
             $table->string('duration');
             $table->string('jobhun_info');
             $table->unsignedInteger('ask_career_id');
-            $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('customer_id');
             $table->unsignedInteger('updater_id');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

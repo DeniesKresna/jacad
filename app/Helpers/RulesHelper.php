@@ -50,6 +50,15 @@ if (!function_exists('rules_lists')) {
             }
         }
 
+        //Opening
+        else if ($controller == 'OpeningController') {
+            if ($method == 'store') {
+                return [
+                    'content' => 'required'
+                ];
+            }
+        }
+
         //Media
         else if ($controller == "MediaController") {
             if ($method == "store") {
@@ -83,19 +92,36 @@ if (!function_exists('rules_lists')) {
             }
         }
         
+        //Academy Period
+        else if ($controller == 'AcademyPeriodController') {
+            if ($method == 'store') {
+                return [
+                    'period' => 'required',
+                    'price' => 'required',
+                    'description' => 'required',
+                ];
+            } else if ($method == 'update') {
+                return [
+                    'period' => 'required|string|nullable',
+                    'price' => 'required|integer|nullable',
+                    'description' => 'required|string|nullable',
+                ];
+            }
+        }
+        
         //Academy Registration
-        else if ($controller == 'AcademyRegistrantController') {
+        else if ($controller == 'AcademyRegistrationController') {
             if ($method == 'store') {
                 return [
                     'name' => 'required',
-                    'email' => 'required',
+                    'email' => 'required', 
                     'phone' => 'required',
                     'description' => 'required',
                     'domicile' => 'required',
                     'jobhun_info' => 'required'
                 ];
             }
-        } 
+        }
         
         //Ask Career
         else if ($controller == 'AskCareerController') {
@@ -119,7 +145,7 @@ if (!function_exists('rules_lists')) {
                     'domicile' => 'required|max:199',
                     'description' => 'required',
                     'spesific_topic' => 'required',
-                    'types_topic' => 'required',
+                    'mentoring_types' => 'required',
                     'date' => 'required',
                     'time' => 'required',
                     'duration' => 'required',

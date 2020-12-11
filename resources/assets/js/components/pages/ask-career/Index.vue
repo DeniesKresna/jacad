@@ -37,10 +37,13 @@
                                 <td>
                                     <router-link :to="`/ask-career/${item.id}`">
                                         <span class="fa fa-pencil-square-o"></span>
-                                    </router-link>
+                                    </router-link> &nbsp;
                                     <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
                                     </a> &nbsp;
+                                     <a :href="item.mentor.url" target="_blank">
+                                        <span class="fa fa-eye"></span>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>

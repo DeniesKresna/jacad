@@ -16,24 +16,8 @@ class MentorsTableSeeder extends Seeder
         $seeds= [
             [
                 'name' => 'Mentor 1',
-                'description' => '
-                    <p>
-                        Profesi: Head of Marketing Communication <br>
-                        Asal perusahaan: Ex PT PP Properti Tbk <br>
-                        Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication <br>
-                        Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools <br>
-                        Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015) <br>
-                        Pengalaman:
-                        <ol>
-                            <li>Junior Graphic Designer Intern di Visious Studio Design (2013)</li>
-                            <li>Marketing Communication Staff di Grand Sungkono Lagoon (2014-2016)</li>
-                            <li>Editor in Chief di Grand Story Magazine (2014-2016)</li>
-                            <li>Graphic Designer di Brandworks Indonesia (2016-2017)</li>
-                            <li>Art Director di Brandworks Indonesia (2017-2018)</li>
-                            <li>Head of Marketing Communications di PT PP Properti Tbk (2018)</li>
-                        </ol>
-                    </p>
-                ',
+                'description' => '<p>Profesi: Head of Marketing Communication</p><p>Asal perusahaan: Ex PT PP Properti Tbk</p><p>Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication</p><p>Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools </p><p>Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015)</p><p>Pengalaman:
+                </p><p><br></p><p></p><p><br></p><p></p>',
                 'linkedIn_url' => 'linkedIn/mentor-1',
                 'url_name' => 'mentor-1',
                 'url' => config('app.url').'/mentors/mentor-1',
@@ -44,24 +28,8 @@ class MentorsTableSeeder extends Seeder
 
             [
                 'name' => 'Mentor 2',
-                'description' => '
-                    <p>
-                        Profesi: Head of Marketing Communication <br>
-                        Asal perusahaan: Ex PT PP Properti Tbk <br>
-                        Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication <br>
-                        Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools <br>
-                        Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015) <br>
-                        Pengalaman:
-                        <ol>
-                            <li>Junior Graphic Designer Intern di Visious Studio Design (2013)</li>
-                            <li>Marketing Communication Staff di Grand Sungkono Lagoon (2014-2016)</li>
-                            <li>Editor in Chief di Grand Story Magazine (2014-2016)</li>
-                            <li>Graphic Designer di Brandworks Indonesia (2016-2017)</li>
-                            <li>Art Director di Brandworks Indonesia (2017-2018)</li>
-                            <li>Head of Marketing Communications di PT PP Properti Tbk (2018)</li>
-                        </ol>
-                    </p>
-                ',
+                'description' => '<p>Profesi: Head of Marketing Communication</p><p>Asal perusahaan: Ex PT PP Properti Tbk</p><p>Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication</p><p>Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools </p><p>Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015)</p><p>Pengalaman:
+                </p><p><br></p><p></p><p><br></p><p></p>',
                 'linkedIn_url' => 'linkedIn/mentor-2',
                 'url_name' => 'mentor-2',
                 'url' => config('app.url').'/mentors/mentor-2',
@@ -72,24 +40,8 @@ class MentorsTableSeeder extends Seeder
 
             [
                 'name' => 'Mentor 3',
-                'description' => '
-                    <p>
-                        Profesi: Head of Marketing Communication <br>
-                        Asal perusahaan: Ex PT PP Properti Tbk <br>
-                        Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication <br>
-                        Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools <br>
-                        Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015) <br>
-                        Pengalaman:
-                        <ol>
-                            <li>Junior Graphic Designer Intern di Visious Studio Design (2013)</li>
-                            <li>Marketing Communication Staff di Grand Sungkono Lagoon (2014-2016)</li>
-                            <li>Editor in Chief di Grand Story Magazine (2014-2016)</li>
-                            <li>Graphic Designer di Brandworks Indonesia (2016-2017)</li>
-                            <li>Art Director di Brandworks Indonesia (2017-2018)</li>
-                            <li>Head of Marketing Communications di PT PP Properti Tbk (2018)</li>
-                        </ol>
-                    </p>
-                ',
+                'description' => '<p>Profesi: Head of Marketing Communication</p><p>Asal perusahaan: Ex PT PP Properti Tbk</p><p>Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication</p><p>Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools </p><p>Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015)</p><p>Pengalaman:
+                </p><p><br></p><p></p><p><br></p><p></p>',
                 'linkedIn_url' => 'linkedIn/mentor-3',
                 'url_name' => 'mentor-3',
                 'url' => config('app.url').'/mentors/mentor-3',
@@ -100,24 +52,8 @@ class MentorsTableSeeder extends Seeder
             
             [
                 'name' => 'Mentor 4',
-                'description' => '
-                    <p>
-                        Profesi: Head of Marketing Communication <br>
-                        Asal perusahaan: Ex PT PP Properti Tbk <br>
-                        Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication <br>
-                        Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools <br>
-                        Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015) <br>
-                        Pengalaman:
-                        <ol>
-                            <li>Junior Graphic Designer Intern di Visious Studio Design (2013)</li>
-                            <li>Marketing Communication Staff di Grand Sungkono Lagoon (2014-2016)</li>
-                            <li>Editor in Chief di Grand Story Magazine (2014-2016)</li>
-                            <li>Graphic Designer di Brandworks Indonesia (2016-2017)</li>
-                            <li>Art Director di Brandworks Indonesia (2017-2018)</li>
-                            <li>Head of Marketing Communications di PT PP Properti Tbk (2018)</li>
-                        </ol>
-                    </p>
-                ',
+                'description' => '<p>Profesi: Head of Marketing Communication</p><p>Asal perusahaan: Ex PT PP Properti Tbk</p><p>Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication</p><p>Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools </p><p>Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015)</p><p>Pengalaman:
+                </p><p><br></p><p></p><p><br></p><p></p>',
                 'linkedIn_url' => 'linkedIn/mentor-4',
                 'url_name' => 'mentor-4',
                 'url' => config('app.url').'/mentors/mentor-4',
@@ -128,24 +64,8 @@ class MentorsTableSeeder extends Seeder
 
             [
                 'name' => 'Mentor 5',
-                'description' => '
-                    <p>
-                        Profesi: Head of Marketing Communication <br>
-                        Asal perusahaan: Ex PT PP Properti Tbk <br>
-                        Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication <br>
-                        Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools <br>
-                        Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015) <br>
-                        Pengalaman:
-                        <ol>
-                            <li>Junior Graphic Designer Intern di Visious Studio Design (2013)</li>
-                            <li>Marketing Communication Staff di Grand Sungkono Lagoon (2014-2016)</li>
-                            <li>Editor in Chief di Grand Story Magazine (2014-2016)</li>
-                            <li>Graphic Designer di Brandworks Indonesia (2016-2017)</li>
-                            <li>Art Director di Brandworks Indonesia (2017-2018)</li>
-                            <li>Head of Marketing Communications di PT PP Properti Tbk (2018)</li>
-                        </ol>
-                    </p>
-                ',
+                'description' => '<p>Profesi: Head of Marketing Communication</p><p>Asal perusahaan: Ex PT PP Properti Tbk</p><p>Bidang yang dikuasai: Branding Development, Graphic Design, Marketing Communication</p><p>Materi yang akan diajar dalam bentuk pembahasan: Teori, study case, karier, tools </p><p>Latar belakang pendidikan: Sarjana jurusan Desain Komunikasi Visual di Institut Teknologi Sepuluh November (2009-2015)</p><p>Pengalaman:
+                </p><p><br></p><p></p><p><br></p><p></p>',
                 'linkedIn_url' => 'linkedIn/mentor-5',
                 'url_name' => 'mentor-5',
                 'url' => config('app.url').'/mentors/mentor-5',

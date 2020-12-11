@@ -7,7 +7,7 @@ import { internship } from './routes/internship';
 import { talks } from './routes/talks';
 import { visit } from './routes/visit';
 import { academy } from './routes/academy';
-import { academy_registrant } from './routes/academy-registrant';
+import { academy_period } from './routes/academy-period';
 import { ask_career } from './routes/ask-career';
 import { mentoring } from './routes/mentoring';
 import { job } from './routes/job';
@@ -24,7 +24,7 @@ export const routes = [
     ...talks,
     ...visit,
     ...academy,
-    ...academy_registrant,
+    ...academy_period,
     ...ask_career,
     ...mentoring,
     ...job,

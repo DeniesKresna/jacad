@@ -55,13 +55,10 @@ Route::get('/jobs/{id}', 'web\JobController@show');
 Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
 Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
 
-Route::get('/logout', 'web\LogoutController@index');
-
-/* JONATHAN ROUTE (DIUBAH PKE API) */
-Route::post('/register', 'web\RegisterController@index');
+/*
+| Login - Logout routes
+*/
 Route::post('/login', 'web\LoginController@index');
-
 Route::get('/logout', 'web\LogoutController@index');
-Route::get('/register-token/{token}', 'web\RegisterController@checkToken');
-/* JONATHAN ROUTE (DIUBAH PKE API) */
+
 

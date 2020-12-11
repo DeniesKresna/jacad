@@ -23,6 +23,14 @@ const academy= {
             });
         },
 
+        LIST({ commit }, payload){
+            return new Promise((resolve, reject) => {
+                axios.get('/admin/academies/list').then(response => {
+                    resolve(response.data);
+                });
+            });
+        },
+        
         SHOW({ commit }, payload){
             return new Promise((resolve, reject) => {
                 axios.get('/admin/academies/' + payload).then(response => {
@@ -37,7 +45,6 @@ const academy= {
                 
                 formData.append('name', payload.name);
                 formData.append('desc', payload.desc);
-                formData.append('price', payload.price);
                 formData.append('category', payload.category);
                 formData.append('tags', payload.tags);
                 formData.append('file', payload.file);
@@ -58,7 +65,6 @@ const academy= {
                 
                 formData.append('name', payload.name);
                 formData.append('desc', payload.desc);
-                formData.append('price', payload.price);
                 formData.append('category', payload.category);
                 formData.append('tags', payload.tags);
                 formData.append('file', payload.file);

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAcademyRegistrantsTable extends Migration
+class CreateAcademyPeriodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,20 @@ class CreateAcademyRegistrantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academy_registrants', function (Blueprint $table) {
+        Schema::create('academy_periods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('domicile');
-            $table->text('profession');
-            $table->string('jobhun_info');
-            $table->integer('batch');
+            $table->string('period');
+            $table->integer('price');
+            $table->text('description');
+            $table->smallInteger('active');
             $table->unsignedInteger('academy_id');
             $table->unsignedInteger('creator_id');
+            $table->unsignedInteger('updater_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -35,6 +34,6 @@ class CreateAcademyRegistrantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academy_registrants');
+        Schema::dropIfExists('academy_periods');
     }
 }

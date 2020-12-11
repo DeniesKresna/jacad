@@ -32,7 +32,7 @@ class Mentoring extends Eloquent
 
 	protected $casts = [
 		'ask_career_id' => 'int',
-		'creator_id' => 'int',
+		'customer_id' => 'int',
 		'updater_id' => 'int'
 	];
 
@@ -43,15 +43,19 @@ class Mentoring extends Eloquent
 		'duration',
 		'jobhun_info',
 		'ask_career_id',
-		'creator_id',
+		'customer_id',
 		'updater_id'
     ];
-    
-    public function ask_career() {
-        return $this->belongsTo('App\Models\AskCareer', 'ask_career_id')->with('mentor');
+
+    public function customer() {
+        return $this->belongsTo('App\Models\User', 'customer_id');
     }
 
-    public function creator() {
-        return $this->belongsTo('App\Models\User', 'creator_id');
+    public function mentoring_types() {
+        return $this->hasMany('App\Models\MentoringType');
+    }
+
+    public function ask_career() {
+        return $this->belongsTo('App\Models\AskCareer', 'ask_career_id');
     }
 }

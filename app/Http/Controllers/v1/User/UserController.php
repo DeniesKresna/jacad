@@ -54,4 +54,8 @@ class UserController extends ApiController
             return to_object(["error"=>false]);
         }
     }
+    
+    public function auth() {
+        dd(auth()->user());
+    }
 }

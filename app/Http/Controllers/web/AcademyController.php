@@ -11,14 +11,17 @@ class AcademyController extends Controller
 {
     public function index(Request $request) {
         $page_size = $request->page ? $request->page_size : 10;
-        $academies= Academy::where('id', '>', 0)->orderBy('id', 'desc')->paginate($page_size);
+        $academies= Academy::whereHas('periods', function($query) {
+            $query->where('active', 1);
+        })->orderBy('academies.id', 'desc')
+        ->paginate($page_size);
 
         return view('pages.academy.list', [
             'title' => 'Jobhun Academy',
             'academies' => $academies
         ]);
     }
-
+    
     public function show($url_name) {
         $academy= Academy::where('url_name', $url_name)->with('tags')->first();
 

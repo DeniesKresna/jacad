@@ -21,7 +21,7 @@ class MentoringTableSeeder extends Seeder
                 'duration' => '1 jam',
                 'jobhun_info' => 'Instagram',
                 'ask_career_id' => 1,
-                'creator_id' => 1
+                'customer_id' => 1
             ],
 
             [
@@ -31,7 +31,7 @@ class MentoringTableSeeder extends Seeder
                 'duration' => '1 jam',
                 'jobhun_info' => 'Instagram',
                 'ask_career_id' => 2,
-                'creator_id' => 1
+                'customer_id' => 1
             ],
 
             [
@@ -41,7 +41,7 @@ class MentoringTableSeeder extends Seeder
                 'duration' => '1 jam',
                 'jobhun_info' => 'Instagram',
                 'ask_career_id' => 3,
-                'creator_id' => 1
+                'customer_id' => 1
             ],
 
             [
@@ -51,7 +51,7 @@ class MentoringTableSeeder extends Seeder
                 'duration' => '1 jam',
                 'jobhun_info' => 'Instagram',
                 'ask_career_id' => 4,
-                'creator_id' => 1
+                'customer_id' => 1
             ],
 
             [
@@ -61,7 +61,7 @@ class MentoringTableSeeder extends Seeder
                 'duration' => '1 jam',
                 'jobhun_info' => 'Instagram',
                 'ask_career_id' => 5,
-                'creator_id' => 1
+                'customer_id' => 1
             ]
         ];
 

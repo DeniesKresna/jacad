@@ -12,8 +12,7 @@
                     <img class="img-fluid" src="{{ $academy->image_url }}" width="40%">
                     <div class="px-3">
                         <h1>Jobhun Academy: {{ $academy->name }}</h1>
-                        <h3>Rp{{ number_format(strval($academy->price), 2) }}</h3>
-                        <div class="py-1">SKU: {{ $academy->sku }}</div>
+                        <h3>Rp {{ number_format($academy->active_period->price, 2) }}</h3>
                         <div class="py-1">Kategori: {{ $academy->category }}</div>
                         <div class="py-1">
                             Tag:
@@ -48,17 +47,19 @@
             $('body').loading();
             
             let formData= new FormData($('#form-academy-registration')[0]);
-            formData.append('batch', '{{ $academy->batch }}');
+            
             formData.append('academy_id', '{{ $academy->id }}');
 
             $.ajax({    
-                url: `{{ url('/api/v1/user/academy-registrants') }}`,
+                url: `{{ url('/api/v1/user/academy-registrations') }}`,
                 type: 'POST',
                 processData: false,
                 contentType: false,
                 dataType: 'json',
                 data: formData,
                 success: function(response) {
+                    console.log(response);
+
                     $('body').loading('stop');
 
                     swal({ 
@@ -67,12 +68,17 @@
                     });
                 },
                 error: function(error) {
+                    console.log(error);
+
                     $('body').loading('stop');
 
                     let message= '';
 
                     switch(error.status) {
                         case 400:
+                            message= error.responseJSON.message;
+                            break;
+                        case 409:
                             message= error.responseJSON.message;
                             break;
                         case 422:

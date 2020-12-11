@@ -2,9 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\ApiController;
 use App\Models\User;
 use App\Models\UserToken;
+
 use Closure;
 
 class ApiAuth extends ApiController
@@ -17,8 +20,18 @@ class ApiAuth extends ApiController
      * @return mixed
      */
     public function handle($request, Closure $next, ...$roles)
-    {
-        $token = $request->header("token");
+    {   
+        $user= Auth::user('api');
+
+        if (!$user) {
+            return response()->json(['message' => 'You are not authorized'], 401);
+        }
+
+        $request->attributes->add(['auth' => $user]);
+
+        return $next($request);
+
+        /*$token = $request->header("token");
         if (!empty($token)) {
             $res = UserToken::query()->where("token","=",$token)->whereRaw("expired_time > NOW()")->first();
             if ($res){
@@ -33,6 +46,6 @@ class ApiAuth extends ApiController
                 }
             }
         }
-        return self::error_responses(null, "Your request not allowed");
+        return self::error_responses(null, "Your request not allowed");*/
     }
 }

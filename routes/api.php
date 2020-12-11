@@ -91,8 +91,15 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::get('/tags/list','v1\Admin\TagController@list');
     Route::get('/sectors/list', 'v1\Admin\SectorController@list');
     Route::get('/locations/list', 'v1\Admin\LocationController@list');
+    Route::get('/academies/list', 'v1\Admin\AcademyController@list');
     
-    //UPDATE
+    //MEDIAS
+    Route::post('/medias','v1\Admin\MediaController@store');
+
+    //RESOURCE - GET
+    Route::get('/academy-periods/customers', 'v1\Admin\AcademyPeriodController@getPeriodCustomers');
+
+    //RESOURCE - UPDATE
     Route::post('/mentors/update/{id}', 'v1\Admin\MentorController@update');
     Route::post('/blogs/update/{id}', 'v1\Admin\BlogController@update');
     Route::post('/academies/update/{id}', 'v1\Admin\AcademyController@update');
@@ -100,16 +107,15 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::post('/mentoring/update/{id}', 'v1\Admin\MentoringController@update');
     Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
 
-    //MEDIAS
-    Route::post('/medias','v1\Admin\MediaController@store');
-
     //RESOURCES
     Route::resource('/users', 'v1\Admin\UserController');
     Route::resource('/mentors', 'v1\Admin\MentorController');
+    Route::resource('/openings', 'v1\Admin\OpeningController');
     Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/blogs','v1\Admin\BlogController');
     Route::resource('/academies', 'v1\Admin\AcademyController');
-    Route::resource('/academy-registrants', 'v1\Admin\AcademyRegistrantController');
+    Route::resource('/academy-periods', 'v1\Admin\AcademyPeriodController');
+    Route::resource('/academy-periods/customer', 'UserController');
     Route::resource('/ask-careers', 'v1\Admin\AskCareerController');
     Route::resource('/mentoring', 'v1\Admin\MentoringController');
     Route::resource('/jobs', 'v1\Admin\JobController');
@@ -120,23 +126,24 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
+    Route::get('/auth', 'v1\User\UserController@auth');
     Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
-
-    //RESOURCES
-    Route::resource('/academy-registrants', 'v1\User\AcademyRegistrantController');
-    Route::resource('/mentoring', 'v1\User\MentoringController');
-    Route::resource('/jobs', 'v1\User\JobController');
-    Route::resource('/job-applications', 'v1\User\JobApplicationController');
-    Route::resource('/student-ambassadors', 'v1\User\StudentAmbassadorController');
+    
+    Route::post('/academy-registrations', 'v1\User\AcademyRegistrationController@store');
+    Route::post('/mentoring', 'v1\User\MentoringController@store');
+    Route::post('/jobs', 'v1\User\JobController@store');
+    Route::post('/job-applications', 'v1\User\JobApplicationController@store');
+    Route::post('/student-ambassadors', 'v1\User\StudentAmbassadorController@store');
 });
 
-/* API LOGIN & REGISTER JONATHAN*/
+/* API LOGIN & REGISTER */
 Route::group(['prefix' => 'v1', 'middleware' => []], function() {
     Route::post('/register', 'v1\RegisterController@store');
     Route::get('/register-token/{token}', 'v1\RegisterController@check_token');
     
     Route::post('/login', 'v1\LoginController@index');
 });
-/* API LOGIN & REGISTER JONATHAN*/
+/* API LOGIN & REGISTER */
+
 
 

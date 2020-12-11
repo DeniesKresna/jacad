@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
@@ -88,7 +87,7 @@ class BlogController extends ApiController
         $blog->save();
         
         if ($blog) {
-            return response()->json(['message' => 'Berhasil menyimpan blog!']);
+            return response()->json(['message' => 'Berhasil menyimpan Blog!']);
         } else {
             return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
         }

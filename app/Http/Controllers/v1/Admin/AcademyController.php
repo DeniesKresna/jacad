@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Academy;
-
-use Validator;
 
 class AcademyController extends ApiController
 {   
@@ -31,7 +30,13 @@ class AcademyController extends ApiController
         $datas = $datas->with('creator')->orderBy('id', 'desc')->paginate($page_size);
 
         return response()->json($datas);
-    }   
+    }
+    
+    public function list() {
+        $academies= Academy::orderBy('name')->get();
+
+        return response()->json($academies);
+    }
 
     public function show($id) {
         $academy= Academy::with(['tags'])->findOrFail($id);
@@ -117,7 +122,7 @@ class AcademyController extends ApiController
             ], 400);
         }
     }
-
+    
     public function destroy(Request $request, $id) {
         $academy= Academy::findOrFail($id);
 

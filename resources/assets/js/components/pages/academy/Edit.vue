@@ -53,26 +53,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Price</label>
-                    <div class="col-md-10">
-                        <input 
-                            class="form-control"
-                            type="number"
-                            v-model="data.price"
-                            min="0">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Batch</label>
-                    <div class="col-md-10">
-                        <input 
-                            class="form-control"
-                            type="number"
-                            v-model="data.batch"
-                            min="0">
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-2 control-label" for="description">Tags</label>
                     <div class="col-md-10">
                         <multiselect 
