@@ -2930,16 +2930,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       academy_period.activate = true;
-      this.$store.dispatch('academy_period/UPDATE', academy_period).then(function (response) {
-        _this2.getResults(1);
-      });
+
+      if (confirm("Toogle akademi periode ".concat(academy_period.period, " ?"))) {
+        this.$store.dispatch('academy_period/UPDATE', academy_period).then(function (response) {
+          _this2.getResults(1);
+        });
+      }
     },
     destroyData: function destroyData(academy_period) {
       var _this3 = this;
 
-      this.$store.dispatch('academy_period/DESTROY', academy_period).then(function (response) {
-        _this3.getResults(1);
-      });
+      if (confirm("Apakah anda yakin menghapus akademi periode ".concat(academy_period.period))) {
+        this.$store.dispatch('academy_period/DESTROY', academy_period).then(function (response) {
+          _this3.getResults(1);
+        });
+      }
     }
   }
 });
@@ -4081,18 +4086,6 @@ __webpack_require__.r(__webpack_exports__);
       var query = "page=".concat(page, "&search=").concat(this.search);
       this.$store.dispatch('job_application/INDEX', query).then(function (response) {
         _this.result = response;
-        var applications = [];
-        response.data.forEach(function (job) {
-          job.applicants.forEach(function (applicant) {
-            applications.push({
-              'id': job.id,
-              'company': job.company,
-              'position': job.position,
-              'applicant': applicant
-            });
-          });
-        });
-        _this.result.data = applications;
       });
     }
   }
@@ -54903,11 +54896,11 @@ var render = function() {
                         _c("tr", [
                           _c("td", [_vm._v(_vm._s(index + 1))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(item.company.name))]),
+                          _c("td", [_vm._v(_vm._s(item.company_name))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(item.position))]),
+                          _c("td", [_vm._v(_vm._s(item.job_position))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(item.applicant.name))]),
+                          _c("td", [_vm._v(_vm._s(item.applicant_name))]),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -54916,19 +54909,19 @@ var render = function() {
                                 "router-link",
                                 {
                                   attrs: {
-                                    to: "/job-application/job/" + item.id
+                                    to: "/job-application/job/" + item.job_id
                                   }
                                 },
                                 [_c("span", { staticClass: "fa fa-briefcase" })]
                               ),
-                              _vm._v(" "),
+                              _vm._v("  \n                                "),
                               _c(
                                 "router-link",
                                 {
                                   attrs: {
                                     to:
                                       "/job-application/applicant/" +
-                                      item.applicant.id
+                                      item.applicant_id
                                   }
                                 },
                                 [_c("span", { staticClass: "fa fa-user" })]

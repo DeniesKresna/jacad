@@ -197,6 +197,8 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log(error);
+
                     $('body').loading('stop');
                     $('#register-form button').prop('disabled', false);
 
@@ -210,6 +212,8 @@
                     });
                 },
                 error: function(error) {
+                    console.log(error);
+
                     $('body').loading('stop');
                     $('#register-form button').prop('disabled', false);
 

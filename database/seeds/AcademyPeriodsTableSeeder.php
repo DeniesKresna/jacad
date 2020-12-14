@@ -20,7 +20,8 @@ class AcademyPeriodsTableSeeder extends Seeder
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode A',
                 'academy_id' => 1,
-                'active' => 1
+                'active' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -28,7 +29,8 @@ class AcademyPeriodsTableSeeder extends Seeder
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode A',
                 'academy_id' => 2,
-                'active' => 1
+                'active' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -36,49 +38,56 @@ class AcademyPeriodsTableSeeder extends Seeder
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode A',
                 'academy_id' => 3,
-                'active' => 1
+                'active' => 1,
+                'creator_id' => 1
             ],
             
             [
                 'period' => 'Periode B',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode B',
-                'academy_id' => 1
+                'academy_id' => 1,
+                'creator_id' => 1
             ],
 
             [
                 'period' => 'Periode B',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode B',
-                'academy_id' => 2
+                'academy_id' => 2,
+                'creator_id' => 1
             ],
 
             [
                 'period' => 'Periode B',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode B',
-                'academy_id' => 3
+                'academy_id' => 3,
+                'creator_id' => 1
             ],
 
             [
                 'period' => 'Periode C',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode C',
-                'academy_id' => 1
+                'academy_id' => 1,
+                'creator_id' => 1
             ],
 
             [
                 'period' => 'Periode C',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode C',
-                'academy_id' => 2
+                'academy_id' => 2,
+                'creator_id' => 1
             ],
 
             [
                 'period' => 'Periode C',
                 'price' => 700000,
                 'description' => 'Jobhun Academy Periode C',
-                'academy_id' => 3
+                'academy_id' => 3,
+                'creator_id' => 1
             ]
         ];
 

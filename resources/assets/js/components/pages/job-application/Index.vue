@@ -29,14 +29,14 @@
                             v-for="(item, index) in result.data">
                             <tr>
                                 <td>{{ (index+1) }}</td>
-                                <td>{{ item.company.name }}</td>
-                                <td>{{ item.position }}</td>
-                                <td>{{ item.applicant.name }}</td>
+                                <td>{{ item.company_name }}</td>
+                                <td>{{ item.job_position }}</td>
+                                <td>{{ item.applicant_name }}</td>
                                 <td>
-                                    <router-link :to="`/job-application/job/${item.id}`">
+                                    <router-link :to="`/job-application/job/${item.job_id}`">
                                         <span class="fa fa-briefcase"></span>
-                                    </router-link>
-                                    <router-link :to="`/job-application/applicant/${item.applicant.id}`">
+                                    </router-link> &nbsp;
+                                    <router-link :to="`/job-application/applicant/${item.applicant_id}`">
                                         <span class="fa fa-user"></span>
                                     </router-link>
                                 </td>
@@ -78,21 +78,6 @@
 
                 this.$store.dispatch('job_application/INDEX', query).then(response => {                    
                     this.result= response;
-
-                    let applications= [];
-
-                    response.data.forEach(job => {
-                        job.applicants.forEach(applicant => {
-                             applications.push({
-                                'id': job.id,
-                                'company': job.company,
-                                'position': job.position,
-                                'applicant': applicant
-                            });
-                        })
-                    });
-                    
-                    this.result.data= applications;
                 });
             }
         }

@@ -20,6 +20,7 @@ class CreateAcademyPeriodCustomerTable extends Migration
             $table->smallInteger('status');
             $table->unsignedInteger('academy_period_id');
             $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('payment_id');
             $table->timestamps();
         });
     }
