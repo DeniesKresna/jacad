@@ -17,7 +17,7 @@ class AcademiesTableSeeder extends Seeder
         $seeds= [
             [
                 'name' => 'Content Writer',
-                'description' => 'Ini Content Writer',
+                'description' => '<p>Ini Content Writer</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/content-writer',
                 'url_name' => 'content-writer',
@@ -28,7 +28,7 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Copy Writer',
-                'description' => 'Ini Copy Writer',
+                'description' => '<p>Ini Copy Writer</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/copy-writer',
                 'url_name' => 'copy-writer',
@@ -39,7 +39,7 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Social Media Specialist',
-                'description' => 'Ini Social Media Specialist',
+                'description' => '<p>Ini Social Media Specialist</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/social-media-specialist',
                 'url_name' => 'social-media-specialist',
@@ -50,7 +50,7 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Digital Marketer',
-                'description' => 'Ini Digital Marker',
+                'description' => '<p>Ini Digital Marker</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/digital-marketer',
                 'url_name' => 'digital-marketer',
@@ -61,7 +61,7 @@ class AcademiesTableSeeder extends Seeder
 
             [
                 'name' => 'Web App Development',
-                'description' => 'Ini Web App Development',
+                'description' => '<p>Ini Web App Development</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/web-app-development',
                 'url_name' => 'web-app-development',
@@ -72,7 +72,7 @@ class AcademiesTableSeeder extends Seeder
             
             [
                 'name' => 'Graphic Designer',
-                'description' => 'Ini Graphic Designer',
+                'description' => '<p>Ini Graphic Designer</p>',
                 'category' => 'Jobhun Academy Online Learning',
                 'url' => config('app.url').'/academies/graphic-designer',
                 'url_name' => 'graphic-designer',

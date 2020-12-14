@@ -118,7 +118,7 @@ class AcademyPeriodController extends ApiController
 
     public function destroy(Request $request, $id) {
         $academy_period= AcademyPeriod::findOrFail($id);
-
+        
         $academy_period->delete();
         $academy_period->save();
 

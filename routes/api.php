@@ -130,6 +130,8 @@ Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
     
     Route::post('/academy-registrations', 'v1\User\AcademyRegistrationController@store');
+    Route::post('/academy-registrations/payment-'.env('MIDTRANS_PAYMENT_SECRET_URL'), 'v1\User\AcademyRegistrationController@successPayment');
+    
     Route::post('/mentoring', 'v1\User\MentoringController@store');
     Route::post('/jobs', 'v1\User\JobController@store');
     Route::post('/job-applications', 'v1\User\JobApplicationController@store');

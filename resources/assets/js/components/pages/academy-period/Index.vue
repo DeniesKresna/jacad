@@ -107,14 +107,18 @@
             activate(academy_period) {
                 academy_period.activate= true;
 
-                this.$store.dispatch('academy_period/UPDATE', academy_period).then(response => {
-                    this.getResults(1);
-                });
+                if (confirm(`Toogle akademi periode ${academy_period.period} ?`)) {
+                    this.$store.dispatch('academy_period/UPDATE', academy_period).then(response => {
+                        this.getResults(1);
+                    });
+                }
             },
             destroyData(academy_period) {
-                this.$store.dispatch('academy_period/DESTROY', academy_period).then(response => {
-                    this.getResults(1);
-                });
+                if (confirm(`Apakah anda yakin menghapus akademi periode ${academy_period.period}`)) {
+                    this.$store.dispatch('academy_period/DESTROY', academy_period).then(response => {
+                        this.getResults(1);
+                    });
+                }
             }
         }
     }

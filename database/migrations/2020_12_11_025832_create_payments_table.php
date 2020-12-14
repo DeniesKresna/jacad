@@ -20,7 +20,6 @@ class CreatePaymentsTable extends Migration
             $table->string('via');
             $table->string('transaction_status');
             $table->string('transaction_id');
-            $table->unsignedInteger('academy_period_customer_id');
             $table->timestamps();
         });
     }

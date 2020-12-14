@@ -30,4 +30,22 @@ class AcademyController extends Controller
             'academy' => $academy
         ]);
     }
+
+    public function registration() {
+        $period= '';
+        $academies= Academy::whereHas('periods', function($query) {
+            $query->where('active', 1)->groupBy('period');
+        })->orderBy('name')
+        ->get();
+        
+        foreach ($academies as $key => $academy) {
+            $period= $academy->periods->first()->period;
+        }
+
+        return view('pages.academy.registration', [
+            'title' => 'Pendaftaran Jobhun Academy',
+            'period' => $period,
+            'academies' => $academies
+        ]);
+    }
 }

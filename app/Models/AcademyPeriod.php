@@ -58,6 +58,6 @@ class AcademyPeriod extends Eloquent
 
     public function period_customers() {
         return $this->belongsToMany('App\Models\User', 'academy_period_customer', 'academy_period_id', 'customer_id')
-            ->withPivot(['price', 'description', 'status']);
+            ->withPivot(['id', 'price', 'description', 'status']);
     }
 }

@@ -31,6 +31,7 @@ Route::get('/blogs/{url_title}', 'web\BlogController@getFromTitle');
 | Academies routes
 */
 Route::get('/academies', 'web\AcademyController@index');
+Route::get('/academies/registration', 'web\AcademyController@registration');
 Route::get('/academies/{url_name}', 'web\AcademyController@show');
 
 /*
