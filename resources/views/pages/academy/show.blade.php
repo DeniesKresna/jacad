@@ -12,7 +12,7 @@
                     <img class="img-fluid" src="{{ $academy->image_url }}">
                     <div class="my-auto ml-3">
                         <h1 class="font-weight-bold">Jobhun Academy: {{ $academy->name }}</h1>
-                        <h3>Rp {{ number_format($academy->active_period->price, 2) }}</h3>
+                        <h3>Rp {{ number_format($academy->activePeriod->price, 2) }}</h3>
                         <div class="py-2">Kategori: {{ $academy->category }}</div>
                         <div class="py-3">
                             Tag:
@@ -32,6 +32,15 @@
 
                 <div class="mt-5">
                     {!! $academy->description !!}
+                </div>
+
+                <div class="mt-5">
+                    <h4 class="font-weight-bold">Mentor yang akan mengajar</h4>
+                    <div class="mx-auto">
+                        @foreach ($academy->activePeriod->mentors as $mentor)
+                            <div>{{ $mentor->name }}</div>
+                         @endforeach
+                    </div>
                 </div>
 
                 <div class="mt-5">

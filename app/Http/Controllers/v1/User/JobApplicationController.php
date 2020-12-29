@@ -20,17 +20,16 @@ class JobApplicationController extends ApiController
         })->first();
         
         if ($job_application) {
-            return response()->json(['message' => 'Lowongan ini sudah/sedang diajukan'], 403);
+            return response()->json(['message' => 'Lowongan ini sudah/sedang diajukan.'], 409);
         }
 
         $job_application= Job::findOrFail($request->id);
         $job_application->applicants()->attach(auth()->user()->id);
-        $job_application->save();
 
-        if ($job_application) {
-            return response()->json(['message' => 'Terima kasih sudah melamar >.<']);
-        } else {
-            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi Customer Service'], 400);
+        if (!$job_application->save()) {
+            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi Customer Service.'], 500);
         }
+        
+        return response()->json(['message' => 'Pengajuan berhasil, terimakasih sudah melamar!']);
     }
 }

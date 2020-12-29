@@ -38,15 +38,12 @@ Route::group(['prefix' => 'v1/user'], function () {
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer,super_admin']],function () {
-
     Route::get('/auth/check-token', 'v1\User\Auth\LoginController@checkToken');
 });
 
 
 //======================================Customer=================================================
-
-Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer']],function () {
-
+Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer']], function () {
     Route::post('/auth/reset-password', 'v1\User\Auth\ResetPasswordController@update');
 
     /*
@@ -61,29 +58,12 @@ Route::group(['prefix' => 'v1/user', 'middleware' => ['auth:customer']],function
     Route::resource('locations','v1\User\LocationController')->except(['store','update','destroy']);
 });
 
-Route::get('test','v1\TestController@adi');
-
-
-
 //======================================Admin=================================================
-
 Route::group(['prefix' => 'v1/admin', 'middleware' => ['auth:super_admin']],function () {
 
 });
 
-
-    
-
-
-
-
-
-
-
-
-
 //======================================no Middleware=================================================
-
 Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     //LIST
     Route::get('/mentors/list', 'v1\Admin\MentorController@list');
@@ -92,12 +72,7 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::get('/sectors/list', 'v1\Admin\SectorController@list');
     Route::get('/locations/list', 'v1\Admin\LocationController@list');
     Route::get('/academies/list', 'v1\Admin\AcademyController@list');
-    
-    //MEDIAS
-    Route::post('/medias','v1\Admin\MediaController@store');
-
-    //RESOURCE - GET
-    Route::get('/academy-periods/customers', 'v1\Admin\AcademyPeriodController@getPeriodCustomers');
+    Route::post('/update/{id}', 'v1\Admin\JobController@update');
 
     //RESOURCE - UPDATE
     Route::post('/mentors/update/{id}', 'v1\Admin\MentorController@update');
@@ -105,7 +80,6 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::post('/academies/update/{id}', 'v1\Admin\AcademyController@update');
     Route::post('/ask-careers/update/{id}', 'v1\Admin\AskCareerController@update');
     Route::post('/mentoring/update/{id}', 'v1\Admin\MentoringController@update');
-    Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
 
     //RESOURCES
     Route::resource('/users', 'v1\Admin\UserController');
@@ -114,21 +88,46 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/blogs','v1\Admin\BlogController');
     Route::resource('/academies', 'v1\Admin\AcademyController');
-    Route::resource('/academy-periods', 'v1\Admin\AcademyPeriodController');
-    Route::resource('/academy-periods/customer', 'UserController');
     Route::resource('/ask-careers', 'v1\Admin\AskCareerController');
     Route::resource('/mentoring', 'v1\Admin\MentoringController');
-    Route::resource('/jobs', 'v1\Admin\JobController');
-    Route::resource('/job-applications', 'v1\Admin\JobApplicationController');
     Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
 
-    //Route::post('/adi/test','v1\TestController@adi');
+    //ACADEMY PERIODS
+    Route::resource('/academy-periods', 'v1\Admin\AcademyPeriodController');
+    Route::put('/academy-periods/activate/{id}', 'v1\Admin\AcademyPeriodController@activate');
+    Route::group(['prefix' => 'academy-periods/customers'], function () {
+        Route::get('/', 'v1\Admin\AcademyPeriodController@getCustomers');
+        Route::delete('/{id}', 'v1\Admin\AcademyPeriodController@destroyCustomer');
+    });
+    
+    //JOBS
+    Route::resource('/jobs', 'v1\Admin\JobController');
+    Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
+    Route::put('/jobs/verify/{id}', 'v1\Admin\JobController@verify');
+    Route::group(['prefix' => 'job-applicants'], function () {
+        Route::get('/', 'v1\Admin\JobController@getApplicants');
+    });
+    
+    //MEDIAS
+    Route::post('/medias','v1\Admin\MediaController@store');
+
+    //PAYMENTS
+    Route::resource('/payments', 'v1\Admin\PaymentController');
 });
 
 Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::get('/auth', 'v1\User\UserController@auth');
+    
+    //REGISTER, LOGIN & LOGOUT
+    Route::post('/auth/register', 'v1\User\RegisterController@store');
+    Route::get('/auth/register-token/{token}', 'v1\User\RegisterController@checkToken');
+    Route::post('/auth/login', 'v1\User\LoginController@index');
+    Route::get('/auth/logout', 'v1\User\LogoutController@index');
+
+    //COMPANY NAME
     Route::get('/companies/name/{name}', 'v1\User\CompanyController@showByName');
     
+    //ACADEMY REGISTRATION
     Route::post('/academy-registrations', 'v1\User\AcademyRegistrationController@store');
     Route::post('/academy-registrations/payment-'.env('MIDTRANS_PAYMENT_SECRET_URL'), 'v1\User\AcademyRegistrationController@successPayment');
     
@@ -137,15 +136,5 @@ Route::group(['prefix' => 'v1/user', 'middleware' => []],function () {
     Route::post('/job-applications', 'v1\User\JobApplicationController@store');
     Route::post('/student-ambassadors', 'v1\User\StudentAmbassadorController@store');
 });
-
-/* API LOGIN & REGISTER */
-Route::group(['prefix' => 'v1', 'middleware' => []], function() {
-    Route::post('/register', 'v1\RegisterController@store');
-    Route::get('/register-token/{token}', 'v1\RegisterController@check_token');
-    
-    Route::post('/login', 'v1\LoginController@index');
-});
-/* API LOGIN & REGISTER */
-
 
 

@@ -6,8 +6,8 @@
                 <input
                     class="form-control" 
                     type="text"  
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -35,15 +35,15 @@
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.mentor.name }}</td>
                                 <td>
+                                    <a :href="item.mentor.url" target="_blank">
+                                        <span class="fa fa-eye"></span>
+                                    </a> &nbsp;
                                     <router-link :to="`/ask-career/${item.id}`">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </router-link> &nbsp;
                                     <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
-                                    </a> &nbsp;
-                                     <a :href="item.mentor.url" target="_blank">
-                                        <span class="fa fa-eye"></span>
-                                    </a>
+                                    </a> 
                                 </td>
                             </tr>
                         </tbody>
@@ -87,9 +87,9 @@
                     this.result = response;
                 });
             },
-
+            
             destroyData(ask_career) {
-                if (confirm(`Apakah anda yakin ingin menghapus ask career : ${ask_career.name} ?`)) {
+                if (confirm(`Are you sure want to delete ask career: "${ask_career.name}"?`)) {
                     this.$store.dispatch('ask_career/DESTROY', ask_career.id).then(response => {
                         this.getResults(this.result.current_page);
                     });;

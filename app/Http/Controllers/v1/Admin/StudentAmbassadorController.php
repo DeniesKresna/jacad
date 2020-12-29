@@ -19,63 +19,54 @@ class StudentAmbassadorController extends ApiController {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
-        $datas = StudentAmbassador::where('id', '>', 0);
-        
-        if ($request->has('search')) {
-            $datas = $datas->where('name', 'LIKE', '%'.$search.'%');
-        }
 
-        $datas = $datas->orderBy('id', 'desc')->paginate($page_size);
+        $student_ambassadors = StudentAmbassador::when($request->has('search') && $search, function($query) use ($search) {
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate($page_size);
         
-        return response()->json($datas);
+        return response()->json($student_ambassadors);
     }
 
-    public function update($id) {
-        $jsa= StudentAmbassador::where(['id' => $id])->first();
-
-        if ($jsa) {
-            $jsa->status= 1;
-            $jsa->save();
-            
-            Notification::route('mail', $jsa->email)
-                        ->notify(new NotifyJSA(
-                            'Selamat anda sudah berhasil bergabung sebagai Jobhun Student Ambassador!
-                            \r\nDitunggu informasi selanjutnya dari kami ya. Terima kasih!'
-                        ));
-            
-            return response()->json([
-                'data' => $jsa,
-                'message' => 'JSA accepted'
-            ]);
-        } else {
-            return response()->json([
-                'data' => $jsa,
-                'message' => 'Data not found'
-            ]);
-        }
+    public function show($id) {
+        $student_ambassador= StudentAmbassador::findOrFail($id);
+        
+        return response()->json($student_ambassador);
     }
 
-    public function destroy($id) {
-        $jsa= StudentAmbassador::where(['id' => $id])->first();
+    public function update(Request $request, $id) {
+        $student_ambassador= StudentAmbassador::findOrFail($id);
+        $mail_text= '';
 
-        if ($jsa) {
-            $jsa->delete();
-            
-            Notification::route('mail', $jsa->email)
-                        ->notify(new NotifyJSA(
-                            'Maaf pendaftaran anda tidak diterima, dikarenakan ada beberapa hal yang tidak seusai dengan kriteria.
-                            \r\nTetap semangat dan coba lagi lain kali ya! Terima kasih.'
-                        ));
-            
-            return response()->json([
-                'data' => $jsa,
-                'message' => 'JSA rejected'
-            ]);
-        } else {
-            return response()->json([
-                'data' => $jsa,
-                'message' => 'Data not found'
-            ]);
+        if (!$request->action) {
+            return response()->json(['message' => 'Request not found'], 400);
         }
+        
+        if ($request->action === 'accept') {
+            $student_ambassador->status= 1;
+            $mail_text= "Selamat {$student_ambassador->name}anda sudah berhasil bergabung sebagai Jobhun Student Ambassador! 
+            Ditunggu informasi selanjutnya dari kami ya. Terima kasih!";
+        } else if ($request->action === 'reject') {
+            $student_ambassador->status= 2;
+            $mail_text= "Sorry {$student_ambassador->name}, pendaftaran anda tidak diterima, dikarenakan ada beberapa hal yang tidak seusai dengan kriteria.
+            Tetap semangat dan coba lagi lain kali ya! Terima kasih!";
+        } else {
+            return response()->json(['message' => 'Request not valid'], 400);
+        }
+
+        $student_ambassador->save();
+
+        $response= null;
+
+        try {
+            Notification::route('mail', $student_ambassador->email)
+                        ->notify(new NotifyJSA($mail_text));
+            $response= response()->json(['message' => "Student {$student_ambassador->name} {$request->action}ed!"]);
+        } catch (\Throwable $th) {
+            $response= response()->json(['message' => "Student {$student_ambassador->name} {$request->action}ed!, but can't send email."]);
+        }
+
+        return $response;
     }
 }

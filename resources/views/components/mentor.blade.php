@@ -1,4 +1,4 @@
-<div class="{{ $css['col'] }} {{ isset($css['py']) ? $css['py'] : '' }}">
+<div class="{{ isset($css_classes) ? $css_classes : '' }}">
     <div class="d-flex">
         <img class="img-fluid" src="{{ $ask_career->mentor->image_url }}" width="160">
         <div class="ml-2">

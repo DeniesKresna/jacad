@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\web;
 
+use App\Http\Controllers\Controller;
 use App\Models\Academy;
 use App\Models\AskCareer;
 use App\Models\Job;
+use App\Models\Blog;
+use App\Models\Location;
 
 class PageController extends Controller
 {
@@ -15,17 +18,13 @@ class PageController extends Controller
     public function home() {
         $academies= Academy::whereHas('periods', function($query) {
             $query->where('active', 1);
-        })->limit(6)->get();
+        })
+        ->limit(6)
+        ->get();
         $ask_careers= AskCareer::limit(6)->get();
-        $career_hubs= Job::limit(6)->get();
-        //$career_hubs= [1, 2, 3, 4, 5, 6];
-
-        //IF LOCATION SEMENTARA
-        /*foreach ($career_hubs as $key => $career_hub) { 
-            if ($career_hub->location_id == 1) $career_hub->location= 'Jakarta';
-            else if ($career_hub->location_id == 2) $career_hub->location= 'Surabaya';
-            else if ($career_hub->location_id == 3) $career_hub->location= 'Yogyakarta'; 
-        }*/
+        $jobs= Job::limit(6)->get();
+        $blogs= Blog::limit(3)->get();
+        $locations= Location::all();
 
         $testimonies= [
             (object)[
@@ -60,12 +59,10 @@ class PageController extends Controller
         return view('index', [ 
             'academies' => $academies,
             'ask_careers' => $ask_careers,
-            'career_hubs' => $career_hubs,
-            'testimonies' => $testimonies
+            'jobs' => $jobs,
+            'blogs' => $blogs,
+            'testimonies' => $testimonies,
+            'locations' => $locations
         ]);
-    }
-
-    public function studentAmbassador() {
-        return view('pages.student-ambassador.opening', ['title' => 'Student Ambassador']);
     }
 }

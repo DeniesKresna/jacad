@@ -12,7 +12,7 @@
 			<span>Employer</span>
         </div> --}}
         
-		<form id="login-form" {{-- action="{{ url('/').'/api/v1/login' }}" method="POST" --}}>
+		<form id="login-form">
 			<div class="cfield">
 				<input type="text" placeholder="Nama pengguna" name="username"/>
 				<i class="la la-user"></i>
@@ -116,57 +116,46 @@
 
             let formData= new FormData($('#login-form')[0]);
 
-            for (field of formData.entries()) {
-                $(`#login-form input[name=${field[0]}]`).removeClass('error-field');
+            for (input of formData.entries()) {
+                $(`#login-form input[name=${input[0]}]`).removeClass('error-field');
             }
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             
             $.ajax({
                 type: 'POST',
-                url: '{{ url("/login") }}',
+                url: `{{ url('/api/v1/user/auth/login') }}`,
                 data: formData,
                 dataType: 'JSON',
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log(response);
+
                     $('body').loading('stop');
-                    swal({ 
-                        title: response.messages, 
+                    
+                    swal({
+                        title: 'Berhasil masuk!',
+                        text: response.message, 
                         icon: 'success' 
                     });
 
-                    window.location.href= response.redirect_to;
+                    window.location.href= response.base_url;
                 },
                 error: function(error) {
+                    console.log(error);
+
                     $('body').loading('stop');
 
-                    let messages= '';
-                    
-                    switch(error.status) {
-                        case 404:
-                            messages= error.responseJSON.messages;
-                            break;
-                        case 422:
-                            for (field in error.responseJSON.fields) {
-                                $(`#login-form input[name=${field}]`).addClass('error-field');
-
-                                for (message of error.responseJSON.fields[field]) {
-                                    messages+= `${message}\n`
-                                }
-                            }
-                            break;
+                    if (error.responseJSON.errors) {
+                        for (input in error.responseJSON.errors) {
+                            $(`#login-form input[name=${input}]`).addClass('error-field');
+                        }
                     }
                     
-                    swal({ 
+                    swal({
                         title: 'Gagal masuk!', 
-                        text: messages, 
-                        icon: "error" 
-                    });
+                        text: error.responseJSON.message, 
+                        icon: error.status === 401 ? 'info' : 'error' 
+                    })
                 } 
             });
         });
@@ -183,21 +172,15 @@
                 $(`#register-form input[name=${input[0]}]`).removeClass('error-field');
             }
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            
             $.ajax({
                 type: 'POST',
-                url: '{{ url("/api/v1/register") }}',
+                url: `{{ url('/api/v1/user/auth/register') }}`,
                 data: formData,
                 dataType: 'JSON',
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(error);
+                    console.log(response);
 
                     $('body').loading('stop');
                     $('#register-form button').prop('disabled', false);
@@ -206,8 +189,9 @@
                         $(`#register-form input[name=${field[0]}]`).val('');
                     }
 
-                    swal({ 
-                        title: response.messages,  
+                    swal({
+                        title: 'Berhasil daftar!', 
+                        text: response.message,  
                         icon: 'info' 
                     });
                 },
@@ -217,26 +201,16 @@
                     $('body').loading('stop');
                     $('#register-form button').prop('disabled', false);
 
-                    let messages= '';
-
-                    switch(error.status) {
-                        case 400:
-                            messages= error.responseJSON.messages;
-                        case 422:
-                            for (field in error.responseJSON.fields) {
-                                $(`#register-form input[name=${field}]`).addClass('error-field');
-                                
-                                for (message of error.responseJSON.fields[field]) {
-                                    messages+= `${message}\n`
-                                }
-                            }
-                            break;
+                    if (error.responseJSON.errors) {
+                        for (input in error.responseJSON.errors) {
+                            $(`#register-form input[name=${input}]`).addClass('error-field');
+                        }
                     }
 
                     swal({ 
                         title: 'Gagal daftar!', 
-                        text: messages, 
-                        icon: 'error'
+                        text: error.responseJSON.message, 
+                        icon: error.status === 401 ? 'info' : 'error'
                     });
                 }
             });

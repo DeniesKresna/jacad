@@ -7,7 +7,7 @@
                     type="text" 
                     class="form-control" 
                     v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search mentor by name then type Enter" 
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -52,7 +52,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada mentor</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>

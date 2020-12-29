@@ -108,8 +108,20 @@ class BlogsTableSeeder extends Seeder
             ]
         ];
 
+        $tags= [
+            [1, 2, 3],
+            [2, 3],
+            [1, 2, 3],
+            [1, 3],
+            [1, 2, 3],
+            [1, 3],
+            [1, 2, 3],
+            [2, 3]
+        ];
+
         foreach ($seeds as $key => $seed) {
-            Blog::create($seed);
+            $blog= Blog::create($seed);
+            $blog->tags()->attach($tags[$key]);
         }
     }
 }

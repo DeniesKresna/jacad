@@ -31,7 +31,7 @@ class AcademyController extends Controller
         ]);
     }
 
-    public function registration() {
+    public function registration(Request $request) {
         $period= '';
         $academies= Academy::whereHas('periods', function($query) {
             $query->where('active', 1)->groupBy('period');
@@ -42,10 +42,17 @@ class AcademyController extends Controller
             $period= $academy->periods->first()->period;
         }
 
-        return view('pages.academy.registration', [
+        $payment_success= false;
+
+        if (($request->status_code && $request->status_code == 200) && ($request->transaction_status && $request->transaction_status == 'settlement')) {
+            $payment_success= true;
+        }
+
+        return view('pages.academy.registration',  [
             'title' => 'Pendaftaran Jobhun Academy',
             'period' => $period,
-            'academies' => $academies
+            'academies' => $academies,
+            'payment_success' => $payment_success
         ]);
     }
 }

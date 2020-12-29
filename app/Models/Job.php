@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 20 Nov 2020 20:40:11 +0700.
+ * Date: Tue, 29 Dec 2020 20:11:44 +0700.
  */
 
 namespace App\Models;
@@ -89,20 +89,16 @@ class Job extends Eloquent
     public function company() {
         return $this->belongsTo('App\Models\Company', 'creator_id');
     }
-    
-    public function location() {
-        return $this->belongsTo('App\Models\Location');
-    }
 
     public function sectors() {
         return $this->belongsToMany('App\Models\Sector');
     }
 
+    public function location() {
+        return $this->belongsTo('App\Models\Location');
+    }
+    
     public function applicants() {
         return $this->belongsToMany('App\Models\User', 'job_applications', 'job_id', 'applicant_id');
-    }   
-
-    public function scopePosition($query, $position) {
-        return $query->where('position', 'like', '%'.$position.'%');
-    }
+    } 
 }

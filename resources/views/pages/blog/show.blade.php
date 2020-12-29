@@ -57,7 +57,7 @@
                                 @endif
                                 @if ($blog->next_post)
                                     <div class="post-hist next">
-                                        <a href="{{ $blog->next_post->url}}" title="">
+                                        <a href="{{ $blog->next_post->url }}" title="">
                                             <span class="post-histext">
                                                 Next Post <i>{{ $blog->next_post->title }}</i>
                                             </span>

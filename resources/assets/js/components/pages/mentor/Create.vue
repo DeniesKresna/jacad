@@ -21,7 +21,6 @@
                     <div class="col-md-10">
                         <input 
                             type="file" 
-                            id="file" 
                             ref="file" 
                             @change="handleFileUpload()">
                     </div>

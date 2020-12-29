@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Register extends Notification {
+class UserVerification extends Notification {
     use Queueable;
 
     public $token;
@@ -38,13 +38,13 @@ class Register extends Notification {
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable) {   
-        $url= 'api/v1/register-token/'.$this->token; //DEVELOPMENT
+        $url= '/api/v1/user/auth/register-token/'.$this->token; //DEVELOPMENT
         
         return (new MailMessage)
-                    ->subject('Jobhun E-mail Verification')
-                    ->line('You are getting closer, clink link in below to verify your account')
-                    ->action('Verification link', url($url))
-                    ->line('Thank you for joining us!');
+                    ->subject('Jobhun Verifikasi Akun')
+                    ->line('Klik link di bawah ini untuk melanjutkan verifikasi akun anda.')
+                    ->action('Link verifikasi: ', url($url))
+                    ->line('Terima kasih sudah bergabung dengan kami!');
     }
 
     /**

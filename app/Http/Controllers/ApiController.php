@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Mail;
 use Mpdf\MpdfException;
 
-class ApiController extends BaseController
-{
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Mail;
 
-
+class ApiController extends BaseController {
     /**
      * @param $html
      * @param $title_file
@@ -47,11 +42,11 @@ class ApiController extends BaseController
      * @param array $datas
      * @return \Illuminate\Http\JsonResponse
      */
-    public function error_responses($datas = [], $message = "Failed"){
+    public function error_responses($datas=[], $message = 'Failed'){
         return response()->json([
-            "status"=>false,
-            "message"=>$message,
-            "datas"=>$datas
+            'status' => false,
+            'message' => $message,
+            'datas' => $datas
         ]);
     }
 
@@ -59,11 +54,11 @@ class ApiController extends BaseController
      * @param array $datas
      * @return \Illuminate\Http\JsonResponse
      */
-    public function success_responses($datas = [],$message= 'Success'){
+    public function success_responses($datas= [], $message= 'Success'){
         return response()->json([
-            "status"=>true,
-            "message"=>$message,
-            "datas"=>to_array($datas)
+            'status' => true,
+            'message' => $message,
+            'datas' => to_array($datas)
         ]);
     }
 }

@@ -45,7 +45,11 @@ class AcademyPeriodCustomer extends Eloquent
 		'payment_id'
     ];
     
-    public function academy_period() {
+    public function academyPeriod() {
         return $this->belongsTo('App\Models\AcademyPeriod');
+    }
+
+    public function customer() {
+        return $this->belongsTo('App\Models\User', 'customer_id');
     }
 }

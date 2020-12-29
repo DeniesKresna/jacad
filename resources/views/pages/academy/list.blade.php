@@ -13,12 +13,12 @@
                         @foreach ($academies as $academy)
                             @include('components.academy', [
                                 'academy' => $academy,
-                                'css' => [
-                                    'col' => 4
-                                ]
+                                'css_classes' => 'col-4'
                             ])
                         @endforeach
                     </div>
+                @else
+                    <span>Belum ada kelas akademi.</span>
                 @endif
                 
                 <div class="pagination">

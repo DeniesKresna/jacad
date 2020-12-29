@@ -5,9 +5,9 @@
             <div class="col-md-5">
                 <input 
                     type="text" 
-                    class="form-control" 
+                    class="form-control"  
+                    placeholder="Search by title or author then type Enter"
                     v-model="search" 
-                    placeholder="Search then type Enter" 
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -33,15 +33,15 @@
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.author.name }}</td>
                                 <td>
+                                    <a :href="item.url" target="_blank">
+                                        <span class="fa fa-eye"></span>
+                                    </a> &nbsp;
                                     <router-link :to="route+item.id">
                                         <span class="fa fa-pencil-square-o"></span>
                                     </router-link> &nbsp;
                                     <a href="javascript:void(0)" @click="destroyData(item)">
                                         <span class="fa fa-trash-o"></span>
-                                    </a> &nbsp;
-                                    <a :href="item.url" target="_blank">
-                                        <span class="fa fa-eye"></span>
-                                    </a>
+                                    </a> 
                                 </td>
                             </tr>
                         </tbody>
@@ -57,7 +57,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada Blog</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>
@@ -85,22 +85,22 @@
         },
         methods: {
             getResults(page= 1) {
-                let stringQuery= `page=${page}&search=${this.search}`;
+                let query= `page=${page}&search=${this.search}`;
                 
                 if (this.menu) {
-                    stringQuery+= `&menu=${this.menu}`;
+                    query+= `&menu=${this.menu}`;
                 }
 
                 if (this.category) {
-                    stringQuery+= `&category=${this.category}`;
+                    query+= `&category=${this.category}`;
                 }
-                
-                this.$store.dispatch('blog/INDEX', stringQuery).then(response => {
+
+                this.$store.dispatch('blog/INDEX', query).then(response => {
                     this.result = response;
                 });
             },
             destroyData(blog) {
-                if (confirm(`Apakah anda yakin ingin menghapus blog : ${blog.title} ?`)) {
+                if (confirm(`Are you sure want to delete blog: "${blog.title}"?`)) {
                     this.$store.dispatch('blog/DESTROY', blog.id).then(response => {
                         this.getResults(this.result.current_page);
                     });

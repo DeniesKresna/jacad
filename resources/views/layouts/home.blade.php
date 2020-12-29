@@ -18,7 +18,7 @@
         </div>-->
 
         <div class="theme-layout" id="scrollup">
-            @include('partial.menu')
+            @include('partial.menu', ['css_classes' => 'text-dark'])
 
             @include('partial.header.home')
             

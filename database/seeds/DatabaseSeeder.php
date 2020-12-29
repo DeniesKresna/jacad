@@ -16,22 +16,20 @@ class DatabaseSeeder extends Seeder
             ProfilesTableSeeder::class,
             RolesTableSeeder::class, 
             RoleUserTableSeeder::class,
-            MentorsTableSeeder::class,
             CompaniesTableSeeder::class,
+            MentorsTableSeeder::class,
+            BlogsTableSeeder::class,
+            AcademiesTableSeeder::class,
+            AcademyPeriodsTableSeeder::class,
+            AskCareersTableSeeder::class,
+            //MentoringTableSeeder::class,
+            JobsTableSeeder::class,
+            //StudentAmbassadorsTableSeeder::class
             TagsTableSeeder::class,
             CategoriesTableSeeder::class,
             SectorsTableSeeder::class,
             LocationsTableSeeder::class,
-            BlogsTableSeeder::class,
-            BlogTagTableSeeder::class,
-            AcademiesTableSeeder::class,
-            AcademyPeriodsTableSeeder::class,
-            AcademyTagTableSeeder::class,
-            AskCareersTableSeeder::class,
-            MentoringTableSeeder::class,
-            JobsTableSeeder::class,
-            JobSectorTableSeeder::class,
-            StudentAmbassadorsTableSeeder::class
+            CouponsTableSeeder::class
         ]);
     }
 }

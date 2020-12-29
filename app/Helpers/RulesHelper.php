@@ -4,28 +4,43 @@ if (!function_exists('rules_lists')) {
         $path = explode('\\', $controller);
         $controller = array_pop($path);
 
+        //Login
+        if ($controller == 'LoginController') {
+            if ($method == 'index') {
+                return [
+                    'username' => 'required|string|max:200',
+                    'password' => 'required|string|min:6|max:100'
+                ];
+            }
+        }
+        
+        //Register
+        else if ($controller == 'RegisterController') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required|string|max:100',
+                    'username' => 'required|string|max:255|unique:users',
+                    'password' => 'required|string|min:6|max:100|confirmed',
+                    'password_confirmation' => 'required',
+                    'email' => 'required|string|max:200|unique:users',
+                    'phone' => 'required|string|max:30',
+                ];
+            }
+        }
+
         //Mentor
         if ($controller == 'MentorController') {
             if ($method == 'store') {
                 return [
-                    'name' => 'required|max:199',
+                    'name' => 'required',
                     'description' => 'required',
                     'linkedIn_url' => 'required',
                     'file' => 'image'
                 ];
             } else if ($method == 'update') {
                 return [
-                    'name' => 'required|max:199',
+                    'name' => 'required',
                     'description' => 'required'
-                ];
-            }
-        }
-
-        //Tag
-        else if ($controller == 'TagController') {
-            if ($method == 'store') {
-                return [
-                    'name' => 'required|max:199'
                 ];
             }
         }
@@ -34,60 +49,36 @@ if (!function_exists('rules_lists')) {
         else if ($controller == 'BlogController') {
             if ($method == 'store') {
                 return [
-                    'title' => 'required|max:199',
+                    'title' => 'required',
                     'content' => 'required',
-                    'category' => 'required',
+                    'category_id' => 'required',
                     'tags' => 'required',
-                    'file' => 'image'
+                    'image' => 'image'
                 ];
             } else if ($method == 'update') {
                 return [
-                    'title' => 'required|max:199',
+                    'title' => 'required',
                     'content' => 'required',
-                    'category' => 'required',
+                    'category_id' => 'required',
                     'tags' => 'required'
-                ];
-            }
-        }
-
-        //Opening
-        else if ($controller == 'OpeningController') {
-            if ($method == 'store') {
-                return [
-                    'content' => 'required'
-                ];
-            }
-        }
-
-        //Media
-        else if ($controller == "MediaController") {
-            if ($method == "store") {
-                return [
-                    'image' => 'required',
-                ];
-            }
-        }
-
-        //Location
-        else if ($controller == "LocationController") {
-            if ($method == "store") {
-                return [
-                    'name' => 'required|max:199',
-                ];
-            } else {
-                return [
-                    'name' => 'required|max:199',
                 ];
             }
         }
         
         //Academy
         else if ($controller == 'AcademyController') {
-            if ($method == 'store' || $method == 'update') {
+            if ($method == 'store') {
                 return [
-                    'name' => 'required|max:199',
-                    'desc' => 'required',
-                    'price' => 'required',
+                    'name' => 'required',
+                    'description' => 'required',
+                    'tags' => 'required',
+                    'image' => 'image'
+                ];
+            } else if ($method == 'update') {
+                return [
+                    'name' => 'required',
+                    'description' => 'required',
+                    'tags' => 'required',
                 ];
             }
         }
@@ -99,12 +90,16 @@ if (!function_exists('rules_lists')) {
                     'period' => 'required',
                     'price' => 'required',
                     'description' => 'required',
+                    'academy_id' => 'required',
+                    'mentors' => 'required'
                 ];
             } else if ($method == 'update') {
                 return [
                     'period' => 'required|string|nullable',
                     'price' => 'required|integer|nullable',
                     'description' => 'required|string|nullable',
+                    'academy_id' => 'required',
+                    'mentors' => 'required'
                 ];
             }
         }
@@ -118,7 +113,8 @@ if (!function_exists('rules_lists')) {
                     'phone' => 'required',
                     'description' => 'required',
                     'domicile' => 'required',
-                    'jobhun_info' => 'required'
+                    'jobhun_info' => 'required',
+                    'academy_ids' => 'required'
                 ];
             }
         }
@@ -127,7 +123,7 @@ if (!function_exists('rules_lists')) {
         else if ($controller == 'AskCareerController') {
             if ($method == 'store' || $method == 'update') {
                 return [
-                    'name' => 'required|max:199',
+                    'name' => 'required',
                     'schedule' => 'required',
                     'price' => 'required',
                     'mentor' => 'required'
@@ -139,10 +135,10 @@ if (!function_exists('rules_lists')) {
         else if ($controller == 'MentoringController') {
             if ($method == 'store') {
                 return [
-                    'name' => 'required|max:199',
-                    'email' => 'required|max:199',
+                    'name' => 'required',
+                    'email' => 'required',
                     'phone' => 'required',
-                    'domicile' => 'required|max:199',
+                    'domicile' => 'required',
                     'description' => 'required',
                     'spesific_topic' => 'required',
                     'mentoring_types' => 'required',
@@ -158,6 +154,7 @@ if (!function_exists('rules_lists')) {
         else if ($controller == "JobController") {
             if ($method == "store" || $method == 'update') {
                 return [
+                    //COMPANY
                     'name' => 'required|max:199',
                     'tagline' => 'required|max:199',
                     'information' => 'required',
@@ -165,10 +162,11 @@ if (!function_exists('rules_lists')) {
                     'site_url' => 'required|max:199',
                     'phone' => 'required|max:199',
                     'email' => 'required|max:199',
+                    'employee_amount' => 'required',
+
+                    //JOB
                     'position' => 'required|max:199',
                     'type' => 'required|max:199',
-                    'sectors' => 'required',
-                    'location' => 'required',
                     'job_desc' => 'required',
                     'work_time' => 'required|max:199',
                     'dress_style' => 'required|max:199',
@@ -176,9 +174,11 @@ if (!function_exists('rules_lists')) {
                     'facility' => 'required|max:199',
                     'salary' => 'required|max:199',
                     'how_to_send' => 'required|max:199',
-                    'expired' => 'required|max:199',
                     'process_time' => 'required|max:199',
                     'jobhun_info' => 'required|max:199',
+                    'expired' => 'required|max:199',
+                    'sectors' => 'required',
+                    'location' => 'required',
                 ];
             }
         }
@@ -202,26 +202,53 @@ if (!function_exists('rules_lists')) {
             }
         }
 
-        //Login
-        else if ($controller == 'LoginController') {
-            if ($method == 'index') {
+        //Payment
+        else if ($controller == 'PaymentController') {
+            if ($method == 'store') {
                 return [
-                    'username' => 'required|string|max:200',
-                    'password' => 'required|string|min:6|max:100'
+                    'amount' => 'required',
+                    'via' => 'required',
+                    'transaction_status' => 'required'
                 ];
             }
         }
 
-        //Register
-        else if ($controller == 'RegisterController') {
+        //Opening
+        else if ($controller == 'OpeningController') {
             if ($method == 'store') {
                 return [
-                    'name' => 'required|string|max:100',
-                    'email' => 'required|string|max:200|unique:users',
-                    'phone' => 'required|string|max:30',
-                    'username' => 'required|string|max:255|unique:users',
-                    'password' => 'required|string|min:6|max:100|confirmed',
-                    'password_confirmation' => 'required'
+                    'content' => 'required'
+                ];
+            }
+        }
+
+        //Media
+        else if ($controller == 'MediaController') {
+            if ($method == 'store') {
+                return [
+                    'image' => 'required',
+                ];
+            }
+        }
+
+        //Tag
+        else if ($controller == 'TagController') {
+            if ($method == 'store') {
+                return [
+                    'name' => 'required|max:199'
+                ];
+            }
+        }
+
+        //Location
+        else if ($controller == "LocationController") {
+            if ($method == "store") {
+                return [
+                    'name' => 'required|max:199',
+                ];
+            } else {
+                return [
+                    'name' => 'required|max:199',
                 ];
             }
         }

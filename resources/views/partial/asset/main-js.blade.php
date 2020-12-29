@@ -12,4 +12,10 @@
 
 <script>
     var BASE_URL= {!! json_encode(url('/')); !!}
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>

@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use Mpdf\MpdfException;
+
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Mail;
-use Mpdf\MpdfException;
 
-class Controller extends BaseController
-{
-    const STATUS_NEW = "new";
-    const PROCESSED = "process";
-    const STATUS_REJECT = "reject";
-    const STATUS_ACCEPT = "accept";
-    const STATUS_FINISH = "finish";
-    const PERPAGE = 8;
+class Controller extends BaseController {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
-    public function upload($path, $photo, $title=""){
-        $destinationPath = base_upload_dir().$path;
-        $photoName = time().(!empty($title)?"_".$title:"").'.'.$photo->getClientOriginalExtension();
+    const STATUS_NEW = 'new';
+    const PROCESSED = 'process';
+    const STATUS_REJECT = 'reject';
+    const STATUS_ACCEPT = 'accept';
+    const STATUS_FINISH = 'finish';
+    const PERPAGE = 8;
+    
+    public function upload($path, $photo, $title= ""){
+        $destinationPath= base_upload_dir().$path;
+        $photoName= time().(!empty($title)?"_".$title:"").'.'.$photo->getClientOriginalExtension();
         $photo->move($destinationPath, $photoName);
+
         return $path.$photoName;
     }
 
@@ -38,10 +39,11 @@ class Controller extends BaseController
     }
 
     public function sendMail($data, $from, $to, $subject, $view) {
-        $mail = Mail::send($view, $data, function ($m) use ($data,$from,$to,$subject)  {
+        $mail= Mail::send($view, $data, function ($m) use ($data, $from, $to, $subject)  {
             $m->from($from["email"], $from["name"]);
             $m->to($to["email"], $to["name"])->subject($subject);
         });
+
         return $mail;
     }
 }

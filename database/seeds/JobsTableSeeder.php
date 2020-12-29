@@ -30,7 +30,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 1,
                 'expired' => date('Y-m-d'),
                 'location_id' => 1,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -48,7 +48,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 1,
                 'expired' => date('Y-m-d'),
                 'location_id' => 2,
-                'creator_id' => 1, 
+                'creator_id' => 1
             ],
 
             [
@@ -66,7 +66,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 1,
                 'expired' => date('Y-m-d'),
                 'location_id' => 3,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -84,7 +84,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 0,
                 'expired' => date('Y-m-d'),
                 'location_id' => 4,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -102,7 +102,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 0,
                 'expired' => date('Y-m-d'),
                 'location_id' => 2,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -138,7 +138,7 @@ class JobsTableSeeder extends Seeder
                 'verified' => 0,
                 'expired' => date('Y-m-d'),
                 'location_id' => 2,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -156,7 +156,7 @@ class JobsTableSeeder extends Seeder
                 'expired' => date('Y-m-d'),
                 'verified' => 0,
                 'location_id' => 2,
-                'creator_id' => 1,
+                'creator_id' => 1
             ],
 
             [
@@ -174,12 +174,25 @@ class JobsTableSeeder extends Seeder
                 'verified' => 0,
                 'expired' => date('Y-m-d'),
                 'location_id' => 2,
-                'creator_id' => 1,
+                'creator_id' => 1
             ]
         ];
-
+        
+        $sectors= [
+            [1, 2, 3],
+            [4, 5],
+            [1, 2, 3],
+            [4, 5],
+            [1, 2, 3],
+            [4, 5],
+            [1, 2, 3],
+            [4, 5],
+            [1, 2, 3]
+        ];
+        
         foreach ($seeds as $key => $seed) {
-            Job::create($seed);
+            $job= Job::create($seed);
+            $job->sectors()->attach($sectors[$key]);
         }
     }
 }

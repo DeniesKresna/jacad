@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 const student_ambassador= {
     namespaced: true,
@@ -16,29 +17,26 @@ const student_ambassador= {
     actions: {
         INDEX({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get(`/admin/student-ambassadors?page_size=10&${payload}`)
-                     .then(response => {
+                axios.get(`/admin/student-ambassadors?page_size=10&${payload}`).then(response => {
+                    resolve(response.data);
+                });
+            });
+        },
+
+        SHOW({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get(`/admin/student-ambassadors/${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
         },
         
-        UPDATE({ commit }, payload) {
+        VERIFY({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put(`/admin/student-ambassadors/${payload}`)
-                     .then(response => {
+                axios.put(`/admin/student-ambassadors/${payload.id}`, `action=${payload.action}`).then(response => {
                     resolve(response.data)         
                 })
             })
-        },
-
-        DESTROY({ commit }, payload) {
-            return new Promise((resolve, reject) => {
-                axios.delete(`/admin/student-ambassadors/${payload}`)
-                     .then(response => {
-                    resolve(response.data)
-                });
-            });
         }
     }
 };

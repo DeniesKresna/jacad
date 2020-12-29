@@ -29,18 +29,15 @@
 
 @section('extrajs')
     <script>
-         $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $('#form-mentoring-registration').on('submit', function(e) {
             e.preventDefault(); 
-
             $('body').loading();
 
             let formData= new FormData($('#form-mentoring-registration')[0]);
+
+            for (input of formData.entries()) {
+                $(`[name=${input[0]}]`).removeClass('error-field');
+            }
 
             formData.set('mentoring_types', JSON.stringify($('.chosen').val()));
             formData.append('ask_career_id', '{{ $ask_career->id }}');
@@ -56,37 +53,25 @@
                     console.log(response);
 
                     $('body').loading('stop');
-
                     swal({ 
-                        title: response.message,
+                        title: 'Sukses',
+                        text: response.message,
                         icon: 'success' 
                     });
                 },
                 error: function (error) {
                     console.log(error);
                     
-                    $('body').loading('stop');
-
-                    let message= '';
-
-                    switch(error.status) {
-                        case 400:
-                            message= error.responseJSON.message;
-                            break;
-                        case 422:
-                            for (field in error.responseJSON.fields) {
-                                $(`[name=${field}]`).addClass('error-field');
-                                
-                                for (error_message of error.responseJSON.fields[field]) {
-                                    message+= `${error_message}\n`
-                                }
-                            }
-                            break;
+                    if (error.responseJSON.validation_errors) {
+                        for (input in error.responseJSON.validation_errors) {
+                            $(`[name=${input}]`).addClass('error-field');
+                        }
                     }
 
+                    $('body').loading('stop');
                     swal({ 
-                        title: 'Gagal daftar!', 
-                        text: message, 
+                        title: 'Gagal', 
+                        text: error.responseJSON.message, 
                         icon: 'error' 
                     });
                 }

@@ -123,12 +123,12 @@
                     
                     <ul class="account-btns">
                         <li class="signup-popup">
-                            <a title="">
+                            <a title="" class="{{ isset($css_classes) ? $css_classes : '' }}">
                                 <i class="la la-key"></i> Daftar
                             </a>
                         </li>
                         <li class="signin-popup">
-                            <a title="">
+                            <a title="" class="{{ isset($css_classes) ? $css_classes : '' }}">
                                 <i class="la la-external-link-square"></i> Masuk
                             </a>
                         </li>
@@ -137,7 +137,7 @@
                 <!-- BUTTON EXTRAS -->
             @else
                 <div class="my-profiles-sec">
-                    <span>
+                    <span class="{{ isset($css_classes) ? $css_classes : '' }}">
                         <img src="http://placehold.it/50x50" alt="" /> 
                         {{ Auth::user()->name }} <i class="la la-bars"></i>
                     </span>
@@ -152,7 +152,7 @@
                     </li>-->
 
                     <li class="menu-item-has-children">
-                        <a href="#" title="">Layanan</a>
+                        <a href="#" title="" class="{{ isset($css_classes) ? $css_classes : '' }}">Layanan</a>
                         <ul>
                             <li>
                                 <a href="{{ url('/academies') }}" title="">Jobhun Academy</a></li>
@@ -165,7 +165,7 @@
                         </ul>
                     </li>
                     <li class="menu-item-has-children">
-                        <a href="#" title="">Program</a>
+                        <a href="#" title="" class="{{ isset($css_classes) ? $css_classes : '' }}">Program</a>
                         <ul>
                             <li>
                                 <a href="{{ url('/blogs/category/jobhun-internship') }}" title="">Jobhun Internship</a>
@@ -204,7 +204,6 @@
                 </ul>
             </nav>
             <!-- MENU -->
-
         </div>
     </div>
 </header>
@@ -258,7 +257,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/logout') }}" title="">
+                    <a href="{{ url('/api/v1/user/auth/logout') }}" title="">
                         <i class="la la-unlink"></i> Keluar
                     </a>
                 </li>

@@ -88,17 +88,20 @@
                         </div>
                         {{--  FILTER BAR --}}
 
-                        {{-- LIST JOB --}}
                         <div class="job-grid-sec">
-                            <div class="row">
-                                {{-- JOB ITEM -> FOR DISINI --}}
-                                @foreach ($jobs as $job)
-                                    @include('components.career-hub', ['career_hub' => $job ])
-                                @endforeach
-                                {{-- JOB ITEM -> FOR DISINI --}}
-                            </div>
+                            @if (count($jobs) > 0)
+                                <div class="row">
+                                    @foreach ($jobs as $job)
+                                        @include('components.job', [
+                                            'job' => $job,
+                                            'css_class' => 'col-4' 
+                                        ])
+                                    @endforeach
+                                </div>
+                            @else
+                                <span>Belum ada lowongan pekerjaan.</span>
+                            @endif
                         </div>
-                        {{-- LIST JOB --}}
 
                         {{-- PAGINATION --}}
                         <div class="pagination">
