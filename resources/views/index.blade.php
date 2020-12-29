@@ -9,29 +9,31 @@
                     <h2>Belajar kemampuan baru untuk karier impian di Jobhun Academy!</h2>
                 </div>
                 
-                <div class="row">
-                    @foreach ($academies as $academy)
-                        @include('components.academy', [
-                            'academy' => $academy,
-                            'css' => [
-                                'col' => 4
-                            ]
-                        ])
-                    @endforeach
-                </div>  
-                
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col-lg-12 d-flex">
-                            <div class="ml-auto">
-                                <a class="bbutton" href="{{ url('/academies') }}" title="">
-                                    Lihat Kelas Lain
-                                    <i class="la la-long-arrow-right"></i>
-                                </a>
+                @if (count($academies) > 0)
+                    <div class="row">
+                        @foreach ($academies as $academy)
+                            @include('components.academy', [
+                                'academy' => $academy,
+                                'css_classes' => 'col-4'
+                            ])
+                        @endforeach
+                    </div>  
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 d-flex">
+                                <div class="ml-auto">
+                                    <a class="bbutton" href="{{ url('/academies') }}" title="">
+                                        Lihat Kelas Lain
+                                        <i class="la la-long-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <span>Belum ada kelas akademi.</span>
+                @endif
             </div>
        </div>
     </section>
@@ -45,30 +47,31 @@
                     <h2>Temukan mentor yang sesuai dengan bidang kariermu di sini!</h2>
                 </div>
                 
-                <div class="row">
-                    @foreach ($ask_careers as $ask_career)
-                        @include('components.ask-career', [
-                            'ask_career' => $ask_career,
-                            'css' => [
-                                'col' => 'col-4',
-                                'py' => 'py-2'
-                            ]
-                        ])
-                    @endforeach
-                </div>
+                @if (count($ask_careers) > 0)
+                    <div class="row">
+                        @foreach ($ask_careers as $ask_career)
+                            @include('components.mentor', [
+                                'ask_career' => $ask_career,
+                                'css_classes' => 'col-4 py-2'
+                            ])
+                        @endforeach
+                    </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col-lg-12 d-flex">
-                            <div class="ml-auto">
-                                <a class="bbutton" href="{{ url('/ask-careers') }}" title="">
-                                    Lihat Mentor Lain
-                                    <i class="la la-long-arrow-right"></i>
-                                </a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 d-flex">
+                                <div class="ml-auto">
+                                    <a class="bbutton" href="{{ url('/ask-careers') }}" title="">
+                                        Lihat Mentor Lain
+                                        <i class="la la-long-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <span>Belum ada mentor.</span>
+                @endif
             </div>
         </div>
     </section>
@@ -84,9 +87,7 @@
 
             <div class="container">
                 <div class="heading light">
-                    <h2>
-                        Cari pekerjaan impianmu di Jobhun Career Hub!
-                    </h2>
+                    <h2>Cari pekerjaan impianmu di Jobhun Career Hub!</h2>
                 </div>
 
                 <div class="job-search">
@@ -103,10 +104,13 @@
                             <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
                                 <div class="job-field">
                                     <select data-placeholder="Lokasi" class="chosen-city">
-                                        <option>New York </option>
-                                        <option>Istanbul</option>
-                                        <option>London</option>
-                                        <option>Russia</option>
+                                        @if (count($locations) > 0)
+                                            @foreach ($locations as $location)
+                                                <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                            @endforeach
+                                        @else
+                                            <span>-- Belum ada kota --</span>
+                                        @endif
                                     </select>
                                     <i class="la la-map-marker"></i>
                                 </div>
@@ -122,23 +126,27 @@
                     <!-- FORM SEARCH -->
                 </div>
 
-                <div class="row">
-                    @foreach ($career_hubs as $career_hub)
-                        @include('components.career-hub', ['career_hub' => $career_hub])
-                    @endforeach
-                </div>
-                
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col-lg-12 d-flex">
-                            <div class="ml-auto">
-                                <a class="bbutton" href="{{ url('/jobs') }}" title="">
-                                    Lihat loker <i class="la la-long-arrow-right"></i>
-                                </a>
+                @if (count($jobs) > 0)
+                    <div class="row">
+                        @foreach ($jobs as $job)
+                            @include('components.job', ['job' => $job])
+                        @endforeach
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12 d-flex">
+                                <div class="ml-auto">
+                                    <a class="bbutton" href="{{ url('/jobs') }}" title="">
+                                        Lihat loker <i class="la la-long-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <span class="text-white">Belum ada lowongan pekerjaan.</span>
+                @endif
             </div>
         </div>
     </section>
@@ -153,11 +161,15 @@
                     <span>Baca berbagai konten seputar karier yang bisa menambah pengetahuanmu dalam dunia kerja</span>  
                 </div>
 
-                <div class="row">
-                    @foreach ([1, 2, 3] as $blog)
-                        @include('components.blog')
-                    @endforeach
-                </div>
+                @if (count($blogs) > 0)
+                    <div class="row">
+                        @foreach ($blogs as $blog)
+                            @include('components.blog')
+                        @endforeach
+                    </div>
+                @else
+                    <span>Belum ada blog.</span>
+                @endif
             </div>
         </div>
     </section>
@@ -175,13 +187,17 @@
                     <h2>Apa kata mereka</h2>
                 </div>
                 
-                <div class="row">
-                    <div class="reviews-sec" id="reviews-carousel">
-                        @foreach ($testimonies as $testimony)
-                            @include('components.testimony', ['testimony' => $testimony])
-                        @endforeach
+                @if (count($testimonies) > 0)
+                    <div class="row">
+                        <div class="reviews-sec" id="reviews-carousel">
+                            @foreach ($testimonies as $testimony)
+                                @include('components.testimony', ['testimony' => $testimony])
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @else
+                    <span>Belum ada testimoni.</span>
+                @endif
             </div>	
         </div>
     </section>

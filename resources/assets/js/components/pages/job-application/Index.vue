@@ -6,8 +6,8 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search by position, company or applicant then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
         </div>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="col-md-12" v-else>
-                <p>no data yet.</p>
+                <span>No data yet.</span>
             </div>
         </div>
     </div>
@@ -76,8 +76,9 @@
             getResults(page= 1) {
                 let query= `page=${page}&search=${this.search}`;
 
-                this.$store.dispatch('job_application/INDEX', query).then(response => {                    
+                this.$store.dispatch('job/APPLICANTS', query).then(response => {                    
                     this.result= response;
+                    console.log(response);
                 });
             }
         }

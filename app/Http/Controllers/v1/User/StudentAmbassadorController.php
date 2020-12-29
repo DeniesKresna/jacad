@@ -21,36 +21,32 @@ class StudentAmbassadorController extends ApiController {
         $datas= $request->all();
         $datas['status']= 0;
         
-        $validator= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
-            'email.required' => 'Kolom email harus diisi',
-            'name.required' => 'Kolom nama harus diisi',
-            'age.required' => 'Kolom umur harus diisi',
-            'address.required' => 'Kolom alamat harus diisi',
-            'university.required' => 'Kolom universitas harus diisi',
-            'faculty.required' => 'Kolom fakultas harus diisi',
-            'major.required' => 'Kolom jurusan harus diisi',
-            'phone.required' => 'Kolom nomor handphone harus diisi',
-            'line_id.required' => 'Kolom ID Line harus diisi',
-            'ig_url.required' => 'Kolom link profil Instagram harus diisi',
-            'linkedIn_url.required' => 'Kolom link profil LinkedIn harus diisi'
-        ]);
+        $validator= Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
 
         if ($validator->fails()) {
-            return response()->json(['fields' => $validator->messages()], 422);
+            return response()->json([
+                'message' => 'Kamu belum melengkapi formulir pendaftaran ini :( Silakan mengisi formulir pendaftaran ini dengan lengkap ya :)',
+                'validation_errors' => $validator->messages()
+            ], 422);
         }
 
         $jsa= StudentAmbassador::create($datas);
-        
-        if ($jsa) {
-            Notification::route('mail', $datas['email'])
-                        ->notify(new NotifyJSA(
-                            'Terima kasih telah mendaftar pada Jobhun Student Ambassador.
-                            \r\nTunggu informasi lebih lanjut dari kami ya!'
-                        ));
-            
-            return response()->json(['message' => 'Berhasil daftar!']);
-        } else {
-            return response()->json(['message' => 'Terjadi kendala, silahkan menghubungi Customer Service'], 400);
+
+        if (!$jsa->save()) {
+            return response()->json(['message' => 'Terjadi kendala, silahkan menghubungi Customer Service.'], 500);
         }
+
+        $response= null;
+
+        try {
+            Notification::route('mail', $jsa->email)
+                        ->notify(new NotifyJSA($jsa->name));
+            
+            $response= response()->json(['message' => 'Pendaftaran berhasil!']);
+        } catch (\Throwable $th) {
+            $response= response()->json(['message' => 'Pendaftaran berhasil, tetapi email yang anda catumkukan tidak valid.'], 401);
+        }
+
+        return $response;
     }
 }

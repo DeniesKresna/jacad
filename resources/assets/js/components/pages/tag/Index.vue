@@ -6,8 +6,8 @@
                 <input
                     class="form-control" 
                     type="text"  
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -53,7 +53,7 @@
 
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada tag</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>
@@ -75,15 +75,15 @@
         },
         methods: {
             getResults(page=1) {
-                let stringQuery = "page="+page+"&search="+this.search;
+                let query = "page="+page+"&search="+this.search;
                 
-                this.$store.dispatch('tag/INDEX', stringQuery).then(response => {
+                this.$store.dispatch('tag/INDEX', query).then(response => {
                     this.result = response;
                 });
             },
 
             destroyData(tag) {
-                if (confirm(`Anda yakin ingin menghapus tag : ${tag.name} ?`)) {
+                if (confirm(`Are you sure want to delete tag: "${tag.name}"?`)) {
                     this.$store.dispatch('tag/DESTROY', tag.id).then(response => {
                         this.getResults(this.result.current_page);
                     });;

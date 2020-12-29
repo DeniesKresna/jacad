@@ -20,7 +20,6 @@
                 <div class="col-md-10">
                     <input 
                         type="file" 
-                        id="file" 
                         ref="file" 
                         @change="handleFileUpload()">
                 </div>
@@ -118,7 +117,7 @@
                 
                 let formData = new FormData();
 
-                formData.append("image", file);
+                formData.append('image', file);
 
                 axios({
                     url: `${this.$store.getters.urls.host.jonathan}/${this.$store.getters.urls.api}/admin/medias`,
@@ -132,7 +131,7 @@
                 });
             },
             handleFileUpload() {
-                this.data.file = this.$refs.file.files[0];
+                this.data.image= this.$refs.file.files[0];
             },
             storeData() {
                 this.data.tags = this.picked.tags.map(tag => tag.id);
@@ -146,6 +145,9 @@
                         tags: [],
                         file: null
                     };
+                    this.picked= {
+                        tags: []
+                    }
                     this.$refs.file.value = '';
                 });
             }

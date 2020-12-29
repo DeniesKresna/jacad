@@ -6,8 +6,8 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search by ask career, mentor or customer then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
         </div>
@@ -19,8 +19,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Ask Career</th>
-                                <th>Student</th>
                                 <th>Mentor</th>
+                                <th>Customer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,14 +28,14 @@
                                 v-for="(item, index) in result.data">
                                 <td>{{ (index+1) }}</td>
                                 <td>{{ item.ask_career.name }}</td>
-                                <td>{{ item.creator.name}}</td>
                                 <td>{{ item.ask_career.mentor.name }}</td>
+                                <td>{{ item.customer.name }}</td>
                                 <td>
-                                    <router-link :to="`/mentoring/edit/${item.id}`">
-                                        <span class="fa fa-pencil-square-o"></span>
-                                    </router-link> &nbsp;
                                     <router-link :to="`/mentoring/${item.id}`">
                                         <span class="fa fa-eye"></span>
+                                    </router-link> &nbsp;
+                                    <router-link :to="`/mentoring/edit/${item.id}`">
+                                        <span class="fa fa-pencil-square-o"></span>
                                     </router-link> &nbsp;
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>no data yet</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>
@@ -78,6 +78,7 @@
                 
                 this.$store.dispatch('mentoring/INDEX', stringQuery).then(response => {
                     this.result = response;
+                    console.log(response);
                 });
             }
         }   

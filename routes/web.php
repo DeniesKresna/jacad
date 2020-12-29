@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 /*
 | Pages routes
 */
-Route::get('/admin', 'PageController@admin');
-Route::get('/', 'PageController@home');
-Route::get('/student-ambassador', 'PageController@studentAmbassador');
+Route::get('/admin', 'web\PageController@admin');
+Route::get('/', 'web\PageController@home');
 
 /*
 | Blogs routes
@@ -43,23 +42,19 @@ Route::get('/mentors/{url_name}', 'web\AskCareerController@show');
 /*
 | Jobs routes
 */
-/*Route::get('job/opening', function() {
-    return view('pages.job.opening');
-});*/
 Route::get('/jobs', 'web\JobController@index');
 Route::get('/jobs/create', 'web\JobController@create');
 Route::get('/jobs/{id}', 'web\JobController@show');
 
 /*
-| Login Socialite routes
+| Student Ambassador routes
 */
-Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
-Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
+Route::get('/student-ambassador', 'web\StudentAmbassadorController@index');
 
 /*
-| Login - Logout routes
+| Login Socialite routes
 */
-Route::post('/login', 'web\LoginController@index');
-Route::get('/logout', 'web\LogoutController@index');
+//Route::get('/socialite-redirect/{provider}', 'web\SocialiteLoginController@redirectToProvider');
+//Route::get('/socialite-callback/{provider}', 'web\SocialiteLoginController@handleProviderCallback');
 
 

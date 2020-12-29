@@ -31,5 +31,9 @@ class Payment extends Eloquent
 		'via',
 		'transaction_status',
 		'transaction_id'
-	];
+    ];
+    
+    public function periodCustomers() {
+        return $this->hasMany('App\Models\AcademyPeriodCustomer');
+    }
 }

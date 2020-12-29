@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from "qs";
 
 const job= {
     namespaced: true,
@@ -17,8 +16,7 @@ const job= {
     actions: {
         INDEX({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('/admin/jobs?page_size=10&' + payload)
-                     .then(response => {
+                axios.get(`/admin/jobs?page_size=10&${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -26,8 +24,7 @@ const job= {
         
         SHOW({ comit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('/admin/jobs/' + payload)
-                     .then(response => {
+                axios.get(`/admin/jobs/${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -52,9 +49,6 @@ const job= {
 
                 //FILE
                 formData.append('company_logo', payload.file);
-
-                //VERIFY
-                if (payload.verify) formData.append('verify', payload.verify);
 
                 //JOB
                 formData.append('job', JSON.stringify({
@@ -84,12 +78,28 @@ const job= {
             });
         },
         
-        DESTROY({ commit }, payload){
+        DESTROY({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete('/admin/jobs/' + payload).then(response => {
+                axios.delete(`/admin/jobs/${payload}`).then(response => {
                     resolve(response.data)
                 });
             })
+        },
+
+        VERIFY({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.put(`/admin/jobs/verify/${payload.id}`, `action=${payload.action}`).then(response => {
+                    resolve(response.data);
+                });
+            });
+        },
+
+        APPLICANTS({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get(`/admin/job-applicants?page_size=10&${payload}`).then(response => {
+                    resolve(response.data);
+                });
+            });
         }
     }
 };

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Academy;
 use Illuminate\Database\Seeder;
 
 use App\Models\AcademyPeriod;
@@ -91,8 +90,22 @@ class AcademyPeriodsTableSeeder extends Seeder
             ]
         ];
 
+        $mentors= [
+            [1, 2, 3],
+            [4, 5],
+            [1, 2], 
+            [3, 4, 5],
+            [2, 3, 4],
+            [5, 1, 2],
+            [3, 4],
+            [4, 5],
+            [1, 2, 3, 4, 5]
+        ];
+
         foreach ($seeds as $key => $seed) {
-            AcademyPeriod::create($seed);
+            $academy_period= AcademyPeriod::create($seed);
+            $academy_period->mentors()->attach($mentors[$key]);
+            $academy_period->save();
         }
     }
 }

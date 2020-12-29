@@ -140,7 +140,7 @@
                 });
             },
             handleFileUpload() {
-                this.data.file = this.$refs.file.files[0];
+                this.data.image = this.$refs.file.files[0];
             },
             updateData() {
                 this.data.tags = this.picked.tags.map(tag => tag.id);

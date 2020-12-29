@@ -20,7 +20,6 @@
                 <div class="col-md-10">
                     <input 
                         type="file" 
-                        id="file" 
                         ref="file" 
                         @change="handleFileUpload()">
                 </div>
@@ -96,7 +95,7 @@
                 data: {
                     title: '', 
                     content: '',
-                    category: 0,  
+                    category_id: 0,  
                     tags: [], 
                     file: null
                 },
@@ -116,17 +115,17 @@
             }
         },
         mounted() {
-            let stringQuery= '';
+            let query= '';
 
             if (this.menu) {
-                stringQuery= `menu=${this.menu}`;
+                query= `menu=${this.menu}`;
             }
 
             if (this.category) {
-                stringQuery+= `&name=${this.category}`;
+                query+= `&name=${this.category}`;
             }
 
-            this.$store.dispatch('category/LIST', stringQuery).then(response => {
+            this.$store.dispatch('category/LIST', query).then(response => {
                 this.options.categories= response;
                 this.picked.category= response[0];
             });
@@ -142,7 +141,7 @@
                 
                 let formData = new FormData();
 
-                formData.append("image", file);
+                formData.append('image', file);
 
                 axios({
                     url: `${this.$store.getters.urls.host.jonathan}/${this.$store.getters.urls.api}/admin/medias`,
@@ -156,20 +155,24 @@
                 });
             },
             handleFileUpload() {
-                this.data.file = this.$refs.file.files[0];
+                this.data.image = this.$refs.file.files[0];
             },
             storeData() {
-                this.data.category= this.picked.category.id;
+                this.data.category_id= this.picked.category.id;
                 this.data.tags = this.picked.tags.map(tag => tag.id);
                 
                 this.$store.dispatch('blog/STORE', this.data).then(response => {
                     this.data = {
                         title: '', 
                         content: '',
-                        category: 0,  
+                        category_id: 0,  
                         tags: [], 
                         file: null
                     };
+                    this.picked= {
+                        category: null,
+                        tags: []
+                    }
                     this.$refs.file.value = '';
                 });
             }

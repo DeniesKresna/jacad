@@ -21,6 +21,7 @@ import mentoring from './modules/mentoring';
 import job from './modules/job';
 import job_application from './modules/job-application';
 import student_ambassador from './modules/student-ambassador';
+import payment from './modules/payment';
 
 Vue.use(Vuex);
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
         mentoring,
         job,
         job_application,
-        student_ambassador
+        student_ambassador,
+        payment
     }
 });

@@ -17,7 +17,7 @@ const academy_period= {
     actions: {
         INDEX({ commit }, payload){
             return new Promise((resolve, reject) => {
-                axios.get('/admin/academy-periods?page_size=10&' + payload).then(response => {
+                axios.get(`/admin/academy-periods?page_size=10&${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -25,7 +25,7 @@ const academy_period= {
         
         SHOW({ commit }, payload){
             return new Promise((resolve, reject) => {
-                axios.get('/admin/academy-periods/' + payload).then(response => {
+                axios.get(`/admin/academy-periods/${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -39,6 +39,7 @@ const academy_period= {
                 formData.append('price', payload.price);
                 formData.append('description', payload.description);
                 formData.append('academy_id', payload.academy_id);
+                formData.append('mentors', JSON.stringify(payload.mentors));
 
                 axios.post('/admin/academy-periods', formData).then(response => {
                     resolve(response.data);
@@ -48,7 +49,7 @@ const academy_period= {
         
         UPDATE({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.put('/admin/academy-periods/' + payload.id, qs.stringify(payload)).then(response => {
+                axios.put(`/admin/academy-periods/${payload.id}`, qs.stringify(payload)).then(response => {
                     resolve(response.data);
                 });
             });
@@ -56,15 +57,31 @@ const academy_period= {
         
         DESTROY({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete('/admin/academy-periods/' + payload.id).then(response => {
+                axios.delete(`/admin/academy-periods/${payload}`).then(response => {
                     resolve(response.data)
                 });
             })
         },
 
+        ACTIVATE({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.put(`/admin/academy-periods/activate/${payload}`).then(response => {
+                    resolve(response.data);
+                });
+            });
+        },
+        
         PERIOD_CUSTOMERS({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('/admin/academy-periods/customers?page_size=10&' + payload).then(response => {
+                axios.get(`/admin/academy-periods/customers?page_size=10&${payload}`).then(response => {
+                    resolve(response.data);
+                });
+            });
+        },
+
+        DESTROY_PERIOD_CUSTOMER({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                axios.delete(`/admin/academy-periods/customers/${payload}`).then(response => {
                     resolve(response.data);
                 });
             });

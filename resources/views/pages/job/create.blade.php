@@ -16,14 +16,13 @@
 				 <div class="row no-gape">
 				 	<div class="col-lg-9 column">
 				 		<div class="padding-left">
-                            
 					 		<div class="profile-title">
 					 		    <h3>Post a New Job</h3>
                             </div>
                             
                             <!-- FORM -->
 					 		<div class="profile-form-edit">
-					 			<form id="job-form" enctype="multipart/form-data">
+					 			<form id="form-job" enctype="multipart/form-data">
 					 				<div class="row">
 					 					<div class="col-lg-12">
 					 						<span class="pf-title">Nama Perusahaan</span>
@@ -212,19 +211,13 @@
     
 	<script>
 		$(document).ready(function() {
-		    $(".special_ta").jqte();
-		    $(".datepicker").datepicker({
+		    $('.special_ta').jqte();
+		    $('.datepicker').datepicker({
 			      format: 'yyyy-mm-dd',
 			      autoclose: true,
 			      todayHighlight: true,
 			});
             
-		    $.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-		    });
-
             //LOGO COMPANY
 		    $("#logo").change(function(e) {
 		    	let reader = new FileReader();
@@ -237,8 +230,8 @@
             let company;
 
             //AJAX GET DATA COMPANY - AUTO INPUT
-		    $("#company_name").focusout(function(){
-		    	if ($("#company_name").val().length > 2){
+		    $('#company_name').focusout(function(){
+		    	if ($('#company_name').val().length > 2){
 		    		$('body').loading();
 		    		
                     $.ajax({
@@ -250,7 +243,7 @@
                             
                             company = data.company;
                             
-                            $('#job-form input, #job-form select').each(function(index) {  
+                            $('#form-job input, #form-job select').each(function(index) {  
                                 let input = $(this);
                                     
                                 for (let prop in company) {
@@ -259,7 +252,7 @@
                                     }
                                 }
                             });
-                            $('#job-form textarea').each(function(index) {  
+                            $('#form-job textarea').each(function(index) {  
                                 let input = $(this);
                                 for (let prop in company) {
                                     if (input.attr('name') === prop) {
@@ -277,19 +270,19 @@
 		    });
             
             //AJAX FORM SUBMIT   
-		    $('#job-form').on('submit', function(e) {
+		    $('#form-job').on('submit', function(e) {
                 e.preventDefault();
                 $('body').loading();
-
+                
                 let formData = new FormData($('form')[0]);
 
-		        formData.set('logo', $("#logo").prop('files')[0]);
+		        formData.set('logo', $('#logo').prop('files')[0]);
                 formData.set('sectors', JSON.stringify($('.chosen').val()));
 
                 if (company) formData.append('creator_id', company.id);
 
-                for (field of formData.entries()) {
-                    $(`#job-form [name=${field[0]}]`).removeClass('error-field');
+                for (input of formData.entries()) {     
+                    $(`#form-job [name=${input[0]}]`).removeClass('error-field');
                 }
 
                 $.ajax({
@@ -300,38 +293,28 @@
     			    processData: false,
     			    contentType: false,
                     success: function(response) {
+                        console.log(error);
                         $('body').loading('stop');
-                        
                         swal({ 
-                            title:  response.message,
+                            title:  'Sukses',
+                            text: response.message,
                             icon: 'success' 
                         });
 		            },
                     error: function(error) {
                         console.log(error);
-                        $('body').loading('stop');
 
-                        let message= '';
-
-                        switch(error.status) {
-                            case 400:
-                                message= error.responseJSON.message;
-                                break;
-                            case 422:
-                                for (field in error.responseJSON.fields) {
-                                    $(`#job-form [name=${field}]`).addClass('error-field');
-
-                                    for (error_message of error.responseJSON.fields[field]) {
-                                        message+= `${error_message}\n`
-                                    }
-                                }
-                                break;
+                        if (error.responseJSON.validation_errors) {
+                            for (input in error.responseJSON.validation_errors) {
+                                $(`#form-job [name=${input}]`).addClass('error-field');
+                            }
                         }
 
+                        $('body').loading('stop');  
                         swal({ 
-                            title: 'Gagal menyimpan!', 
-                            text: message, 
-                            icon: 'error' 
+                            title: 'Gagal', 
+                            text: error.responseJSON.message, 
+                            icon: error.status_code === 401 ? 'info' : 'error'
                         });
                     }
                 })

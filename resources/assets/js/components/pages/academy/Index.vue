@@ -6,8 +6,8 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search by academy class or creator then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -57,7 +57,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada academy</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>
@@ -79,17 +79,16 @@
         },
         methods: {
             getResults(page= 1) {
-                let stringQuery= `page=${page}&search=${this.search}`;
+                let query= `page=${page}&search=${this.search}`;
 
-                this.$store.dispatch('academy/INDEX', stringQuery).then(response => {
+                this.$store.dispatch('academy/INDEX', query).then(response => {
                     this.result = response;
                 });
             },
             destroyData(academy) {
-                if (confirm(`Are you sure want to delete academy: ${academy.name}?`)) {
+                if (confirm(`Are you sure want to delete academy: "${academy.name}"?`)) {
                     this.$store.dispatch('academy/DESTROY', academy.id).then(response => {
                         this.getResults(this.result.current_page);
-                        console.log(this.result.current_page);
                     });
                 }
             }

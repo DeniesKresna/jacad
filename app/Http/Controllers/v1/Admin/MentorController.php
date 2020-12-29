@@ -19,9 +19,11 @@ class MentorController extends ApiController
         $page = $request->page;
         $page_size = $request->page_size;
         $search= $request->search;
+
         $mentors= Mentor::when($request->has('search') && $request->search, function ($query) use ($search) {
             $query->where('name', 'like', '%'.$search.'%');
-        })->orderBy('id', 'desc')
+        })
+        ->orderBy('id', 'DESC')
         ->paginate($page_size);
 
         return response()->json($mentors);
@@ -43,68 +45,57 @@ class MentorController extends ApiController
         $datas= $request->all();
         $datas['creator_id']= 1;
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
-            'name.required' => 'Kolom nama harus diisi',
-            'description.required' => 'Kolom deskripsi harus diisi',
-            'linkedIn_url.required' => 'Kolom link profil LinkedIn harus diisi',
-            'file.image' => 'Kolom gambar harus bertipe "image"'
-        ]);
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
         }
         
-        $datas['url_name'] = str_replace(" ", "-", strtolower($datas['name']));
-        $datas['url'] = url("/")."/mentors/".$datas['url_name'];
+        $datas['url_name'] = str_replace(' ', '-', strtolower($datas['name']));
+        $datas['url'] = url('/').'/mentors/'.$datas['url_name'];
 
-        $upload = upload("/screen/medias/", $request->file('file'), '1');
+        $upload = upload('/screen/medias/', $request->file('file'), '1');
         
         $datas['image_path'] = $upload;
         $datas['image_url'] = upload_dir().$upload;
 
         $mentor= Mentor::create($datas);
-        $mentor->save();
 
-        if ($mentor) {
-            return response()->json(['message' => 'Berhasil menyimpan mentor!']);
-        } else {
-            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
+        if (!$mentor->save()) {
+            return response()->json(['message' => 'Create mentor failed'], 500);
         }
+
+        return response()->json(['message' => "Mentor {$mentor->name} created!"]);
     }
     
     public function update(Request $request, $id) {
         $datas= $request->all();
         $datas['updater_id']= 1;
 
-        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__), [
-            'name.required' => 'Kolom nama harus diisi',
-            'description.required' => 'Kolom deskripsi harus diisi',
-            'linkedIn_url.required' => 'Kolom link profil LinkedIn harus diisi'
-        ]);
+        $validator = Validator::make($datas, rules_lists(__CLASS__, __FUNCTION__));
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
         }
 
-        $datas['url_name'] = str_replace(" ", "-", strtolower($datas['name']));
-        $datas['url'] = url("/")."/mentors/".$datas['url_name'];
+        $datas['url_name'] = str_replace(' ', '-', strtolower($datas['name']));
+        $datas['url'] = url('/').'/mentors/'.$datas['url_name'];
 
         if ($request->hasFile('file')) {
-            $upload = upload("/screen/medias/", $request->file('file'), '1');
+            $upload = upload('/screen/medias/', $request->file('file'), '1');
             
             $datas['image_path'] = $upload;
             $datas['image_url'] = upload_dir().$upload;
         }
 
         $mentor= Mentor::findOrFail($id);
-        $mentor->update($datas);
-        $mentor->save();
+        $mentor->update($datas);    
 
-        if ($mentor) {
-            return response()->json(['message' => 'Berhasil menyimpan perubahan!']);
-        } else {
-            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
+        if (!$mentor->save()) {
+            return response()->json(['message' => 'Update mentor failed'], 500);
         }
+
+        return response()->json(['message' => "Mentor {$mentor->name} updated!"]);
     }
 
     public function destroy(Request $request, $id) {
@@ -116,13 +107,16 @@ class MentorController extends ApiController
                 
                 $mentor->forceDelete();
                 
-                return response()->json(['message' => 'Berhasil terhapus!']);
+                return response()->json(['message' => "Mentor {$mentor->name} permanently deleted!"]);
             }
         }
 
         $mentor->delete();
-        $mentor->save();
 
-        return response()->json(['message' => 'Berhasil terhapus!']);
+        if (!$mentor->save()) {
+            return response()->json(['message' => 'Delete mentor failed'], 500);
+        }
+
+        return response()->json(['message' => "Mentor {$mentor->name} deleted!"]);
     }
 }

@@ -84,12 +84,14 @@
                 });
             },
             updateData() {
-                this.data.id= this.$route.params.id;
-                this.data.mentor= this.picked.mentor.id;
+                if (confirm(`Are you sure want to update ask career: "${this.data.name}"?`)) {
+                    this.data.id= this.$route.params.id;
+                    this.data.mentor= this.picked.mentor.id;
 
-                this.$store.dispatch('ask_career/UPDATE', this.data).then(response => {
-                    this.getData();
-                });
+                    this.$store.dispatch('ask_career/UPDATE', this.data).then(response => {
+                        this.getData();
+                    });
+                }
             }
         }
     }

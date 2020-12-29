@@ -307,8 +307,6 @@
                     this.picked.type= response.type;
                     this.picked.sectors= response.sectors;
                     this.picked.location= response.location;
-
-                    console.log(response);
                 });
             },
             handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
@@ -335,13 +333,15 @@
                 this.data.file= this.$refs.file.files[0];
             },
             updateData() {
-                this.data.id= this.$route.params.id;
-                this.data.sectors= this.picked.sectors.map(sector => sector.id);
-                this.data.location= this.picked.location.id;
+                if (confirm(`Are you sure want to update job: "${this.data.position}"?`)) {
+                    this.data.id= this.$route.params.id;
+                    this.data.sectors= this.picked.sectors.map(sector => sector.id);
+                    this.data.location= this.picked.location.id;
 
-                this.$store.dispatch('job/UPDATE', this.data).then(response => {
-                    this.getData();
-                });
+                    this.$store.dispatch('job/UPDATE', this.data).then(response => {
+                        this.getData();
+                    });
+                }
             }
         }
     }

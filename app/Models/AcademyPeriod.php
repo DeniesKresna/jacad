@@ -52,11 +52,15 @@ class AcademyPeriod extends Eloquent
         return $this->belongsTo('App\Models\User', 'creator_id');
     }
 
-    public function academy_class() {
+    public function academy() {
         return $this->belongsTo('App\Models\Academy', 'academy_id');
     }
 
-    public function period_customers() {
+    public function mentors() {
+        return $this->belongsToMany('App\Models\Mentor');
+    }
+
+    public function customers() {
         return $this->belongsToMany('App\Models\User', 'academy_period_customer', 'academy_period_id', 'customer_id')
             ->withPivot(['id', 'price', 'description', 'status']);
     }

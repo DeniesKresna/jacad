@@ -82,10 +82,12 @@
                 this.data.file = this.$refs.file.files[0];
             },
             updateData() {
-                this.data.id= this.$route.params.id;
-                this.$store.dispatch('mentor/UPDATE', this.data).then(response => {
-                    this.getData();
-                });
+               if (confirm(`Are you sure want to update mentor: "${this.data.name}"?`)) {
+                    this.data.id= this.$route.params.id;
+                    this.$store.dispatch('mentor/UPDATE', this.data).then(response => {
+                        this.getData();
+                    });
+               }
             }
         }
     }

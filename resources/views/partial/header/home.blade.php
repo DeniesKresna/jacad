@@ -3,11 +3,19 @@
             <div class="container fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="find-cand-sec"><!--
-                            <div class="iconmove"><img class="animute" src="{{ asset('theme/jobhun/images/resource/iconmove.jpg') }}" alt="" /></div>-->
-                            <div class="iconmove"><img class="animute" src="{{ asset('gallery/wallpaper3.jpg') }}" alt="" /></div>
-                            <div class="mockup-bottom"><img class="animute" width="670" height="500" src="{{ asset('gallery/people.png') }}" alt="" /></div>
-                            <!--<div class="mockup-bottom"><img src="http://placehold.it/689x528" alt="" /></div>-->
+                        <div class="find-cand-sec">
+                            <div class="iconmove">
+                                <img class="animute" src="{{ asset('/gallery/jobhun-new-cover.jpeg') }}" alt="" />
+                            </div>
+                            <!--<div class="iconmove">
+                                <img class="animute" src="{{ asset('/gallery/wallpaper3.jpg') }}" alt="" />
+                            </div>
+                            <div class="mockup-bottom">
+                                <img class="animute" width="670" height="500" src="{{ asset('/gallery/people.png') }}" alt="" />
+                            </div>-->
+                            <!--<div class="mockup-bottom">
+                                <img src="http://placehold.it/689x528" alt="" />
+                            </div>-->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-8">

@@ -16,21 +16,21 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('username')->nullable();
+            $table->string('username');
             $table->string('email');
-            $table->string('password')->nullable();
-            $table->string('phone')->nullable();
-            $table->text('notification_emails')->nullable();
+            $table->string('password');
+            $table->string('phone');
+            //$table->text('notification_emails')->nullable();
             $table->smallInteger('active');
-            $table->timestamp('prev_login');
-            $table->timestamp('last_login');
-            $table->timestamp('dt_start');
-            $table->timestamp('dt_end');
+            //$table->timestamp('prev_login');
+            //$table->timestamp('last_login');
+            //$table->timestamp('dt_start');
+            //$table->timestamp('dt_end');
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

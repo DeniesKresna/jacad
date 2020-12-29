@@ -25,7 +25,6 @@
                         <span>
                             <input 
                                 type="file" 
-                                id="file" 
                                 ref="file" 
                                 @change="handleFileUpload()">
                         </span>
@@ -106,7 +105,7 @@
                     tags: [],
                 },
                 picked: {
-                    category: 0,
+                    category: null,
                     tags: []
                 },
                 editorSettings: {
@@ -164,16 +163,18 @@
                 });
             },
             handleFileUpload() {
-                this.data.file = this.$refs.file.files[0];
+                this.data.image = this.$refs.file.files[0];
             },
             updateData() {
-                this.data.id = this.$route.params.id;
-                this.data.category= this.picked.category.id;
-                this.data.tags = this.picked.tags.map(tag => tag.id);
-                
-                this.$store.dispatch('blog/UPDATE', this.data).then(response => {
-                    this.getData();
-                });
+                if (confirm(`Are you sure want to update blog: "${this.data.title}"?`)) {
+                    this.data.id = this.$route.params.id;
+                    this.data.category_id= this.picked.category.id;
+                    this.data.tags = this.picked.tags.map(tag => tag.id);
+                    
+                    this.$store.dispatch('blog/UPDATE', this.data).then(response => {
+                        this.getData();
+                    });
+                }
             }
         }
     }

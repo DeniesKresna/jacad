@@ -1,7 +1,6 @@
 <section>
-    <div class="container p-5" id="">
+    <div class="container p-5">
         <div id="aboutJSA"></div>
-        
         <div class="row">
             <div class="col-lg-8">
                 <form>
@@ -9,7 +8,7 @@
                         <div class="col-lg-12" id="emailField">
                             <span class="pf-title">E-mail</span>
                             <div class="pf-field">
-                                <input type="text" placeholder="" name="email" id="email_sa"/>
+                                <input type="text" placeholder="" name="email" id="email_sa" />
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -73,8 +72,8 @@
                             </div>  
                         </div>
                         <div class="col-lg-12">
-                            <button type="submit" id="btnNext">Next</button>
-                            <button type="submit" id="btnBack">Back</button>
+                            <button type="submit" id="btnNext">Daftar</button>
+                            <button type="submit" id="btnBack">Kembali</button>
                         </div>
                     </div>
                 </form>
@@ -91,12 +90,6 @@
             </h2>
             <p>Jobhun Student Ambassador adalah sebuah program yang memberikan peluang bagi seluruh mahasiswa di Indonesia untuk bersama-sama menyebarkan awareness terkait pentingnya pengembangan karier dengan memperkenalkan program & layanan Jobhun secara online. Silakan mengisi formulir di bawah ini dengan lengkap ya, Jobhuners!</p>
         `;
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        }); 
 
         $('#aboutJSA').html(aboutJSA_Content);
         $('#btnBack').hide();
@@ -116,20 +109,21 @@
             //AJAX FORM SUBMIT
             if ($('#email_sa').val() === '') {
                 swal({ 
-                    title: 'Gagal validasi!', 
-                    text: 'Kolom email harus diisi', 
+                    title: 'Gagal daftar!', 
+                    text: 'Untuk lanjut, lengkapi email anda terlebih dahulu ya :)', 
                     icon: 'error'
                 });
             } else {
                 let formData= new FormData($('form')[0]);
 
-                for (let pair of formData.entries()) {
-		        	let iptDom = document.getElementsByName(pair[0])[0];
-		           	iptDom.style.backgroundColor = "white";
+                for (let input of formData.entries()) {
+		        	$(`input[name=${input[0]}]`).removeClass('error-field');
 				}
                 
                 //AJAX FORM SUBMIT
                 if ($('#btnBack').is(':visible')) {
+                    $('body').loading();
+
                     $.ajax({
                         type: 'POST',
                         url: '{{ url("/api/v1/user/student-ambassadors") }}',
@@ -138,51 +132,30 @@
                         processData: false,
     			        contentType: false,
                         success: function(response) {
+                            console.log(response);
+
+                            $('body').loading('stop');
                             swal({ 
-                                title: 'Create success!', 
-                                text: "", 
-                                icon: "success" 
+                                title: 'Sukses', 
+                                text: response.message, 
+                                icon: 'success'
                             });
                         },
                         error: function(error) {
-                            let message= '';
+                            console.log(error);
 
-                            switch(error.status) {
-                                case 400:
-                                    message= error.responseJSON.message;
-                                    break;
-                                case 422:
-                                    for (field in error.responseJSON.fields) {
-                                        $(`input[name=${field}]`).addClass('error-field');
-
-                                        for (error_message of error.responseJSON.fields[field]) {
-                                            message+= `${error_message}\n`
-                                        }
-                                    }
-                                    break;
+                            if (error.responseJSON.validation_errors) {
+                                for (let input in error.responseJSON.validation_errors) {
+                                    $(`input[name=${input}]`).addClass('error-field');
+                                }
                             }
 
+                            $('body').loading('stop');
                             swal({ 
-                                title: 'Gagal daftar', 
-                                text: message,
-                                icon: 'error'
+                                title: 'Gagal', 
+                                text: error.responseJSON.message,
+                                icon: error.status === 401 ? 'info' : 'error'
                             });
-
-                            /*if (error.status === 422) {
-                                let msg = "";
-                                
-                                for (let prop in error.responseJSON.message){
-                                    let iptDom = document.getElementsByName(prop)[0];
-                                    iptDom.style.backgroundColor = "yellow";
-                                    //msg = msg + error.responseJSON.message[prop][0] + "\n";
-                                }
-                                
-                                swal({ 
-                                    title: 'Validation Error', 
-                                    text: "check the yellow background inputs", 
-                                    icon: "error" 
-                                });
-                            }*/
                         }
                     });
                 } else {

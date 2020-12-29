@@ -51,11 +51,11 @@ class Mentoring extends Eloquent
         return $this->belongsTo('App\Models\User', 'customer_id');
     }
 
-    public function mentoring_types() {
+    public function mentoringTypes() {
         return $this->hasMany('App\Models\MentoringType');
     }
 
-    public function ask_career() {
+    public function askCareer() {
         return $this->belongsTo('App\Models\AskCareer', 'ask_career_id');
     }
 }

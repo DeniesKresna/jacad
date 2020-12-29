@@ -16,18 +16,17 @@
                         <div class="col-lg-9">
                             @foreach ($ask_careers as $ask_career)
                                 <a href="{{ $ask_career->mentor->url }}">
-                                    @include('components.ask-career', [
+                                    @include('components.mentor', [
                                         'ask_career' => $ask_career,
                                         'schedule' => $ask_career->schedule,
-                                        'css' => [
-                                            'col' => 'col-12',
-                                            'py' => 'py-2'
-                                        ]
+                                        'css_classes' => 'col-12 py-2'
                                     ])
                                 </a>
                             @endforeach
                         </div>
                     </div>
+                @else
+                    <span>Belum ada mentor.</span>
                 @endif
 
                 <div class="pagination">

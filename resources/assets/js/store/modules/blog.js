@@ -17,7 +17,7 @@ const blog = {
     actions: {
         INDEX({ commit }, payload){
             return new Promise((resolve, reject) => {
-                axios.get('/admin/blogs?page_size=10&' + payload).then(response => {
+                axios.get(`/admin/blogs?page_size=10&${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -25,7 +25,7 @@ const blog = {
 
         SHOW({ commit },payload){
             return new Promise((resolve, reject) => {
-                axios.get('/admin/blogs/' + payload).then(response => {
+                axios.get(`/admin/blogs/${payload}`).then(response => {
                     resolve(response.data);
                 });
             });
@@ -37,9 +37,9 @@ const blog = {
                 
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
-                formData.append('category', payload.category);
+                formData.append('category_id', payload.category_id);
                 formData.append('tags', JSON.stringify(payload.tags));
-                formData.append('file', payload.file);
+                formData.append('image', payload.image);
                 
                 axios.post('/admin/blogs', formData, {
                     headers: {
@@ -57,11 +57,11 @@ const blog = {
                 
                 formData.append('title', payload.title);
                 formData.append('content', payload.content);
-                formData.append('category', payload.category);
+                formData.append('category_id', payload.category_id);
                 formData.append('tags', JSON.stringify(payload.tags));
-                formData.append('file', payload.file);
+                formData.append('image', payload.image);
                 
-                axios.post('/admin/blogs/update/' + payload.id, formData, {
+                axios.post(`/admin/blogs/update/${payload.id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -73,7 +73,7 @@ const blog = {
         
         DESTROY({ commit }, payload){
             return new Promise((resolve, reject) => {
-                axios.delete('/admin/blogs/' + payload).then(response => {
+                axios.delete(`/admin/blogs/${payload}`).then(response => {
                     resolve(response.data)
                 });
             })

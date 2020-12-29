@@ -62,7 +62,7 @@ class Academy extends Eloquent
         return $this->hasMany('App\Models\AcademyPeriod');
     }
     
-    public function active_period() {
+    public function activePeriod() {
         return $this->hasOne('App\Models\AcademyPeriod')->where('active', 1);
     }
 }

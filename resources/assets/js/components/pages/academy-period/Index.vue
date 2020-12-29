@@ -6,8 +6,8 @@
                 <input 
                     type="text" 
                     class="form-control" 
-                    v-model="search" 
-                    placeholder="Search then type Enter" 
+                    placeholder="Search by academy class or creator then type Enter"
+                    v-model="search"  
                     @keyup.enter="getResults(1)">
             </div>
             <div class="col-md-2">
@@ -32,6 +32,7 @@
                                 <th>#</th>
                                 <th>Academy</th>
                                 <th>Period</th>
+                                <th>Creator</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -39,8 +40,9 @@
                             <tr v-bind:key="index"
                                 v-for="(item, index) in result.data">
                                 <td>{{ (index+1) }}</td>
-                                <td>{{ item.academy_class.name }}</td>
+                                <td>{{ item.academy.name }}</td>
                                 <td>{{ item.period }}</td>
+                                <td>{{ item.creator.name }}</td>
                                 <td v-if="item.active === 0">Not active</td>
                                 <td v-else>Active</td>
                                 <td>
@@ -69,7 +71,7 @@
             </div>
             <div v-else>
                 <div class="col-md-12">
-                    <p>Belum ada Academy Period</p>
+                    <span>No data yet.</span>
                 </div>
             </div>
         </div>
@@ -92,30 +94,28 @@
         },
         methods: {
             getResults(page= 1) {
-                let stringQuery= `page=${page}`;
+                let query= `page=${page}`;
 
                 if (this.active) {
-                    stringQuery+= `&active=${this.active.code}`;
+                    query+= `&active=${this.active.code}`;
                 } else {
-                    stringQuery+= `&search=${this.search}`;
+                    query+= `&search=${this.search}`;
                 }
 
-                this.$store.dispatch('academy_period/INDEX', stringQuery).then(response => {
+                this.$store.dispatch('academy_period/INDEX', query).then(response => {
                     this.result= response;
                 });
             },
             activate(academy_period) {
-                academy_period.activate= true;
-
-                if (confirm(`Toogle akademi periode ${academy_period.period} ?`)) {
-                    this.$store.dispatch('academy_period/UPDATE', academy_period).then(response => {
+                if (confirm(`Are you sure want to activate/de-activate period: "${academy_period.period}"?`)) {
+                    this.$store.dispatch('academy_period/ACTIVATE', academy_period.id).then(response => {
                         this.getResults(1);
                     });
                 }
             },
             destroyData(academy_period) {
-                if (confirm(`Apakah anda yakin menghapus akademi periode ${academy_period.period}`)) {
-                    this.$store.dispatch('academy_period/DESTROY', academy_period).then(response => {
+                if (confirm(`Are you sure want to delete period: "${academy_period.period}"?`)) {
+                    this.$store.dispatch('academy_period/DESTROY', academy_period.id).then(response => {
                         this.getResults(1);
                     });
                 }

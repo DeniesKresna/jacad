@@ -23,7 +23,7 @@
                                     <span class="pf-title">Kelas</span>
                                     <div class="pf-field">
                                         @foreach ($academies as $academy)
-                                            <input type="checkbox" name="academies[]" value="{{ $academy->id }}" id="academy_{{ $academy->id }}"> 
+                                            <input type="checkbox" name="academy_ids[]" value="{{ $academy->id }}" id="academy_{{ $academy->id }}"> 
                                             <label for="academy_{{ $academy->id }}">{{ $academy->name }}</label> <br>
                                         @endforeach
                                     </div>
@@ -53,6 +53,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                    <span class="pf-title">Kode promo</span>
+                                    <div class="pf-field">
+                                        <input type="text" name="promo_code">
+                                    </div>
+                                </div>
+                                <div class="col-12">
                                     <span class="pf-title">Dari mana kamu mengetahui Jobhun Academy?</span>
                                     <div class="pf-field">
                                         <input type="text" name="jobhun_info" placeholder="Instagram, LinkedIn">
@@ -72,12 +78,16 @@
 
 @section('extrajs')
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        let payment_success= '{{ $payment_success }}';
 
+        if (payment_success) {
+            swal({ 
+                title: 'Sukses', 
+                text: 'Pembayaran berhasil!',
+                icon: 'success'
+            });
+        }
+        
         $('#form-academy-registration').on('submit', function(e) {
             e.preventDefault();
 
@@ -85,15 +95,18 @@
             
             let formData= new FormData($('#form-academy-registration')[0]);
             
-            formData.append('period', '{{ $period }}');
-            formData.append('redirect_to', '{{ url()->current() }}');
+            for (let input of formData.entries()) {
+                if (input[0] !== 'academy_ids[]') {
+                    $(`#form-academy-registration [name=${input[0]}]`).removeClass('error-field');
+                }
+            }
             
             $.ajax({    
                 url: `{{ url('/api/v1/user/academy-registrations') }}`,
                 type: 'POST',
                 processData: false,
                 contentType: false,
-                dataType: 'json',
+                dataType: 'JSON',
                 data: formData,
                 success: function(response) {
                     console.log(response);
@@ -101,35 +114,21 @@
                     $('body').loading('stop');
 
                     window.location.href= response.redirect_url;
-
-                    /*sswal({ 
-                        title: response.message, 
-                        icon: 'success'
-                    });*/
                 },
                 error: function(error) {
                     console.log(error);
 
-                    $('body').loading('stop');
-
-                    let message= '';
-
-                    if (error.status === 422) {
-                        for (field in error.responseJSON.message) {
-                            $(`[name=${field}]`).addClass('error-field');
-
-                            for (error_message of error.responseJSON.message[field]) {
-                                message+= `${error_message}\n`;
-                            }
+                    for (let input in error.responseJSON.validation_errors) {
+                        if (input !== 'academy_ids') {
+                            $(`#form-academy-registration [name=${input}]`).addClass('error-field');
                         }
-                    } else {
-                        message= error.responseJSON.message;
                     }
 
+                    $('body').loading('stop');
                     swal({ 
-                        title: 'Gagal registrasi!', 
-                        text: message,
-                        icon: 'error'
+                        title: 'Gagal', 
+                        text: error.responseJSON.message,
+                        icon: error.status === 401 ? 'info' : 'error'
                     });
                 }   
             });

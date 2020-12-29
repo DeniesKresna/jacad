@@ -3,36 +3,35 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Job;
 use App\Models\Company;
 
-class JobController extends ApiController {
+class JobController extends ApiController 
+{
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $page = $request->page;
         $page_size = $request->page_size;
         $search = $request->search;
-        $datas = Job::where('id', '>', 0);
-        
-        if ($request->has('search')) {
-            $datas = $datas
-                ->where('position', 'like', "%".$search."%")
-                ->orWhereHas('company', function($query) use ($search) {
-                $query->where('name', 'like', '%'.$search.'%');
-            });
-        }
-        
-        $datas = $datas->with('company')->orderBy('id', 'desc')->paginate($page_size);
 
-        return response()->json($datas);
+        $jobs= Job::with('company')->when($request->has('search') && $request->search, function($query) use($search) {
+                $query->where('position', 'like', '%'.$search.'%')
+                    ->orWhereHas('company', function($query) use ($search) {
+                            $query->where('name', 'like', '%'.$search.'%');
+                    });
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate($page_size);
+
+        return response()->json($jobs);
     }
     
     public function show($id) {
@@ -46,87 +45,104 @@ class JobController extends ApiController {
         $datas['company']= json_decode($request->company, true);
         $datas['job']= json_decode($request->job, true);
 
-        $job = Job::findOrFail($id);
-
-        if ($request->has('verify') && $request->verify) {
-            $datas['job']['verificator_id'] = 1;
-            $status= 'ditolak';
-
-            if ($request->verify == 'yes') {
-                $datas['verified'] = 1;
-                $status= 'diterima';
-            } else {
-                $datas['verified'] = 2;
-            }
-
-            $job->verified= $datas['verified'];
-            $job->save();   
-            
-            if ($job) {
-                return response()->json(['message' => 'Lowongan '.$status]);
-            } else {
-                return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
-            }
-
-            return response()->json($job);
-        }
-
-        $validator = Validator::make(array_merge($datas['company'], $datas['job']), rules_lists(__CLASS__, __FUNCTION__), [
-            'name.required' => 'Kolom nama perusahaan harus diisi',
-            'tagline.required' => 'Kolom tagline perusahaan harus diisi',
-            'information.required' => 'Kolom informasi perusahaan harus diisi',
-            'address.required' => 'Kolom alamat perusahaan harus diisi',
-            'phone.required' => 'Kolom nomor telepon perusahaan harus diisi',
-            'site_url.required' => 'Kolom website perusahaan harus diisi',
-            'email.required' => 'Kolom email perusahaan harus diisi',
-            'position.required' => 'Kolom posisi pekerjaan harus diisi',
-            'type.required' => 'Kolom jenis pekerjaan harus diisi',
-            'sectors.required' => 'Kolom sektor pekerjaan harus diisi',
-            'location.required' => 'Kolom lokasi pekerjaan harus diisi',
-            'job_desc.required' => 'Kolom deskripsi pekerjaan harus diisi',
-            'work_time.required' => 'Kolom waktu bekerja harus diisi',
-            'dress_style.required' => 'Kolom gaya berpakaian harus diisi',
-            'language.required' => 'Kolom bahasa yang digunakan harus diisi',
-            'facility.required' => 'Kolom tunjangan fasilitas harus diisi',
-            'salary.required' => 'Kolom besar gaji harus diisi',
-            'how_to_send.required' => 'Kolom cara mengirim harus diisi',
-            'expired.required' => 'Kolom batas waktu melamar harus diisi',
-            'process_time.required' => 'Kolom proses rekrut harus diisi',
-            'jobhun_info.required' => 'Kolom info jobhun harus diisi'
-        ]);
+        $validator = Validator::make(array_merge($datas['company'], $datas['job']), rules_lists(__CLASS__, __FUNCTION__));
         
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 422);
         }
 
-        if ($request->hasFile('company_logo')) {
-            $upload = upload('/screen/medias/logos/', $request->file('company_logo'), '1');
+        if ($request->hasFile('company_logo') && $request->file('company_logo')) {
+            $upload= upload('/screen/medias/logos/', $request->file('company_logo'), '1');
         
-            $datas['company']['logo_path'] = $upload;
-            $datas['company']['logo_url'] = upload_dir().$upload;
+            $datas['company']['logo_path']= $upload;
+            $datas['company']['logo_url']= upload_dir().$upload;
         }
-
+        
         $company= Company::findOrFail($datas['company']['id']);
         $company->update($datas['company']);
-        $company->save();
 
+        if (!$company->save()) {
+            return response()->json(['message' => 'Update company failed'], 500);
+        }
+
+        $job = Job::findOrFail($id);
         $job->update($datas['job']);
         $job->sectors()->sync($datas['job']['sectors']);
         $job->location()->associate($datas['job']['location']);
-        $job->save();
 
-        if ($job && $company) {
-            return response()->json(['message' => 'Berhasil menyimpan perubahan!']);
-        } else {
-            return response()->json(['message' => 'Terjadi kendala, silahkan hubungi teknisi'], 400);
+        if (!$job->save()) {
+            return response()->json(['message' => 'Update job failed'], 500);
         }
+
+        return response()->json(['message' => "Job {$job->position} updated!"]);
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy(Request $request, $id) {
         $job = Job::findOrFail($id);
+        
+        if ($request->has('hard')) {
+            if (filter_var(request()->hard, FILTER_VALIDATE_BOOLEAN)) {
+                $job->forceDelete();
+                
+                return response()->json(['message' => "Job {$job->position} permanently deleted!"]);
+            }
+        }
+
         $job->sectors()->detach();
         $job->delete();
+
+        if (!$job->save()) {
+            return response()->json(['message' => 'Delete job failed']);
+        }
         
-        return response()->json(['message' => 'Berhasil terhapus!']);
+        return response()->json(['message' => "Job {$job->position} deleted!"]);
+    }
+
+    public function verify(Request $request, $id) {
+        $job = Job::findOrFail($id);
+
+        if (!$request->action) {
+            return response()->json(['message' => 'Request not found'], 400);
+        }
+        
+        if ($request->action == 'accept') {
+            $job->verified= 1;
+        } else if ($request->action == 'reject') {
+            $job->verified= 2;
+        }
+
+        $job->verificator_id= 1;
+
+        if (!$job->save()) {
+            return response()->json(['message' => 'Verify job failed'], 500);
+        }
+
+        return response()->json(['message' => "Job {$job->position} {$request->action}ed!"]);
+    }
+
+    public function getApplicants(Request $request) {
+        $page_size = $request->page_size;
+        $search= $request->search;
+
+        $job_applications= DB::table('jobs')
+            ->join('companies', 'companies.id', 'jobs.creator_id')
+            ->join('job_applications', 'job_applications.job_id', 'jobs.id')
+            ->join('users', 'users.id', 'job_applications.applicant_id')
+            ->when($request->search && $search, function($query) use ($search) {
+                $query->where('jobs.position', 'like', '%'.$search.'%')
+                    ->orWhere('companies.name', 'like', '%'.$search.'%')
+                    ->orWhere('users.name', 'like', '%'.$search.'%');
+            })
+            ->select(
+                'jobs.id as job_id',
+                'jobs.position as job_position',
+                'companies.name as company_name',
+                'users.id as applicant_id',
+                'users.name as applicant_name'
+            )
+            ->orderBy('job_applications.id', 'DESC')
+            ->paginate($page_size);
+        
+        return response()->json($job_applications);
     }
 }

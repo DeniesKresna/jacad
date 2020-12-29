@@ -14,11 +14,16 @@ import store from './store';
 import Paginate from 'vuejs-paginate';
 
 import 'vue-select/dist/vue-select.css';
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+
+import VModal from 'vue-js-modal/dist/index.nocss.js';
+import 'vue-js-modal/dist/styles.css';
 
 window.Vue = require('vue');
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+Vue.use(VModal);
+
 const router = new VueRouter({
     //mode: 'history',
     routes: routes
