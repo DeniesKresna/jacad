@@ -20,7 +20,8 @@ trait Promo {
         if (!$coupon) {
             return [
                 'amount' => $amount, 
-                'status' => false
+                'status' => false,
+                'message' => 'Maaf, kode promomu salah atau sudah nggak berlaku nih :('
             ];
         }
 

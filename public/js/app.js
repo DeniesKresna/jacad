@@ -5386,10 +5386,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       search: '',
+      mentor: {},
       result: {
         data: []
       }
@@ -5408,12 +5462,21 @@ __webpack_require__.r(__webpack_exports__);
         _this.result = response;
       });
     },
-    destroyData: function destroyData(mentor) {
+    showData: function showData(mentor) {
       var _this2 = this;
+
+      this.$store.dispatch('mentor/SHOW', mentor.id).then(function (response) {
+        _this2.mentor = response;
+
+        _this2.$modal.show('modal-box');
+      });
+    },
+    destroyData: function destroyData(mentor) {
+      var _this3 = this;
 
       if (confirm("Apakah anda yakin ingin menghapus mentor : ".concat(mentor.name, " ?"))) {
         this.$store.dispatch('mentor/DESTROY', mentor.id).then(function (response) {
-          _this2.getResults(_this2.result.current_page);
+          _this3.getResults(_this3.result.current_page);
         });
       }
     }
@@ -58119,131 +58182,328 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content-row" }, [
-    _c("h2", { staticClass: "content-row-title" }, [_vm._v("Index Mentor")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-5" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search,
-              expression: "search"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Search mentor by name then type Enter"
-          },
-          domProps: { value: _vm.search },
-          on: {
-            keyup: function($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
+  return _c(
+    "div",
+    { staticClass: "content-row" },
+    [
+      _c("h2", { staticClass: "content-row-title" }, [_vm._v("Index Mentor")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-5" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
               }
-              return _vm.getResults(1)
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              placeholder: "Search mentor by name then type Enter"
             },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            domProps: { value: _vm.search },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.getResults(1)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search = $event.target.value
               }
-              _vm.search = $event.target.value
             }
-          }
-        })
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-2" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-default btn-block",
+                attrs: { to: "/mentor/create" }
+              },
+              [_vm._v("Create")]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _vm.result.data.length
+          ? _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "div",
+                { staticClass: "table-responsive" },
+                [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.result.data, function(item, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.name))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:void(0)" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showData(item)
+                                    }
+                                  }
+                                },
+                                [_c("span", { staticClass: "fa fa-eye" })]
+                              ),
+                              _vm._v("  \n                                "),
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/mentor/" + item.id } },
+                                [
+                                  _c("span", {
+                                    staticClass: "fa fa-pencil-square-o"
+                                  })
+                                ]
+                              ),
+                              _vm._v("  \n                                "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:void(0)" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.destroyData(item)
+                                    }
+                                  }
+                                },
+                                [_c("span", { staticClass: "fa fa-trash-o" })]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("paginate", {
+                    attrs: {
+                      "page-count": _vm.result.last_page,
+                      "click-handler": _vm.getResults,
+                      "prev-text": "Prev",
+                      "next-text": "Next",
+                      "container-class": "pagination"
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          : _c("div", [_vm._m(1)])
       ]),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "col-md-2" },
+        "modal",
+        { attrs: { name: "modal-box", height: "auto", scrollable: "" } },
         [
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-default btn-block",
-              attrs: { to: "/mentor/create" }
-            },
-            [_vm._v("Create")]
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _vm.result.data.length
-        ? _c("div", { staticClass: "col-md-12" }, [
-            _c(
-              "div",
-              { staticClass: "table-responsive" },
-              [
-                _c("table", { staticClass: "table" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("div", { staticClass: "container" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.mentor.name))])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("form", [
+                _c("div", { staticClass: "form-row" }, [
                   _c(
-                    "tbody",
-                    _vm._l(_vm.result.data, function(item, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.name))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/mentor/" + item.id } },
-                              [
-                                _c("span", {
-                                  staticClass: "fa fa-pencil-square-o"
-                                })
-                              ]
-                            ),
-                            _vm._v("  \n                                "),
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "javascript:void(0)" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.destroyData(item)
-                                  }
-                                }
-                              },
-                              [_c("span", { staticClass: "fa fa-trash-o" })]
-                            )
-                          ],
-                          1
-                        )
-                      ])
-                    }),
-                    0
-                  )
-                ]),
-                _vm._v(" "),
-                _c("paginate", {
-                  attrs: {
-                    "page-count": _vm.result.last_page,
-                    "click-handler": _vm.getResults,
-                    "prev-text": "Prev",
-                    "next-text": "Next",
-                    "container-class": "pagination"
-                  }
-                })
-              ],
-              1
-            )
+                    "div",
+                    { staticClass: "form-group col-md-12 text-center" },
+                    [
+                      _c("img", {
+                        attrs: { src: _vm.mentor.image_url, width: "250" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.mentor.name,
+                          expression: "mentor.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "name", readonly: "" },
+                      domProps: { value: _vm.mentor.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.mentor, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("label", { attrs: { for: "description" } }, [
+                      _vm._v("Description")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", {
+                      domProps: { innerHTML: _vm._s(_vm.mentor.description) }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("label", { attrs: { for: "linkedIn_url" } }, [
+                      _vm._v("LinkedIn")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.mentor.linkedIn_url,
+                          expression: "mentor.linkedIn_url"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "linkedIn_url", readonly: "" },
+                      domProps: { value: _vm.mentor.linkedIn_url },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.mentor,
+                            "linkedIn_url",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("label", { attrs: { for: "created_at" } }, [
+                      _vm._v("Created at")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.mentor.created_at,
+                          expression: "mentor.created_at"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "created_at", readonly: "" },
+                      domProps: { value: _vm.mentor.created_at },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.mentor,
+                            "created_at",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c("label", { attrs: { for: "updated_at" } }, [
+                      _vm._v("Updated at")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.mentor.updated_at,
+                          expression: "mentor.updated_at"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "updated_at", readonly: "" },
+                      domProps: { value: _vm.mentor.updated_at },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.mentor,
+                            "updated_at",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.$modal.hide("modal-box")
+                          }
+                        }
+                      },
+                      [_vm._v("Close")]
+                    )
+                  ])
+                ])
+              ])
+            ])
           ])
-        : _c("div", [_vm._m(1)])
-    ])
-  ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

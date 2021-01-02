@@ -125,9 +125,12 @@
                     }
 
                     $('body').loading('stop');
+
+                    let msg= error.responseJSON.message;
+
                     swal({ 
                         title: 'Gagal', 
-                        text: error.responseJSON.message,
+                        text: msg,
                         icon: error.status === 401 ? 'info' : 'error'
                     });
                 }   

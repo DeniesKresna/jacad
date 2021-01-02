@@ -74,6 +74,25 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::get('/academies/list', 'v1\Admin\AcademyController@list');
     Route::post('/update/{id}', 'v1\Admin\JobController@update');
 
+    //ACADEMY PERIODS
+    Route::put('/academy-periods/activate/{id}', 'v1\Admin\AcademyPeriodController@activate');
+    Route::get('/academy-periods/customers', 'v1\Admin\AcademyPeriodController@getCustomers');
+    Route::get('/academy-periods/customers/{id}', 'v1\Admin\AcademyPeriodController@destroyCustomer');
+    /*Route::group(['prefix' => 'academy-periods/customers'], function () {
+        Route::get('/', 'v1\Admin\AcademyPeriodController@getCustomers');
+        Route::delete('/{id}', 'v1\Admin\AcademyPeriodController@destroyCustomer');
+    });*/
+    
+    //JOBS
+    Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
+    Route::put('/jobs/verify/{id}', 'v1\Admin\JobController@verify');
+    Route::group(['prefix' => 'job-applicants'], function () {
+        Route::get('/', 'v1\Admin\JobController@getApplicants');
+    });
+    
+    //MEDIAS
+    Route::post('/medias','v1\Admin\MediaController@store');
+
     //RESOURCE - UPDATE
     Route::post('/mentors/update/{id}', 'v1\Admin\MentorController@update');
     Route::post('/blogs/update/{id}', 'v1\Admin\BlogController@update');
@@ -88,30 +107,11 @@ Route::group(['prefix' => 'v1/admin', 'middleware' => []], function () {
     Route::resource('/tags','v1\Admin\TagController');
     Route::resource('/blogs','v1\Admin\BlogController');
     Route::resource('/academies', 'v1\Admin\AcademyController');
+    Route::resource('/academy-periods', 'v1\Admin\AcademyPeriodController');
     Route::resource('/ask-careers', 'v1\Admin\AskCareerController');
     Route::resource('/mentoring', 'v1\Admin\MentoringController');
-    Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
-
-    //ACADEMY PERIODS
-    Route::resource('/academy-periods', 'v1\Admin\AcademyPeriodController');
-    Route::put('/academy-periods/activate/{id}', 'v1\Admin\AcademyPeriodController@activate');
-    Route::group(['prefix' => 'academy-periods/customers'], function () {
-        Route::get('/', 'v1\Admin\AcademyPeriodController@getCustomers');
-        Route::delete('/{id}', 'v1\Admin\AcademyPeriodController@destroyCustomer');
-    });
-    
-    //JOBS
     Route::resource('/jobs', 'v1\Admin\JobController');
-    Route::post('/jobs/update/{id}', 'v1\Admin\JobController@update');
-    Route::put('/jobs/verify/{id}', 'v1\Admin\JobController@verify');
-    Route::group(['prefix' => 'job-applicants'], function () {
-        Route::get('/', 'v1\Admin\JobController@getApplicants');
-    });
-    
-    //MEDIAS
-    Route::post('/medias','v1\Admin\MediaController@store');
-
-    //PAYMENTS
+    Route::resource('/student-ambassadors', 'v1\Admin\StudentAmbassadorController');
     Route::resource('/payments', 'v1\Admin\PaymentController');
 });
 
