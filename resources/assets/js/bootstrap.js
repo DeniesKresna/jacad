@@ -29,7 +29,7 @@ const axios_baseURL= {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL= "https://103.214.113.153/api/v1/";
+window.axios.defaults.baseURL= "https://denies.online/api/v1/";
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

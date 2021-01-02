@@ -53,6 +53,12 @@ class RegisterController extends ApiController {
 
         $response= null;
 
+        Notification::route('mail', $newUser->email)
+                    ->notify(new UserVerification($token));
+        $response= response()->json(['message' => 'Maaf, untuk verifikasi akun sementara masih belum bisa, silahkan lanjut untuk login.'], 401);
+
+        return $response;
+
         try {
             Notification::route('mail', $newUser->email)
                         ->notify(new UserVerification($token));
